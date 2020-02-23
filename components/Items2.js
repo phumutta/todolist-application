@@ -5,43 +5,66 @@ import {
   Text,
   View,
   TextInput,Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 import Constants from "expo-constants";
 
 import * as SQLite from 'expo-sqlite';
+import database from './Database3';
 
-import database from './Database2'
 import {Card} from 'react-native-shadow-cards';
 
 
-const db = SQLite.openDatabase("db.db");
+
 export default class Items2 extends React.Component {
   state = {
-    items: null
+    items: [],
+    email: '',
+    message:'',
+    time:'',
+    Date:''
   };
-
-  componentDidMount() {
+  onFocusFunction=async()=>{
+    this.setState({email:await AsyncStorage.getItem('@email')})
     this.update();
   }
 
+  componentDidMount() {
+    this.onFocusFunction();
+    let date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    
+    this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+    this.setState({Date:date + '/' + month + '/' + year})
+    // this.setState({time:hours+min+sec})
+    
+  }
+
   get_text_success=async(arr)=>{
-    this.setState({ items: arr })
+     
+     
+     
+     this.setState({ items: arr })
+     
   }
 
   get_text_fail=async(error)=>{
-      console.log(error);
+      // console.log(error);
   }
  
   
-  
-onPressTrack2(){
-  // this.props.navigation.navigate('Forest')
-  console.log("132")
-}
+
 
   update() {
-    database.getTodoText(this.get_text_success,this.get_text_fail);
+    database.readMessage(this.state.email,this.state.Date,this.get_text_success,this.get_text_fail);
+    
   }
 
   render() {
@@ -52,11 +75,13 @@ onPressTrack2(){
     if (items === null || items.length === 0) {
       return null;
     }
-
+    console.log("Print items ")
+    console.log(items)
     return (
     
         <View style={{flex:1,alignItems:'center' ,flexDirection:'column',justifyContent: 'center',backgroundColor:"#transparent",alignContent:'center'}}>
-        {items.map(({ id, done, value }) => (
+        {items.map(({ date,id, message,time }) => (
+         
 
         <Card style={{ flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 55, marginTop:12}} >
         {/*    
@@ -68,7 +93,7 @@ onPressTrack2(){
             key={id}
             onPress={() => this.props.onPressTodo(id)}
             style={{
-              backgroundColor: 'transparent',
+              backgroundColor: 'transparent', 
               borderColor: '#DADADA',
               //   borderWidth: 1,
               padding: 8,
@@ -80,7 +105,7 @@ onPressTrack2(){
            
           </TouchableOpacity>
           <View style={{flex:1,marginLeft:"1%"}}>
-          <Text style={{ color:"#000", }} onPress={() => {this.props.onPressTodo3(id)}}>{value}</Text>
+          <Text style={{ color:"#000", }} onPress={() => {this.props.onPressTodo3(id)}}>{message}</Text>
           </View>
            
           <TouchableOpacity

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,KeyboardAvoidingView, Keyboard, AppRegistry,} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
-// import ActionButton from 'react-native-action-button';
-
+import ActionButton from 'react-native-action-button';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 
@@ -11,6 +11,33 @@ export default class Completed extends Component {
   onPressBack(){
     this.props.navigation.navigate('Main1')
  }
+ 
+
+constructor(props) {
+  super(props);
+  this.state = {
+      keyboardHeight: 0,
+      inputHeight: 40
+  }
+}
+
+componentDidMount() {
+  Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
+  Keyboard.addListener('keyboardDidHide', this._keyboardDidHide.bind(this));
+}
+
+_keyboardDidShow(e) {
+  this.setState({keyboardHeight: e.endCoordinates.height});
+}
+
+_keyboardDidHide(e) { 
+   this.setState({keyboardHeight: 0});
+}
+
+
+
+
+
     render() {
         return (
             <Container>
@@ -46,7 +73,44 @@ export default class Completed extends Component {
                 <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>You’re all done for today! #TodoblackZero{'\n'}Enjoy your night.</Text>
               </View>
 
-               {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
+            <View style={{flex:3, backgroundColor: '#ffffff'}}>
+              {/* Rest of the app comes ABOVE the action button component !*/}
+              <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+                {/* <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+                  <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
+                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                </ActionButton.Item> */}
+
+              <View style={{flex: 1, flexDirection: 'row', alignSelf:'center', }}>
+                <View>
+                  <TextInput 
+                  style={styles.txtIn2}
+                  placeholder="+ Add a task..."
+                  onChangeText={this.onChangeText}
+                  />
+                </View>
+                <KeyboardSpacer/>
+              </View>
+
+
+
+
+
+
+              </ActionButton>
+            </View>
+
+
+
+
+
+
+
 
              </View>
 

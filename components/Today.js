@@ -1,72 +1,124 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AsyncStorage} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 import ActionButton from 'react-native-action-button';
 import Items2 from './Items2'
-import database2 from './Database2'
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import database from './Database3';
 
 
 export default class Today extends React.Component {
 
   state = {
-    text: null
-  };
-
-  componentDidMount() {
-    this.update();
+    email: '',
+    message:'',
+    time:'',
+    Date:'',
+    Priority:''
   }
 
-  onChangeText = text => this.setState({ text });
+  onFocusFunction=async()=>{
+    this.setState({email:await AsyncStorage.getItem('@email')})
+    this.update()
+  }
+  // update (){
+  //   this.todo.update();
 
-  onPressAdd = () => {
-    this.addText();
+  // };
+
+  componentDidMount(){
+
+    this.onFocusFunction();
+    let date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    // this.setState({time:hours+":"+min+":"+sec})
+    // console.log(this.state.time)
+    this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+    this.setState({Date:date + '/' + month + '/' + year})
+    
+  
+   
+ }
+  
+
+  onChangeText = message => this.setState({ message });
+
+  onPressAdd = async() => {
+    await this.addText();
     this.setState({ text:null});
 
     this.textInput.clear() 
   };
-
-  addText() {
-    if (this.state.text === null || this.state.text === "") {
-      return false;
-    }
-
-    database2.putText(this.state.text, this.add_text_success, this.add_text_fail);
-
-
-  };
-
-  add_text_success=async()=>{
-    this.update();
-  }
-
-  add_text_fail=async(error)=>{
-    console.log("already add ");
-  }
-
-  change_Complete=(id)=>{
-    database2.updateText2(id);
-    this.update();
-  }
-
-  change_Doing=(id)=>{
-    database2.updateText(id);
-    this.update();
-  }
-
-
-  delete_Complete=(id)=>{
-    database2.deleteText(id);
-    //this.onPressTrack();
+  addText=async()=>{
     
-    this.update();
-  }
+    Message={
+      message:this.state.message,
+      time: this.state.time,
+      Date:this.state.Date,
+      
+      id:''
+    }
+    console.log(this.state.email)
+   await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
 
-  update (){
-    this.todo.update();
+  }
+addMessageSuccess=async(id)=>{
+  
+  console.log("Successsssssssss");
+  await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+  this.update();
+  // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
+
+  
+}
+addMessageFail=async()=>{
+
+  console.log("addMessageFail");
+}
+async updateSuccess(){
+  
+  console.log("updateID");
+  await this.update();
+}
+updateFail(){
+  console.log("FailUpdate");
+}
+delete_Complete=async (id)=>{
+  await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+  //this.onPressTrack();
+  await this.update();
+  
+  
+}
+deleteSuccess(){
+  
+  console.log("del success")
+}
+deleteFail(){
+  console.log("del fail")
+}
+    
+
+  readMessageSuccess=async(doc)=>{
+    console.log("message :" +doc.message);
+  
+  }
+  readMessageFail=async()=>{
+    console.log("read F");
+  }
+ async update(){
+    await this.todo.update();
 
   };
 
+
+  
 
   onPressBack(){
     this.props.navigation.navigate('Main1')
@@ -92,7 +144,7 @@ export default class Today extends React.Component {
                 <Title>Tomorrow</Title>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
-                <Image style={{width: 20, height: 20}}
+                <Image style={{width: 20, height: 20}} 
                 source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
               />
               </View>
@@ -316,7 +368,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      right: 10  
+      right: 10 , 
     },
       
     MainContainer2:{
