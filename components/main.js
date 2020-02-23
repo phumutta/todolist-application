@@ -200,7 +200,7 @@ export default class main extends React.Component {
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R21DSe.png" }} style={styles.photo3} />
                 </View>
                 <View style={{ marginLeft: 15, alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Today</Text>
+                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Todayyyyyyyyyyy</Text>
                 </View>
               </Card>
             </TouchableOpacity>
