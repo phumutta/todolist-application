@@ -17,7 +17,7 @@ export default class First extends React.Component {
     return (
         <View style={{flex: 1,alignContent:'center'}} >
           <Image source = {{uri:'https://i.pinimg.com/originals/52/c6/48/52c648957e348a41b1f97af759a2fe98.jpg'}} style = {{ flex:1 }}/>
-        <View   style={{flexDirection:'row'}}>
+        <View   style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
           <View>
               <TouchableOpacity
               style={styles.btn_login}

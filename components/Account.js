@@ -7,8 +7,8 @@ export default class Account extends React.Component {
   state = {
     email: '',
     name:'',
-    last:''
-
+    last:'',
+    uri: ''
   };
 onFocusFunction=async() =>{
    
@@ -16,9 +16,20 @@ onFocusFunction=async() =>{
     const name_store=await AsyncStorage.getItem('@name');
     const last_store=await AsyncStorage.getItem('@last');
     const email_store=await AsyncStorage.getItem('@email');
+    const uri_store = await AsyncStorage.getItem('@uri');
     this.setState({name:name_store})
     this.setState({last:last_store})
     this.setState({email:email_store})
+    if (uri_store == null) {
+      this.setState({ uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png" })
+      this.setState({ name: name_store })
+      this.setState({ last: last_store })
+    }
+    else {
+      this.setState({ name: name_store })
+      this.setState({ last: last_store })
+      this.setState({ uri: uri_store })
+    }
   } 
 
 
@@ -76,17 +87,18 @@ componentDidMount(){
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.onPressAvatar()} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Avatar</Text>
+            <Image style={{ marginLeft: 30, marginRight: '3%', width: 30, height: 30, borderRadius: 800 }} source={{ uri: this.state.uri }} />
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
-            {/*  แก้ให้ชื่อติดขอบ  */}
-            <View style={{flex:1 ,alignItems:'flex-end',flexDirection:'row-reverse'}}>
-            <Text style={{flex:1, fontSize:20,marginLeft:60, color:"#C4C4C4",}}>{this.state.name}</Text>
+            
+            <View style={{flex:1 ,flexDirection:'row'}}>
+              <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:60, color:"#C4C4C4",flecDirection:'row-reverse'}}>{this.state.name} {this.state.last}</Text>
+            {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} /> */}
             </View>
-            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
           {/* <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
@@ -102,9 +114,11 @@ componentDidMount(){
           </TouchableOpacity> */} 
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:25,marginLeft:30}}>Account</Text>
-            <View style={{flex:1 ,alignItems:'flex-end'}}>
-            <Text style={{flex:1, fontSize:12,marginLeft:"0.5%", color:"#C4C4C4",}}>{this.state.email}</Text>
+            
+            <View style={{flex:1 ,flexDirection:'row'}}>
+              <Text style={{flex:1, fontSize:20,marginLeft:30}}>Account</Text>
+            <Text style={{flex:1.5, fontSize:20,marginLeft:60, color:"#C4C4C4",flecDirection:'row-reverse'}}>{this.state.email}</Text>
+            {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} /> */}
             </View>
           </TouchableOpacity>
           
@@ -218,21 +232,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 5,
+    // marginLeft: 5,
   },
     
   MainContainer2:{
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5
+    // marginTop: 5
   },
   photo4: {
-    height: 18,
-      width: 18,
-      marginRight:20,
-      flexDirection: 'row-reverse',
-      alignItems:'center'
+    height: 15,
+      width: 15,
+      marginRight:'7%',
+      // alignItems:'center',
+      justifyContent:'center',
 
   
   

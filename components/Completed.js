@@ -1,16 +1,46 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AppRegistry,} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
-
-
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from 'moment';
+import PropTypes from "prop-types";
 
 
 export default class Completed extends Component {
+
+  state = {
+    uri:"http://example.com/image.png",
+  };
+
+  // let datesWhitelist = [{
+  //   start: moment(),
+  //   end: moment().add(3, 'days')  // total 4 days enabled
+  // }];
+  // let datesBlacklist = [ moment().add(1, 'days') ]; // 1 day disabled
+
+  // let customDatesStyles = [];
+  // let startDate = moment();
+  // for (let i=0; i<6; i++) {
+  //   customDatesStyles.push({
+  //       startDate: startDate.clone().add(i, 'days'), // Single date since no endDate provided
+  //       dateNameStyle: styles.dateNameStyle,
+  //       dateNumberStyle: styles.dateNumberStyle,
+  //       // Random color...
+  //       dateContainerStyle: { backgroundColor: `#${(`#00000${(Math.random() * (1 << 24) | 0).toString(16)}`).slice(-6)}` },
+  //     });
+  // }
+
+
+
   onPressBack(){
     this.props.navigation.navigate('Main1')
  }
+
+
+
+
     render() {
         return (
             <Container>
@@ -24,31 +54,33 @@ export default class Completed extends Component {
                 <Title>Completed</Title>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
-                <Image style={{width: 20, height: 20}}
-                source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
-              />
+                <TouchableOpacity>
+                  <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/02/24/xsbgt2.png' }}/>
+                </TouchableOpacity>
               </View>
             </Header>
 
-            <View style={{ flex:1,justifyContent:'center',marginTop:16,}}>
-              <View style={{flex: 1, flexDirection: 'row', alignSelf:'center', }}>
-                <View>
-                  <TextInput 
-                  style={styles.txtIn2}
-                  placeholder="+ Add a task..."
-                  onChangeText={this.onChangeText}
-                  />
-                </View>
-              </View>
+            <View style={styles.container1}>
+                <CalendarStrip 
+                style={{height:'20%', paddingTop: '5%', paddingBottom: 10,}} 
+                calendarHeaderStyle={{color: 'grey'}} 
+                calendarColor={'#white'}
+                dateNumberStyle={{color: 'grey'}}
+                dateNameStyle={{color: 'grey'}}
+                highlightDateNumberStyle={{color: 'black'}}
+                highlightDateNameStyle={{color: 'black'}}
+                disabledDateNameStyle={{color: 'grey'}}
+                disabledDateNumberStyle={{color: 'grey'}}
+                // datesWhitelist={datesWhitelist}
+                // datesBlacklist={datesBlacklist}
+                // iconLeft={require('./img/left-arrow.png')}
+                // iconRight={require('./img/right-arrow.png')}
+                iconContainer={{flex: 0.2}}
+                // showDayNumber={{}}
+                markedDatesStyle={{}}
+                />
+            </View>
 
-              <View style={{flex: 15,alignItems: 'center',justifyContent: 'center' }}>
-                <Image style={{ width: 200, height: 152.77, }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/R2bmVk.png' }}/>
-                <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>You’re all done for today! #TodoblackZero{'\n'}Enjoy your night.</Text>
-              </View>
-
-               {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
-
-             </View>
 
             </Container>
         );
@@ -62,6 +94,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: Constants.statusBarHeight
+  },
+
+  container1: {
+    backgroundColor: "#fff",
+    flex: 1,
+
+    // paddingTop: Constants.statusBarHeight
   },
   heading: {
     fontSize: 20,

@@ -49,6 +49,9 @@ export default class AccountLogin extends React.Component {
   onPressAccount() {
     this.props.navigation.navigate('Account')
   }
+  onPressHelpAndFeedback() {
+    this.props.navigation.navigate('HelpAndFeedback')
+  }
 
   render() {
     return (
@@ -78,6 +81,7 @@ export default class AccountLogin extends React.Component {
                 <Text style={{ fontSize: 12, marginTop: 3, color: '#C4C4C4' }}> Synchonize whitin all devides.</Text>
               </View>
             </TouchableOpacity>
+            {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo5} /> */}
           </View>
 
           <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', marginTop: 20, backgroundColor: '#ffffff', alignItems: 'center' }} >
@@ -90,8 +94,8 @@ export default class AccountLogin extends React.Component {
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} >
-            <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Help & Feedback</Text>
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} onPress={()=>this.onPressHelpAndFeedback()}>
+            <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }} >Help & Feedback</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
@@ -217,11 +221,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   photo4: {
-    height: 18,
-    width: 18,
-    marginRight: 20,
-    flexDirection: 'row-reverse',
-    alignItems: 'center'
+    height: 15,
+    width: 15,
+    marginRight: '7%',
+    alignItems: 'center',
+    justifyContent:'center',
 
 
 

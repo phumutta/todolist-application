@@ -70,7 +70,7 @@ export default class Register extends React.Component {
        style={{flex: 1}}>
 
 
-        <View style={{ flex: 1, marginTop: 50 }}>
+        <View style={{ flex: 1, marginTop: '10%' }}>
         
             <Text style={styles.txt1}>Register</Text>
 
@@ -98,6 +98,9 @@ export default class Register extends React.Component {
                   placeholder="password"
                   onChangeText={this.onChangeTextpassword}
               />
+              <TouchableOpacity style={styles.viewBtn2}>
+                <Text style={styles.txt2} onPress={() => this.onPressBack()}> Home </Text>
+              </TouchableOpacity>
               
               
             
@@ -111,10 +114,6 @@ export default class Register extends React.Component {
               style={styles.viewBtn}
               onPress={this.onPressAddAccount}>
               <Text style={styles.txt}>SIGNUP</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-            onPress={this.onPressBack} >
-              <Text style={{fontSize:17, color:'#000000',textAlign:'center',textDecorationLine:'underline',marginBottom:5,}}> back</Text>
             </TouchableOpacity>
             <Text style={{fontSize: 13,color: 'black',margin: 5, paddingLeft:16, paddingRight:16,}}>By signing up, you agree to Photo’s<Text style={{fontSize: 13,color: 'black',margin: 5,textDecorationLine : 'underline'}}> Terms of Service </Text><Text style={{fontSize: 13,color: 'black',margin: 5}}>and</Text><Text style={{fontSize: 13,color: 'black',margin: 5,textDecorationLine : 'underline'}}> Privacy Policy.</Text></Text>
             
@@ -158,13 +157,14 @@ const styles = StyleSheet.create({
 
     fontSize: 40,
     color: '#000000',
-    margin: 5,
+    marginTop: 5,
     marginLeft : 16,
     marginEnd : 16,
     alignItems: 'center',
     justifyContent: 'center'
   },
   txt2:{
+    textAlign: 'right',
     fontSize: 13,
     color: 'black',
     margin: 5,
@@ -207,7 +207,22 @@ const styles = StyleSheet.create({
     margin:15,
     marginTop:5,
     backgroundColor: '#FFFFFF'
-  }
+  },
+    btn_login:{
+    alignItems: 'center',
+    width:160,
+    height:50,
+    backgroundColor: 'transparent',
+    padding: 16,
+    margin:16,
+    borderRadius: 50,
+    borderColor:'#000000',
+    borderWidth : 1
+},
+viewBtn2: {
+  height: 50,
+  margin: 10,
 
+},
 
 });

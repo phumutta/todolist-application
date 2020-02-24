@@ -162,7 +162,7 @@ export default class main extends React.Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => this.onPressForest()}>
-                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R2iDFz.png" }} style={styles.Icon}></Image>
+                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/24/xPD5l2.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => this.onPressRank()}>
@@ -200,7 +200,7 @@ export default class main extends React.Component {
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R21DSe.png" }} style={styles.photo3} />
                 </View>
                 <View style={{ marginLeft: 15, alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Todayyyyyyyyyyy</Text>
+                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Today</Text>
                 </View>
               </Card>
             </TouchableOpacity>
@@ -408,10 +408,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   Icon2: {
-    height: 25,
+    height: 20,
     width: 20,
-    marginRight: 5,
-    marginLeft: 5,
+    marginTop:'1%',
+    marginRight: '5%',
+    marginLeft: '5%',
     // marginTop:5,
 
 
