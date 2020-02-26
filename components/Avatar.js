@@ -111,7 +111,7 @@ export default class Avatar extends Component {
 
 
       <LinearGradient
-        colors={['#000000', '#ffffff']}
+        colors={['#000000', '#000000']}
         style={{
           flex: 1,
           // position: 'absolute',
@@ -136,7 +136,7 @@ export default class Avatar extends Component {
             <TouchableOpacity
             
             onPress={this.onPressOK}>
-            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
+            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold", marginRight:'10%'}} >Done</Text>
           </TouchableOpacity>
           </View>
         </Header>
@@ -151,11 +151,11 @@ export default class Avatar extends Component {
             </TouchableOpacity>
           </View>
 
-          <Progress.Bar
+          {/* <Progress.Bar
           style={styles.progress}
           progress={this.state.progress}
           indeterminate={this.state.indeterminate}
-        />
+        /> */}
 
           {/* <TouchableOpacity
             style={styles.touchableUser}
