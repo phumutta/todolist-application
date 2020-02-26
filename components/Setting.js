@@ -10,7 +10,7 @@ export default class AccountLogin extends React.Component {
     email: '',
     name: '',
     last: '',
-    uri: ''
+    uri: 'https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png'
 
   };
   onFocusFunction = async () => {

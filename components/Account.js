@@ -8,7 +8,7 @@ export default class Account extends React.Component {
     email: '',
     name:'',
     last:'',
-    uri: ''
+    uri: 'https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png'
   };
 onFocusFunction=async() =>{
    
@@ -96,7 +96,7 @@ componentDidMount(){
             
             <View style={{flex:1 ,flexDirection:'row'}}>
               <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
-            <Text style={{flex:1, fontSize:20,marginLeft:60, color:"#C4C4C4",flecDirection:'row-reverse'}}>{this.state.name} {this.state.last}</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:60, color:"#C4C4C4",flexDirection:'row-reverse'}}>{this.state.name} {this.state.last}</Text>
             {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} /> */}
             </View>
           </TouchableOpacity>
@@ -117,7 +117,7 @@ componentDidMount(){
             
             <View style={{flex:1 ,flexDirection:'row'}}>
               <Text style={{flex:1, fontSize:20,marginLeft:30}}>Account</Text>
-            <Text style={{flex:1.5, fontSize:20,marginLeft:60, color:"#C4C4C4",flecDirection:'row-reverse'}}>{this.state.email}</Text>
+            <Text style={{flex:1.5, fontSize:20,marginLeft:60, color:"#C4C4C4",flexDirection:'row-reverse'}}>{this.state.email}</Text>
             {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} /> */}
             </View>
           </TouchableOpacity>
