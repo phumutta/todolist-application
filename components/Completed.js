@@ -7,6 +7,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 import PropTypes from "prop-types";
 import Items2 from './Items2'
+import Items3 from './Items3'
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
@@ -117,7 +118,7 @@ readMessageFail=async()=>{
   console.log("read F");
 }
 async update(){
-  await this.todo.update();
+  await this.Completed.update();
 
 };
 
@@ -177,8 +178,8 @@ this.props.navigation.navigate('Edit')
 
 <ScrollView style={styles.listArea}>
                         
-                        <Items2
-                            ref={todo => (this.todo = todo)}
+                        <Items3
+                            ref={Completed => (this.Completed = Completed)}
                             onPressTodo={this.delete_Complete}
                             onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
                             onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}

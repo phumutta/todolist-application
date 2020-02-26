@@ -63,7 +63,7 @@ export default class Items3 extends React.Component {
 
 
   update() {
-    database.readMessage(this.state.email,this.state.Date,this.get_text_success,this.get_text_fail);
+    database.readCompleted(this.state.email,this.state.Date,this.get_text_success,this.get_text_fail);
     
   }
 
