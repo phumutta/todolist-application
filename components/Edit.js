@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,DatePickerIOS} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
 
+import DatePicker from 'react-native-datepicker'
 
 // Edit_DueDate
 // Edit_Note
@@ -12,6 +13,22 @@ import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } fr
 // Edit_Repeat
 
 export default class Edit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {chosenDate: new Date()};
+
+    this.setDate = this.setDate.bind(this);
+  }
+  setDate(newDate) {
+    this.setState({chosenDate: newDate});
+  }
+  // constructor(props){
+  //   super(props)
+  //     this.state = {chosenDate: new Date()};
+
+  //       this.setDate = this.setDate.bind(this);
+  // }
+
   onPressBack(){
     this.props.navigation.navigate("Main1");
     // this.props.navigation.goBack();
@@ -73,7 +90,7 @@ onPressEdit_Repeat(){
                   <Image style={{marginLeft:30, marginRight:10 ,width:15,height:15}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrTgsz.png'}}/>
           </TouchableOpacity>
 
-          <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}}  onPress={()=>this.onPressEdit_PomodoroNumber()}>
+          <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:28,height:28}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrkimE.png'}}/>
                   <View style={{flexDirection: 'column'}} >
                     <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Pomodoro Number</Text>
@@ -81,13 +98,16 @@ onPressEdit_Repeat(){
                   <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:130}}>0 / 0</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.onPressEdit_DueDate()}>
+            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker })}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
                   <View style={{flexDirection: 'column'}} >
                     <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Due Date</Text>
+                    
                   </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:162}}>Tomorrow</Text>
+        <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:192}}>None</Text>
             </TouchableOpacity>
+            {this.renderPicker()}
+       
 
             <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.onPressEdit_Reminder()}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3eJD.png'}}/>
@@ -118,6 +138,30 @@ onPressEdit_Repeat(){
 
             </Container>
         );
+    }
+
+    renderPicker() {
+      if (this.state.picker) {
+        return (
+          <DatePicker
+            style={{ width: '100%' }}
+            ref={picker => {
+              this.datePicker = picker;
+            }}
+            date={this.state.date}
+            mode="date"
+            placeholder="Select Date"
+            format="DD/MM/YYYY"
+            // minDate="2016-05-01"
+            // maxDate="2020-12-12"
+            confirmBtnText="OK"
+            cancelBtnText="Cancel"
+            onDateChange={date => {
+              this.setState({ date: date });
+            }}
+          />
+        );
+      }
     }
 }
 
