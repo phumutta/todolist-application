@@ -20,25 +20,12 @@ export default class Avatar extends Component {
 
   componentDidMount() {
 
-    this.animate();
+    this.onFocusFunction();
 
 
   }
 
-  animate() {
-    let progress = 0;
-    this.setState({ progress });
-    setTimeout(() => {
-      this.setState({ indeterminate: false });
-      setInterval(() => {
-        progress += Math.random() / 5;
-        if (progress > 1) {
-          progress = 1;
-        }
-        this.setState({ progress });
-      }, 500);
-    }, 1500);
-  }
+ 
 
 
 
@@ -50,8 +37,8 @@ export default class Avatar extends Component {
   }
 
 
-  onPressOK = () => {
-    database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
+  onPressOK = async() => {
+   await database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
     console.log(this.state.imageuri)
 
   };
@@ -94,13 +81,15 @@ export default class Avatar extends Component {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,
       aspect: [4, 3],
+      quality: 1
     });
 
     console.log(result);
-
     if (!result.cancelled) {
       this.setState({ imageuri: result.uri });
     }
+    console.log(this.state.imageuri)
+
 
   };
   onPressBack() {
@@ -147,7 +136,7 @@ export default class Avatar extends Component {
               <Image
                 style={styles.imgStyles}
                 source={{ uri: this.state.imageuri }}
-                source={{ uri: this.state.uploaduri }} />
+                 />
             </TouchableOpacity>
           </View>
 
@@ -264,8 +253,8 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   imgStyles: {
-    width: 180,
-    height: 180,
+    width: 250,
+    height: 250,
     alignItems: 'center',
     resizeMode: 'stretch',
     margin: '10%',
