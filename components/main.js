@@ -37,6 +37,10 @@ export default class main extends React.Component {
   onPressForest() {
     this.props.navigation.navigate('Forest')
   }
+
+  onPressReport() {
+    this.props.navigation.navigate('Report')
+  }
   onPressRank() {
     this.props.navigation.navigate('Ranking')
   }
@@ -161,7 +165,7 @@ export default class main extends React.Component {
                     <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/26/RHlNYQ.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => this.onPressForest()}>
+                  <TouchableOpacity onPress={() => this.onPressReport()}>
                     <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/24/xPD5l2.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
