@@ -5,6 +5,7 @@ import { Card } from 'react-native-shadow-cards';
 import { AsyncStorage } from 'react-native';
 import { Container, Header, Title, Button, Icon } from 'native-base';
 import database from './Database'
+import ActionButton from 'react-native-action-button';
 export default class main extends React.Component {
   state = {
     email: '',
@@ -274,6 +275,18 @@ export default class main extends React.Component {
           </TouchableOpacity> */}
 
           </View>
+
+          <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+                 <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+                  <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
+                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+              </ActionButton>
 
         </View>
       </LinearGradient>
