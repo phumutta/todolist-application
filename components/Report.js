@@ -5,14 +5,6 @@ import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } fr
 // import ActionButton from 'react-native-action-button';
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
-
-const data = [
-    { quarter: 1, earnings: 13000 },
-    { quarter: 2, earnings: 16500 },
-    { quarter: 3, earnings: 14250 },
-    { quarter: 4, earnings: 19000 }
-  ];
-
 export default class Report extends Component {
   onPressBack(){
     this.props.navigation.navigate('Main1')
@@ -34,14 +26,6 @@ export default class Report extends Component {
                 <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/24/RrBuNt.png' }}/>
               </View>
             </Header>
-            {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
-            {/* <VictoryBar /> */}
-
-            {/* <View style={styles.container}>
-        <VictoryChart width={350} theme={VictoryTheme.material}>
-          <VictoryBar data={data} x="quarter" y="earnings" />
-        </VictoryChart>
-      </View> */}
 
 
 
