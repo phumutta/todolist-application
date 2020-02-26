@@ -233,7 +233,7 @@ export default class main extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.onPressSomeday()}>
-              <Card style={{ padding: 15, margin: 10, flexDirection: 'row' }}>
+              <Card style={{ padding: 17, margin: 10, flexDirection: 'row' }}>
                 <View style={{ flex: 0.1, marginLeft: 10, alignItems: 'center', justifyContent: 'center' }}>
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R2KqnW.png" }} style={styles.photo4} />
                 </View>
@@ -255,7 +255,7 @@ export default class main extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.onPressInbox()}>
-              <Card style={{ padding: 15, margin: 10, flexDirection: 'row' }}>
+              <Card style={{ padding: 18, margin: 10, flexDirection: 'row' }}>
                 <View style={{ flex: 0.1, marginLeft: 10, alignItems: 'center', justifyContent: 'center' }}>
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/Ruqkxy.png" }} style={styles.photo2} />
                 </View>
