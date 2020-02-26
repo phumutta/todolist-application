@@ -166,12 +166,12 @@ export default class main extends React.Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => this.onPressReport()}>
-                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/24/xPD5l2.png" }} style={styles.Icon}></Image>
+                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6uk3u.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => this.onPressRank()}>
+                  {/* <TouchableOpacity onPress={() => this.onPressRank()}>
                     <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/26/RHjmSI.png" }} style={styles.Icon2}></Image>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   {/* 
                   <TouchableOpacity onPress={() => { Alert.alert("GO TO To here");}}>
                   <Image source={{uri:"https://sv1.picz.in.th/images/2020/01/22/R2UkuS.png"}} style={styles.Icon}></Image>
@@ -204,7 +204,7 @@ export default class main extends React.Component {
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R21DSe.png" }} style={styles.photo3} />
                 </View>
                 <View style={{ marginLeft: 15, alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Today1</Text>
+                  <Text style={styles.Text} onPress={() => this.onPressToday()}>Today</Text>
                 </View>
               </Card>
             </TouchableOpacity>
