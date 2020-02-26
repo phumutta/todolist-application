@@ -258,13 +258,10 @@ this.props.navigation.navigate('Edit')
 
                 
                 <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                  <TouchableOpacity style={{ alignItems: 'center' }}>
                     <Text style={styles.Text2} >3</Text>
                     <View style={{ alignItems: 'center' }}>
                       <Text style={styles.under}>Tasks to be Completed</Text>
                     </View>
-
-                  </TouchableOpacity>
                 </View>
 
 
@@ -274,13 +271,10 @@ this.props.navigation.navigate('Edit')
 
 
                 <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                  <TouchableOpacity style={{ alignItems: 'center' }}>
                     <Text style={styles.Text2} >1</Text>
                     <View style={{ alignItems: 'center' }}>
                       <Text style={styles.under}>Completed  Tasks</Text>
                     </View>
-
-                  </TouchableOpacity>
                 </View>
 
               </View>
