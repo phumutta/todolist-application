@@ -1,42 +1,137 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AppRegistry,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AppRegistry,AsyncStorage} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 import PropTypes from "prop-types";
+import Items2 from './Items2'
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import database from './Database3';
+
 
 
 export default class Completed extends Component {
 
-  state = {
-    uri:"http://example.com/image.png",
-  };
+ state = {
+  email: '',
+  message:'',
+  time:'',
+  Date:'',
+  Priority:''
+}
 
-  // let datesWhitelist = [{
-  //   start: moment(),
-  //   end: moment().add(3, 'days')  // total 4 days enabled
-  // }];
-  // let datesBlacklist = [ moment().add(1, 'days') ]; // 1 day disabled
+onFocusFunction=async()=>{
+  this.setState({email:await AsyncStorage.getItem('@email')})
+  this.update()
+}
+// update (){
+//   this.todo.update();
 
-  // let customDatesStyles = [];
-  // let startDate = moment();
-  // for (let i=0; i<6; i++) {
-  //   customDatesStyles.push({
-  //       startDate: startDate.clone().add(i, 'days'), // Single date since no endDate provided
-  //       dateNameStyle: styles.dateNameStyle,
-  //       dateNumberStyle: styles.dateNumberStyle,
-  //       // Random color...
-  //       dateContainerStyle: { backgroundColor: `#${(`#00000${(Math.random() * (1 << 24) | 0).toString(16)}`).slice(-6)}` },
-  //     });
-  // }
+// };
+
+componentDidMount(){
+
+  this.onFocusFunction();
+  let date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
+  var hours = new Date().getHours(); //Current Hours
+  var min = new Date().getMinutes(); //Current Minutes
+  var sec = new Date().getSeconds(); //Current Seconds
+  // this.setState({time:hours+":"+min+":"+sec})
+  // console.log(this.state.time)
+  this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+  this.setState({Date:date + '/' + month + '/' + year})
+  
+
+ 
+}
+
+
+onChangeText = message => this.setState({ message });
+
+onPressAdd = async() => {
+  await this.addText();
+  this.setState({ text:null});
+
+  this.textInput.clear() 
+};
+addText=async()=>{
+  
+  Message={
+    message:this.state.message,
+    time: this.state.time,
+    Date:this.state.Date,
+    
+    id:''
+  }
+  console.log(this.state.email)
+ await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+
+}
+addMessageSuccess=async(id)=>{
+
+console.log("Successsssssssss");
+await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+this.update();
+// await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
+
+
+}
+addMessageFail=async()=>{
+
+console.log("addMessageFail");
+}
+async updateSuccess(){
+
+console.log("updateID");
+await this.update();
+}
+updateFail(){
+console.log("FailUpdate");
+}
+delete_Complete=async (id)=>{
+await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+//this.onPressTrack();
+await this.update();
+
+
+}
+deleteSuccess(){
+
+console.log("del success")
+}
+deleteFail(){
+console.log("del fail")
+}
+  
+
+readMessageSuccess=async(doc)=>{
+  console.log("message :" +doc.message);
+
+}
+readMessageFail=async()=>{
+  console.log("read F");
+}
+async update(){
+  await this.todo.update();
+
+};
 
 
 
-  onPressBack(){
-    this.props.navigation.navigate('Main1')
- }
+onPressBack(){
+  this.props.navigation.navigate('Main1')
+}
+
+onPressEdit(){
+this.props.navigation.navigate('Edit')
+
+
+}
 
 
 
@@ -79,7 +174,23 @@ export default class Completed extends Component {
                 // showDayNumber={{}}
                 markedDatesStyle={{}}
                 />
+
+<ScrollView style={styles.listArea}>
+                        
+                        <Items2
+                            ref={todo => (this.todo = todo)}
+                            onPressTodo={this.delete_Complete}
+                            onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
+                            onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                              />
+                        
+                </ScrollView>
             </View>
+
+
+
+
+
 
 
             </Container>
