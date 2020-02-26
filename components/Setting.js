@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, TextInput, ScrollView, AsyncStorage,Linking} from 'react-native';
 import Constants from "expo-constants";
+// import Icon from 'react-native-vector-icons/Ionicons';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class AccountLogin extends React.Component {
   state = {
@@ -60,6 +62,8 @@ export default class AccountLogin extends React.Component {
           <View style={styles.MainContainer1}>
             <Button transparent onPress={() => this.onPressBack()}>
               <Icon name='close' style={{ color: '#CCCCCC' }} />
+              {/* <Icon name="ios-person" size={30} color="#4F8EF7" />; */}
+              {/* <Icon name="rocket" size={30} color="#900" />; */}
             </Button>
           </View>
           <View style={styles.MainContainer2}>
