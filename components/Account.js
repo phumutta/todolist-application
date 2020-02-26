@@ -242,8 +242,8 @@ const styles = StyleSheet.create({
     // marginTop: 5
   },
   photo4: {
-    height: 15,
-      width: 15,
+    height: 13,
+      width: 13,
       marginRight:'7%',
       // alignItems:'center',
       justifyContent:'center',
