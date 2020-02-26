@@ -101,7 +101,7 @@ export default class Items2 extends React.Component {
               
             }}
           >
-             <Image style={{marginLeft:"5%",marginTop:"3%",width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr9eWe.png'}}/>
+             <Image style={{marginLeft:"5%",width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png'}}/>
            
           </TouchableOpacity>
           <View style={{flex:1,marginLeft:"1%"}}>
@@ -120,9 +120,9 @@ export default class Items2 extends React.Component {
               
             }}
           >
-          <View>
-          <Image style={{marginTop:"3%",width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png'}}/>
-          </View>
+            <View>
+              <Image style={{width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png'}}/>
+            </View>
           </TouchableOpacity>
           </Card>
           
