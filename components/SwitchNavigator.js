@@ -20,6 +20,7 @@ import Setting from './Setting'
 import Account from './Account'
 import AccountLogin from './AccountLogin'
 import Forest from './Forest'
+import Report from './Report'
 import Avatar from './Avatar'
 import timer from './Time'
 import Items2 from './Items2'
@@ -31,6 +32,7 @@ import Edit_DueDate from './Edit_DueDate'
 import Edit_PomodoroNumber from './Edit_PomodoroNumber'
 import Edit_Reminder from './Edit_Reminder'
 import Edit_Repeat from './Edit_Repeat'
+import CreateNewGroup from './CreateNewGroup'
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -107,6 +109,11 @@ const navigator = createSwitchNavigator({
       title: 'Forest'
     }
   },
+  Report: {
+    screen: Report, navigationOptions: {
+      title: 'Report'
+    }
+  },
   AccountLogin: {
     screen: AccountLogin, navigationOptions: {
       title: 'AccountLogin'
@@ -170,6 +177,11 @@ const navigator = createSwitchNavigator({
   Edit_Repeat: {
     screen: Edit_Repeat, navigationOptions: {
       title: 'Edit_Repeat'
+    }
+  },
+  CreateNewGroup: {
+    screen: CreateNewGroup, navigationOptions: {
+      title: 'CreateNewGroup'
     }
   },
 

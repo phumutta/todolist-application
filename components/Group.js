@@ -11,6 +11,10 @@ export default class Group extends Component {
   onPressBack(){
     this.props.navigation.navigate('Main1')
  }
+
+ onPressCreateNewGroup() {
+  this.props.navigation.navigate('CreateNewGroup')
+}
     render() {
         return (
             <Container>
@@ -24,7 +28,7 @@ export default class Group extends Component {
                 <Title>Group</Title>
               </View>
               
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.onPressCreateNewGroup()}>
                 <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
                   <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/>
                 </View>
@@ -201,14 +205,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
   },
-    
   MainContainer2:{
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5
   },
   photo4: {
     height: 18,

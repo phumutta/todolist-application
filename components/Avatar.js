@@ -12,16 +12,36 @@ export default class Avatar extends Component {
   state = {
     imageuri: 'https://sv1.picz.in.th/images/2019/08/22/ZRRyeW.png',
     uploaduri: 'https://sv1.picz.in.th/images/2019/08/22/ZRRyeW.png',
-    txtButton: 'upload',
-    id: ''
+    txtButton: '',
+    id: '',
+    progress: 0,
+    indeterminate: true,
   };
 
   componentDidMount() {
 
-    this.onFocusFunction();
+    this.animate();
 
 
   }
+
+  animate() {
+    let progress = 0;
+    this.setState({ progress });
+    setTimeout(() => {
+      this.setState({ indeterminate: false });
+      setInterval(() => {
+        progress += Math.random() / 5;
+        if (progress > 1) {
+          progress = 1;
+        }
+        this.setState({ progress });
+      }, 500);
+    }, 1500);
+  }
+
+
+
   onFocusFunction = async () => {
     const email_store = await AsyncStorage.getItem('@email');
 
@@ -91,7 +111,7 @@ export default class Avatar extends Component {
 
 
       <LinearGradient
-        colors={['#030B0D', '#4B15B8']}
+        colors={['#000000', '#ffffff']}
         style={{
           flex: 1,
           // position: 'absolute',
@@ -116,7 +136,7 @@ export default class Avatar extends Component {
             <TouchableOpacity
             
             onPress={this.onPressOK}>
-            <Text style={{ fontSize: 18, color: '#D4D4D4', textAlign: 'center' }}>DONE</Text>
+            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
           </TouchableOpacity>
           </View>
         </Header>
@@ -131,11 +151,17 @@ export default class Avatar extends Component {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity
+          <Progress.Bar
+          style={styles.progress}
+          progress={this.state.progress}
+          indeterminate={this.state.indeterminate}
+        />
+
+          {/* <TouchableOpacity
             style={styles.touchableUser}
             onPress={this.onPressOK}>
             <Text style={{ fontSize: 20, color: '#ffffff', textAlign: 'center' }}>{this.state.txtButton}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
 
@@ -276,14 +302,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    right: 10
   },
 
   MainContainer2: {
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5
   },
 
   Text2: {
@@ -306,6 +330,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
 
 
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  circles: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progress: {
+    margin: 10,
   },
 
 });

@@ -1,16 +1,141 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AppRegistry,AsyncStorage} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
-
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from 'moment';
+import PropTypes from "prop-types";
+import Items2 from './Items2'
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import database from './Database3';
 
 
 
 export default class Completed extends Component {
-  onPressBack(){
-    this.props.navigation.navigate('Main1')
- }
+
+ state = {
+  email: '',
+  message:'',
+  time:'',
+  Date:'',
+  Priority:''
+}
+
+onFocusFunction=async()=>{
+  this.setState({email:await AsyncStorage.getItem('@email')})
+  this.update()
+}
+// update (){
+//   this.todo.update();
+
+// };
+
+componentDidMount(){
+
+  this.onFocusFunction();
+  let date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
+  var hours = new Date().getHours(); //Current Hours
+  var min = new Date().getMinutes(); //Current Minutes
+  var sec = new Date().getSeconds(); //Current Seconds
+  // this.setState({time:hours+":"+min+":"+sec})
+  // console.log(this.state.time)
+  this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+  this.setState({Date:date + '/' + month + '/' + year})
+  
+
+ 
+}
+
+
+onChangeText = message => this.setState({ message });
+
+onPressAdd = async() => {
+  await this.addText();
+  this.setState({ text:null});
+
+  this.textInput.clear() 
+};
+addText=async()=>{
+  
+  Message={
+    message:this.state.message,
+    time: this.state.time,
+    Date:this.state.Date,
+    
+    id:''
+  }
+  console.log(this.state.email)
+ await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+
+}
+addMessageSuccess=async(id)=>{
+
+console.log("Successsssssssss");
+await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+this.update();
+// await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
+
+
+}
+addMessageFail=async()=>{
+
+console.log("addMessageFail");
+}
+async updateSuccess(){
+
+console.log("updateID");
+await this.update();
+}
+updateFail(){
+console.log("FailUpdate");
+}
+delete_Complete=async (id)=>{
+await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+//this.onPressTrack();
+await this.update();
+
+
+}
+deleteSuccess(){
+
+console.log("del success")
+}
+deleteFail(){
+console.log("del fail")
+}
+  
+
+readMessageSuccess=async(doc)=>{
+  console.log("message :" +doc.message);
+
+}
+readMessageFail=async()=>{
+  console.log("read F");
+}
+async update(){
+  await this.todo.update();
+
+};
+
+
+
+onPressBack(){
+  this.props.navigation.navigate('Main1')
+}
+
+onPressEdit(){
+this.props.navigation.navigate('Edit')
+
+
+}
+
+
+
+
     render() {
         return (
             <Container>
@@ -24,31 +149,49 @@ export default class Completed extends Component {
                 <Title>Completed</Title>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
-                <Image style={{width: 20, height: 20}}
-                source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
-              />
+                <TouchableOpacity>
+                  <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/02/24/xsbgt2.png' }}/>
+                </TouchableOpacity>
               </View>
             </Header>
 
-            <View style={{ flex:1,justifyContent:'center',marginTop:16,}}>
-              <View style={{flex: 1, flexDirection: 'row', alignSelf:'center', }}>
-                <View>
-                  <TextInput 
-                  style={styles.txtIn2}
-                  placeholder="+ Add a task..."
-                  onChangeText={this.onChangeText}
-                  />
-                </View>
-              </View>
+            <View style={styles.container1}>
+                <CalendarStrip 
+                style={{height:'20%', paddingTop: '5%', paddingBottom: 10,}} 
+                calendarHeaderStyle={{color: 'grey'}} 
+                calendarColor={'#white'}
+                dateNumberStyle={{color: 'grey'}}
+                dateNameStyle={{color: 'grey'}}
+                highlightDateNumberStyle={{color: 'black'}}
+                highlightDateNameStyle={{color: 'black'}}
+                disabledDateNameStyle={{color: 'grey'}}
+                disabledDateNumberStyle={{color: 'grey'}}
+                // datesWhitelist={datesWhitelist}
+                // datesBlacklist={datesBlacklist}
+                // iconLeft={require('./img/left-arrow.png')}
+                // iconRight={require('./img/right-arrow.png')}
+                iconContainer={{flex: 0.2}}
+                // showDayNumber={{}}
+                markedDatesStyle={{}}
+                />
 
-              <View style={{flex: 15,alignItems: 'center',justifyContent: 'center' }}>
-                <Image style={{ width: 200, height: 152.77, }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/R2bmVk.png' }}/>
-                <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>You’re all done for today! #TodoblackZero{'\n'}Enjoy your night.</Text>
-              </View>
+<ScrollView style={styles.listArea}>
+                        
+                        <Items2
+                            ref={todo => (this.todo = todo)}
+                            onPressTodo={this.delete_Complete}
+                            onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
+                            onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                              />
+                        
+                </ScrollView>
+            </View>
 
-               {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
 
-             </View>
+
+
+
+
 
             </Container>
         );
@@ -62,6 +205,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: Constants.statusBarHeight
+  },
+
+  container1: {
+    backgroundColor: "#fff",
+    flex: 1,
+
+    // paddingTop: Constants.statusBarHeight
   },
   heading: {
     fontSize: 20,

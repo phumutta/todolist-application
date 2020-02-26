@@ -3,11 +3,11 @@ import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } fr
 import { StyleSheet, Text, View,TouchableOpacity,Image, Alert, TextInput, ScrollView } from 'react-native';
 import Constants from "expo-constants";
 
-export default class Setting extends React.Component {
+export default class HelpAndFeedback extends React.Component {
 
 
   onPressBack(){
-    this.props.navigation.navigate('Main1')
+    this.props.navigation.navigate('Setting')
  }
   render() {
     return (
@@ -19,7 +19,7 @@ export default class Setting extends React.Component {
                 </Button>
               </View>
               <View style = { styles.MainContainer2 }>
-                <Title>Account Details</Title>
+                <Title>Help & Feedback</Title>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
                 {/* <Image style={{width: 20, height: 20}}

@@ -37,6 +37,10 @@ export default class main extends React.Component {
   onPressForest() {
     this.props.navigation.navigate('Forest')
   }
+
+  onPressReport() {
+    this.props.navigation.navigate('Report')
+  }
   onPressRank() {
     this.props.navigation.navigate('Ranking')
   }
@@ -161,8 +165,8 @@ export default class main extends React.Component {
                     <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/26/RHlNYQ.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => this.onPressForest()}>
-                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/22/R2iDFz.png" }} style={styles.Icon}></Image>
+                  <TouchableOpacity onPress={() => this.onPressReport()}>
+                    <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/24/xPD5l2.png" }} style={styles.Icon}></Image>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => this.onPressRank()}>
@@ -408,10 +412,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   Icon2: {
-    height: 25,
+    height: 20,
     width: 20,
-    marginRight: 5,
-    marginLeft: 5,
+    marginTop:'1%',
+    marginRight: '5%',
+    marginLeft: '5%',
     // marginTop:5,
 
 
