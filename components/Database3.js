@@ -35,6 +35,16 @@ class Database{
       
     }
   }
+  async updateStatus(ID,User,addSuccess,addFail){
+    try{
+    await firebase.firestore().collection("Todo").doc(User).collection("Today").doc(ID).update({status:'0'})
+      addSuccess();
+    }
+    catch(e){
+      addFail()
+      
+    }
+  }
   async deleteTask(User,id,delete_Account_success,delete_Account_fail)
   {
     try {
@@ -46,7 +56,7 @@ class Database{
   }
   async readMessage(User,Date,read_Message_success,read_Message_fail){
     let array=[]
-    let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).orderBy('time');
+    let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).where('status','==','1').orderBy('time');
     query.get().then(snapshot=>{
       if(snapshot.emtry)
       {
@@ -79,6 +89,43 @@ class Database{
     //   })
 
  }
+
+
+ async readCompleted(User,Date,read_Message_success,read_Message_fail){
+  let array=[]
+  let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).where('status','==','0').orderBy('time');
+  query.get().then(snapshot=>{
+    if(snapshot.emtry)
+    {
+
+      read_Message_fail();
+      return;
+    }
+    snapshot.forEach(doc=>{
+      // console.log(doc.data())
+      // array.push(Object.values(doc.data()))
+      array.push(doc.data())
+      // read_Message_success(doc.data())
+      
+      })
+      read_Message_success(array)
+  })
+  .catch(read_Message_fail());
+
+  // let observer = query.onSnapshot(
+  //   snapshot => {
+  //     if (snapshot.empty) {
+  //       read_Message_fail();
+  //       return;
+  //     }
+
+  //     snapshot.forEach(doc => {
+  //       read_Message_success(doc.data());
+  //     })
+
+  //   })
+
+}
 
 
 //   async addMessage(message,add_Message_success,add_Message_fail)

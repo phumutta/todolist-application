@@ -61,6 +61,7 @@ export default class Today extends React.Component {
       message:this.state.message,
       time: this.state.time,
       Date:this.state.Date,
+      status:'1',
       
       id:''
     }
@@ -90,7 +91,8 @@ updateFail(){
   console.log("FailUpdate");
 }
 delete_Complete=async (id)=>{
-  await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+  await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
+  // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
   //this.onPressTrack();
   await this.update();
   
