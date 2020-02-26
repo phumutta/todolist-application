@@ -61,7 +61,7 @@ export default class AccountLogin extends React.Component {
         <Header >
           <View style={styles.MainContainer1}>
             <Button transparent onPress={() => this.onPressBack()}>
-              <Icon name='close' style={{ color: '#CCCCCC' }} />
+              {/* <Icon name='close' style={{ color: '#CCCCCC' }} /> */}
               {/* <Icon name="ios-person" size={30} color="#4F8EF7" />; */}
               {/* <Icon name="rocket" size={30} color="#900" />; */}
             </Button>
@@ -70,9 +70,10 @@ export default class AccountLogin extends React.Component {
             <Title>Settings</Title>
           </View>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
-            {/* <Image style={{width: 20, height: 20}}
-                source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
-              /> */}
+            {/* <Image style={{width: 20, height: 20}} source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }} /> */}
+            <TouchableOpacity onPress={() => this.onPressBack()}>
+            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold", marginRight:'10%'}} >Done</Text>
+          </TouchableOpacity>
           </View>
         </Header>
 
