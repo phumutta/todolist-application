@@ -31,7 +31,6 @@
 <p align="center">
   <a href="https://github.com/Khawoat6/todolist-application">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-    ![Imgur](https://imgur.com/OR4TUr1.png)
   </a>
 
   <h3 align="center">Best-README-Template</h3>
