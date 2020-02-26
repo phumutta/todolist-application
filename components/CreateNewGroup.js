@@ -3,21 +3,124 @@ import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert,
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
+import * as ImagePicker from 'expo-image-picker';
+
+
+
+export default class CreateNewGroup extends Component {
+
+
+  state = {
+    imageuri: 'https://sv1.picz.in.th/images/2020/02/26/xuP1s9.png',
+    uploaduri: 'https://sv1.picz.in.th/images/2020/02/26/xuP1s9.png',
+    txtButton: '',
+    id: '',
+    progress: 0,
+    indeterminate: true,
+    text: null,
+  };
+
+  componentDidMount() {
+
+    this.animate();
+
+
+  }
+
+  animate() {
+    let progress = 0;
+    this.setState({ progress });
+    setTimeout(() => {
+      this.setState({ indeterminate: false });
+      setInterval(() => {
+        progress += Math.random() / 5;
+        if (progress > 1) {
+          progress = 1;
+        }
+        this.setState({ progress });
+      }, 500);
+    }, 1500);
+  }
+
+
+
+  onFocusFunction = async () => {
+    const email_store = await AsyncStorage.getItem('@email');
+
+    this.setState({ id: email_store })
+
+  }
+
+
+  onPressOK = () => {
+    database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
+    console.log(this.state.imageuri)
+
+  };
+
+  upload_success = async (uri) => {
+    this.setState({ uploaduri: uri });
+    // url=await this.createURL()
+    // await database.addImage(this.state.id,url,this.add_success,this.add_fail)
+    // this.setState({txtButton:"Success"});
+
+    this.addURL()
+
+  }
+  addURL = async () => {
+
+    database.addImage(this.state.id, this.state.uploaduri, this.add_success, this.add_fail)
+    this.setState({ txtButton: "Success" });
+  }
+  add_success = async (error) => {
+
+    await AsyncStorage.setItem('@uri', this.state.uploaduri);
+    Alert.alert("Add Avatar Success");
+  }
+  add_fail = async (error) => {
+    Alert.alert("Add Avatar Fail");
+
+  }
+
+  upload_fail = async (error) => {
+    Alert.alert(error);
+
+  }
+
+  uploading_status = async (progress) => {
+    this.setState({ txtButton: progress });
+  }
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ imageuri: result.uri });
+    }
+
+  };
 
 
 
 
-export default class Group extends Component {
   onPressBack(){
-    this.props.navigation.navigate('Main1')
+    this.props.navigation.navigate('Group')
  }
+ onChangeText = text => this.setState({ text });
+
     render() {
         return (
             <Container>
             <Header >
               <View style = { styles.MainContainer1}>
                 <Button transparent onPress={()=>this.onPressBack()}>
-                    <Icon name='close' style={{color:'#DBDBDB'}} />
+                    <Icon name='ios-arrow-back' style={{color:'#DBDBDB'}} />
                 </Button>
               </View>
               <View style = { styles.MainContainer2 }>
@@ -26,78 +129,40 @@ export default class Group extends Component {
               
               <TouchableOpacity>
                 <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
-                  <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/>
+                  {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
+                  <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
                 </View>
               </TouchableOpacity>
 
             </Header>
             {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
+            {/* <TouchableOpacity
+            
+            onPress={this.onPressOK}>
+            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
+          </TouchableOpacity> */}
 
 
 
 
+          <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6', }} >
 
-          <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
-
-          <Text style={{fontSize:20 , color:'#666666', marginLeft:'10%',marginTop:'5%', fontWeight:'bold'}}>My Group</Text>
-
-          <TouchableOpacity  style={{flex:0.2,marginTop:20,backgroundColor:'#ffffff',alignItems: 'center',justifyContent: 'center',}}>
-                  <Text style={{fontSize:18 , color:'#D4D4D4'}}>Haven’t joined any group yet</Text>
-          </TouchableOpacity>
-
-          <View style={{flex:0.08,flexDirection: 'row',justifyContent:'center', alignItems:'center', marginLeft:'10%'}}>
-            <View style={{flex:4,}}>
-            <Text style={{fontSize:20 , color:'#666666',  fontWeight:'bold'}}>More Group</Text>
+            <View  style={{flex:0.2,marginTop:'7%',backgroundColor:'#ffffff',justifyContent: 'center',flexDirection:'row'}}>
+              <View style={{ alignItems: 'center'}}>
+                <TouchableOpacity onPress={this.pickImage}>
+                  <Image
+                    style={styles.imgStyles}
+                    source={{ uri: this.state.imageuri }}
+                    source={{ uri: this.state.uploaduri }} />
+                </TouchableOpacity>
+              </View>
+                    <TextInput style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
             </View>
 
-          <TouchableOpacity>
-            <View style={{flex:2,justifyContent:'center', flexDirection:'row', alignItems:'center'}}>
-              <Image style={{width:20,height:20}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHllzZ.png'}}/>
-              <Text style={{fontSize:12 , color:'#CCCCCC',  fontWeight:'bold', marginRight:'10%', marginLeft:'10%'}}>Refresh</Text>
+            <View  style={{flex:0.3,marginTop:'7%',backgroundColor:'#ffffff'}}>
+                    <TextInput style={styles.txtIn3} placeholder="Description..." onChangeText={this.onChangeText} />
             </View>
-          </TouchableOpacity>
           
-          </View>
-          
-
-          <View style={{flex:0.125,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,marginTop:'2%'}} >
-            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHl31W.png'}}/>
-                <View style={{flex:1, flexDirection: 'column'}} >
-                  <Text style={{fontSize:18,color:'#171D33',marginLeft:2,marginEnd:3,alignItems:'center',justifyContent:'center', }}>Dek 62</Text>
-                  <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>มาเข้ากลุ่มเด็กแอด 62 กันเถอะ</Text>
-                </View>
-                <TouchableOpacity style={{marginRight:'8%'}}>
-                  <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-                    <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>Join</Text>
-                  </View>
-                </TouchableOpacity>
-            </View>
-
-          <View style={{flex:0.125,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
-            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHl31W.png'}}/>
-                <View style={{flex:1, flexDirection: 'column'}} >
-                  <Text style={{fontSize:18,color:'#171D33',marginLeft:2,marginEnd:3,alignItems:'center',justifyContent:'center', }}>Dek 63</Text>
-                  <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>มาเข้ากลุ่มเด็กแอด 63 กันเถอะ</Text>
-                </View>
-                <TouchableOpacity style={{marginRight:'8%'}}>
-                  <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-                    <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>Join</Text>
-                  </View>
-                </TouchableOpacity>
-            </View>
-
-          <View style={{flex:0.125,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
-            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHl31W.png'}}/>
-                <View style={{flex:1, flexDirection: 'column'}} >
-                  <Text style={{fontSize:18,color:'#171D33',marginLeft:2,marginEnd:3,alignItems:'center',justifyContent:'center', }}>Dek 64</Text>
-                  <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>มาเข้ากลุ่มเด็กแอด 64 กันเถอะ</Text>
-                </View>
-                <TouchableOpacity style={{marginRight:'8%'}}>
-                  <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-                    <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>Join</Text>
-                  </View>
-                </TouchableOpacity>
-            </View>
 
 
 
@@ -201,14 +266,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
   },
     
   MainContainer2:{
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5
   },
   photo4: {
     height: 18,
@@ -220,7 +283,33 @@ const styles = StyleSheet.create({
   
   
   },
+  txtIn2: {
+    justifyContent:'center',
+    backgroundColor: 'transparent',
+    flex:5,
+    fontSize:24,
+  },
 
+  txtIn3: {
+    backgroundColor: 'transparent',
+    fontSize:22,
+    flex:1,
+    margin:13,
+    
+  },
+
+  imgStyles: {
+    width: 70,
+    height: 70,
+    alignItems: 'center',
+    margin: '10%',
+    flex:1,
+    // backgroundColor:'black',
+    // margin:20,
+    padding:10,
+    
+
+  },
 
 
 });
