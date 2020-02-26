@@ -88,32 +88,38 @@ export default class AccountLogin extends React.Component {
             {/* <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo5} /> */}
           </View>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', marginTop: 20, backgroundColor: '#ffffff', alignItems: 'center' }} >
-            <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Project</Text>
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', marginTop: 20, backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} >
+          <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6Qzlv.png" }} style={styles.photo3} />
+            <Text style={{ flex: 1, fontSize: 20, marginLeft: 30}}>Project</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', marginTop: 20, backgroundColor: '#ffffff', alignItems: 'center' }} >
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', marginTop: 20, backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6QD5u.png" }} style={styles.photo3} />
             <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Usage Guidance</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} onPress={()=>this.onPressHelpAndFeedback()}>
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} onPress={()=>this.onPressHelpAndFeedback()}>
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6Q1t2.png" }} style={styles.photo3} />
             <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }} >Help & Feedback</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} >
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} >
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6QtIW.png" }} style={styles.photo3} />
             <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Rate Now</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} >
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} >
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6Q9gn.png" }} style={styles.photo3} />
             <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Tell Your Friends</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center' }} >
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} >
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6QrDk.png" }} style={styles.photo3} />
             <Text onPress={ ()=>{ Linking.openURL('https://khawoat6.github.io/todolist-landingpage.github.io/')}}   style={{ flex: 1, fontSize: 20, marginLeft: 30 }}>Official Website</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
@@ -174,13 +180,9 @@ const styles = StyleSheet.create({
   }, photo3: {
     height: 25,
     width: 25,
-    marginRight: 5,
-    marginLeft: 5,
-    marginTop: 5,
+    marginLeft: '7%',
     alignItems: 'center',
     justifyContent: 'center'
-
-
   },
   photo: {
     height: 45,
@@ -230,11 +232,6 @@ const styles = StyleSheet.create({
     marginRight: '7%',
     alignItems: 'center',
     justifyContent:'center',
-
-
-
   },
-
-
 
 });
