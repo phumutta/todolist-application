@@ -85,14 +85,14 @@ componentDidMount(){
 
         <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
 
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.onPressAvatar()} >
+          <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} onPress={()=>this.onPressAvatar()} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Avatar</Text>
             <Image style={{ marginLeft: 30, marginRight: '3%', width: 30, height: 30, borderRadius: 800 }} source={{ uri: this.state.uri }} />
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
 
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
+          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center',borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
             
             <View style={{flex:1 ,flexDirection:'row'}}>
               <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
@@ -113,7 +113,7 @@ componentDidMount(){
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity> */} 
 
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
+          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center',borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
             
             <View style={{flex:1 ,flexDirection:'row'}}>
               <Text style={{flex:1, fontSize:20,marginLeft:30}}>Account</Text>
@@ -122,15 +122,17 @@ componentDidMount(){
             </View>
           </TouchableOpacity>
           
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
+          <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Change Password</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:17,backgroundColor:'#ffffff', alignItems:'center', justifyContent: 'center',}}  
+          <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:17,backgroundColor:'#ffffff', alignItems:'center', justifyContent: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 2,}}  
           onPress={()=>this.onPressLogin()}>
-            <Text style={{fontSize:20, color:'#5B3E96'}}>LOGOUT</Text>
+            <Text style={{fontSize:20, color:'#5B3E96'}}>Log Out</Text>
           </TouchableOpacity>
+
+            <Text style={{fontSize:15,marginTop:15, color:"#666666",textAlign:'center'}}>Logged in as: {this.state.email}</Text>
 
         </View>
 
