@@ -105,7 +105,7 @@ export default class Items3 extends React.Component {
            
           </TouchableOpacity>
           <View style={{flex:1,marginLeft:"1%"}}>
-          <Text style={{ color:"#000", }} onPress={() => {this.props.onPressTodo3(id)}}>{message}</Text>
+          <Text style={{ color:"#C4C4C4", textDecorationLine:'line-through', fontStyle:'italic'}} onPress={() => {this.props.onPressTodo3(id)}}>{message}</Text>
           </View>
            
           <TouchableOpacity
