@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,  DatePickerIOS,PickerIOS} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity,AsyncStorage, Alert, Image,  DatePickerIOS,PickerIOS} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
 import DatePicker from 'react-native-datepicker'
-
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import database from './Database3';
 // Edit_DueDate
 // Edit_Note
 // Edit_PomodoroNumber
@@ -12,19 +14,54 @@ import DatePicker from 'react-native-datepicker'
 // Edit_Repeat
 
 export default class AddTask extends Component {
+
+
+
   constructor(props) {
     super(props);
     this.dataRepeat = ["None","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday","Everyday"]
     this.dataPodo = ["None","1","2","3","4","5"]
     this.state = {
       chosenDate: new Date(), 
-      date:null
+      date:null,
+      email: '',
+      message:'',
+      time:'',
+      Date:'',
+      Priority:''
       
     };
 
 
     this.setDate = this.setDate.bind(this);
   }
+
+
+  onFocusFunction=async()=>{
+    this.setState({email:await AsyncStorage.getItem('@email')})
+   
+    var myJSON = await JSON.stringify(this.state.chosenDate);
+   
+     myJSON= await myJSON.slice(1,11)
+    
+
+   await this.setState({date: myJSON});
+    
+    console.log(this.state.date)
+  
+  }
+  componentDidMount(){
+
+    this.onFocusFunction();
+  
+    this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+    
+    
+  
+   
+ }
+  
+  onChangeText = message => this.setState({ message });
   async setDate(newDate) {
     var myJSON = await JSON.stringify(newDate);
     console.log(typeof(myJSON))
@@ -37,37 +74,58 @@ export default class AddTask extends Component {
     console.log(this.state.date)
   }
   
-  // constructor(props){
-  //   super(props)
-  //     this.state = {chosenDate: new Date()};
 
-  //       this.setDate = this.setDate.bind(this);
-  // }
 
   onPressBack(){
     this.props.navigation.navigate("Main1");
-    // this.props.navigation.goBack();
+    
  }
- /*onPressEdit_DueDate(){
-  this.props.navigation.navigate("Edit_DueDate");
-  // this.props.navigation.goBack();
-}
-onPressEdit_Note(){
-  this.props.navigation.navigate("Edit_Note");
-  // this.props.navigation.goBack();
-}
-onPressEdit_PomodoroNumber(){
-  this.props.navigation.navigate("Edit_PomodoroNumber");
-  // this.props.navigation.goBack();
-}
-onPressEdit_Reminder(){
-  this.props.navigation.navigate("Edit_Reminder")
-  // this.props.navigation.goBack();
-}
-onPressEdit_Repeat(){
-  //this.props.navigation.navigate("Edit_Repeat");
-  // this.props.navigation.goBack();
-}*/
+ onPressAdd = async() => {
+  await this.addText();
+  
+
+  this.textInput.clear() 
+};
+
+addText=async()=>{
+    
+    Message={
+      message:this.state.message,
+      time: this.state.time,
+      Date:this.state.date,
+      status:'1',
+      id:''
+    }
+    console.log(this.state.email)
+   await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+ 
+  }
+  addMessageSuccess=async(id)=>{
+  
+    console.log("Successsssssssss");
+    await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+   
+    // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
+  
+    
+  }
+  addMessageFail=async()=>{
+
+    console.log("addMessageFail");
+  }
+  async updateSuccess(){
+    
+    console.log("updateID");
+    
+  }
+  updateFail(){
+    console.log("FailUpdate");
+  }
+
+
+
+
+
 
 getPodo = () =>{
   return( this.dataPodo.map( (x,i) => { 
@@ -93,7 +151,7 @@ getRepeat = () =>{
                 <Title>AddTask</Title>
               </View>
               
-              <TouchableOpacity style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 10}}>
+              <TouchableOpacity style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 10}} onPress={this.onPressAdd}>
                 <Text style={{fontSize:14}}>Done</Text>
               </TouchableOpacity>
             </Header>
@@ -110,7 +168,7 @@ getRepeat = () =>{
         <View  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
                 <Image style={{flex:0.15,marginLeft:30, marginRight:10 ,width:25,height:25,marginRight:20}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr9eWe.png'}}/>
                 <TextInput style={{flex:1}}
-                  
+                  ref={input => { this.textInput = input }} 
                   placeholder="Add a task..."
                   onChangeText={this.onChangeText}
 
