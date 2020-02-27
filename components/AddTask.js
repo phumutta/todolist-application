@@ -11,6 +11,7 @@ import database from './Database3';
 // Edit_Note
 // Edit_PomodoroNumber
 // Edit_Reminder
+
 // Edit_Repeat
 
 export default class AddTask extends Component {
@@ -271,6 +272,7 @@ getRepeat = () =>{
           <DatePickerIOS
           date={this.state.chosenDate}
           onDateChange={this.setDate}
+          mode="date"
         />
         );
       }

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert,
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 import ActionButton from 'react-native-action-button';
-import Items2 from './Items2'
+import Items_Tomorrow from './Items_Tomorrow'
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
@@ -172,7 +172,7 @@ deleteFail(){
                 <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent',marginTop:"5%"}}>
                   <ScrollView style={styles.listArea}>
                         
-                        <Items2
+                        <Items_Tomorrow
                             ref={todo => (this.todo = todo)}
                             onPressTodo={this.delete_Complete}
                             onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}

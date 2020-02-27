@@ -87,18 +87,33 @@ onFocusFunction=async()=>{
 
 componentDidMount(){
 
-  this.onFocusFunction();
+  
   let date = new Date().getDate(); //Current Date
   var month = new Date().getMonth() + 1; //Current Month
   var year = new Date().getFullYear(); //Current Year
   var hours = new Date().getHours(); //Current Hours
   var min = new Date().getMinutes(); //Current Minutes
   var sec = new Date().getSeconds(); //Current Seconds
+  this.onFocusFunction();
   // this.setState({time:hours+":"+min+":"+sec})
   // console.log(this.state.time)
   this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
-  this.setState({Date:date + '/' + month + '/' + year})
-  
+  // month=String(month)
+  // var len=month.length()
+  // if(len==1){
+  //   month=String('0')+String(month)
+  //   console.log(month)
+  // }
+  month=month.toString()
+  console.log(typeof(month))
+  console.log(month.length)
+  if (month.length==1){
+    month=String('0')+String(month)
+  }
+  console.log(month)
+  if(date.length==1){
+    date=String('0')+String(date)
+  }
 
  
 }
@@ -295,7 +310,7 @@ this.props.navigation.navigate('Edit')
 
 
 
-
+            
               <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: '2%', }}>
                   <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent',marginTop:"5%"}}>
 
