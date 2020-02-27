@@ -28,7 +28,8 @@ export default class AddTask extends Component {
       message:'',
       time:'',
       Date:'',
-      Priority:''
+      Priority:'',
+      picker:''
       
     };
 
@@ -271,6 +272,7 @@ getRepeat = () =>{
           <DatePickerIOS
           date={this.state.chosenDate}
           onDateChange={this.setDate}
+          mode="date"
         />
         );
       }
@@ -287,7 +289,7 @@ getRepeat = () =>{
               this.datePicker = parker;
             }}
             date={this.state.datex}
-            mode="date"
+            mode="datetime"
             placeholder="Select date"
             format="DD/MM/YYYY HH:mm"
             // minDate="2016-05-01"
