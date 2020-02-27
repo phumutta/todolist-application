@@ -24,17 +24,20 @@ export default class AddTask extends Component {
     this.dataPodo = ["None","1","2","3","4","5"]
     this.state = {
       chosenDate: new Date(), 
+      chosenDate2: new Date(), 
       date:null,
       email: '',
       message:'',
       time:'',
       Date:'',
-      Priority:''
+      Priority:'',
+      datex:''
       
     };
 
 
     this.setDate = this.setDate.bind(this);
+    this.setDate2 = this.setDate2.bind(this);
   }
 
 
@@ -73,6 +76,19 @@ export default class AddTask extends Component {
    await this.setState({date: myJSON});
     
     console.log(this.state.date)
+  }
+
+  async setDate2(newDate) {
+    var myJSON = await JSON.stringify(newDate);
+    console.log(typeof(myJSON))
+    console.log(myJSON)
+    // slice here !!!
+     myJSON= await myJSON.slice(1,11)
+    console.log(myJSON)
+    await this.setState({chosenDate2:newDate})
+   await this.setState({datex: myJSON});
+    
+    console.log(this.state.datex)
   }
   
 
@@ -283,23 +299,29 @@ getRepeat = () =>{
     RenderParker() {
       if (this.state.parker) {
         return (
-          <DatePicker
-            style={{ width: 200,marginLeft:80 }}
-            ref={parker => {
-              this.datePicker = parker;
-            }}
-            date={this.state.datex}
-            mode="date"
-            placeholder="Select date"
-            format="DD/MM/YYYY HH:mm"
-            // minDate="2016-05-01"
-            // maxDate="2020-12-12"
-            confirmBtnText="OK"
-            cancelBtnText="Cancel"
-            onDateChange={date => {
-              this.setState({ datex: date});
-            }}
-          />
+          // <DatePicker
+          //   style={{ width: 200,marginLeft:80 }}
+          //   ref={parker => {
+          //     this.datePicker = parker;
+          //   }}
+          //   date={this.state.datex}
+          //   mode="date"
+          //   placeholder="Select date"
+          //   format="DD/MM/YYYY HH:mm"
+          //   // minDate="2016-05-01"
+          //   // maxDate="2020-12-12"
+          //   confirmBtnText="OK"
+          //   cancelBtnText="Cancel"
+          //   onDateChange={date => {
+          //     this.setState({ datex: date});
+          //   }}
+          // />
+          <DatePickerIOS
+          date={this.state.chosenDate2}
+          onDateChange={this.setDate2}
+          mode="date"
+          
+        />
         );
       }
       
