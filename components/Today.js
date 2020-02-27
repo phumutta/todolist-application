@@ -21,6 +21,7 @@ export default class Today extends React.Component {
 
   onFocusFunction=async()=>{
     this.setState({email:await AsyncStorage.getItem('@email')})
+    this.todo.update()
   }
   // update (){
   //   this.todo.update();
@@ -72,7 +73,7 @@ addMessageSuccess=async(id)=>{
   
   console.log("Successsssssssss");
   await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
-  this.update();
+  this.todo.update()
   // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
 
   
@@ -84,7 +85,7 @@ addMessageFail=async()=>{
 async updateSuccess(){
   
   console.log("updateID");
-  await this.update();
+  this.todo.update()
 }
 updateFail(){
   console.log("FailUpdate");
@@ -93,7 +94,7 @@ delete_Complete=async (id)=>{
   await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
   // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
   //this.onPressTrack();
-  await this.update();
+  this.todo.update()
   
   
 }
