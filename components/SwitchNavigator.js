@@ -7,7 +7,7 @@ import Main2 from './main2'
 // import Account from './Account'
 // import AccountLogin from './AccountLogin'
 import Today from './Today'
-// import Tomorrow from './Tomorrow'
+import AddTask from './AddTask'
 import Tomorrow from './Tomorrow'
 import Upcoming from './Upcoming'
 import Someday from './Someday'
@@ -182,6 +182,11 @@ const navigator = createSwitchNavigator({
   CreateNewGroup: {
     screen: CreateNewGroup, navigationOptions: {
       title: 'CreateNewGroup'
+    }
+  },
+  AddTask: {
+    screen: AddTask, navigationOptions: {
+      title: 'AddTask'
     }
   },
 

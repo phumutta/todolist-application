@@ -277,7 +277,7 @@ export default class main extends React.Component {
           </View>
 
           <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
-                 <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+                 <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() =>  this.props.navigation.navigate('AddTask')}>
                   <Icon name="md-create" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>

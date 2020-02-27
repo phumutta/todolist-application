@@ -119,6 +119,9 @@ addText=async()=>{
     time: this.state.time,
     Date:this.state.Date,
     status:'1',
+    CountTask:'',
+    Countall:'',
+    CountComplete:'',
     
     id:''
   }
