@@ -3,11 +3,28 @@ import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert,
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
-
-
-
-
+import DialogInput from 'react-native-dialog-input';
+import Dialog from "react-native-dialog";
 export default class Group extends Component {
+
+  state = {
+    dialogVisible: false,
+  };
+ 
+  showDialog = () => {
+    this.setState({ dialogVisible: true });
+  };
+ 
+  handleCancel = () => {
+    this.setState({ dialogVisible: false });
+  };
+ 
+  handleDelete = () => {
+    // The user has pressed the "Delete" button, so here you can do your own logic.
+    // ...Your logic
+    this.setState({ dialogVisible: true });
+  };
+
   onPressBack(){
     this.props.navigation.navigate('Main1')
  }
@@ -27,6 +44,12 @@ export default class Group extends Component {
               <View style = { styles.MainContainer2 }>
                 <Title>Group</Title>
               </View>
+
+              <TouchableOpacity onPress={this.showDialog}>
+                <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center',}}>
+                  <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/02/28/xnGRq2.png' }}/>
+                </View>
+              </TouchableOpacity>
               
               <TouchableOpacity onPress={()=>this.onPressCreateNewGroup()}>
                 <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
@@ -35,7 +58,7 @@ export default class Group extends Component {
               </TouchableOpacity>
 
             </Header>
-            {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
+
 
 
 
@@ -104,7 +127,17 @@ export default class Group extends Component {
             </View>
 
 
+            <View>
+                <Dialog.Container visible={this.state.dialogVisible} >
 
+                  <Dialog.Title>Join Group</Dialog.Title>
+                  <Dialog.Description>Enter the group code</Dialog.Description>
+                  <Dialog.Input />
+                  <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
+                  <Dialog.Button label="Join"  color="#6F41E9" onPress={this.handleDelete} />
+                  
+                </Dialog.Container>
+            </View>
         </View>
 
         </Container>
