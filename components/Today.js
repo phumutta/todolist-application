@@ -21,7 +21,6 @@ export default class Today extends React.Component {
 
   onFocusFunction=async()=>{
     this.setState({email:await AsyncStorage.getItem('@email')})
-    this.update()
   }
   // update (){
   //   this.todo.update();
