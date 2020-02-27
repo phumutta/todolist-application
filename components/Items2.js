@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,Image,
+  TextInput, Image,
   TouchableOpacity,
   AsyncStorage
 } from "react-native";
@@ -15,7 +15,8 @@ import Constants from "expo-constants";
 import * as SQLite from 'expo-sqlite';
 import database from './Database3';
 
-import {Card} from 'react-native-shadow-cards';
+import { Card } from 'react-native-shadow-cards';
+import Tomorrow from "./Tomorrow";
 
 
 
@@ -23,12 +24,13 @@ export default class Items2 extends React.Component {
   state = {
     items: [],
     email: '',
-    message:'',
-    time:'',
-    Date:''
+    message: '',
+    time: '',
+    Date: '',
+    Tomorrow: ''
   };
-  onFocusFunction=async()=>{
-    this.setState({email:await AsyncStorage.getItem('@email')})
+  onFocusFunction = async () => {
+    this.setState({ email: await AsyncStorage.getItem('@email') })
     this.update();
   }
 
@@ -40,31 +42,90 @@ export default class Items2 extends React.Component {
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
     var sec = new Date().getSeconds(); //Current Seconds
-    
-    this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
-    this.setState({Date:date + '/' + month + '/' + year})
+    var today = new Date()
+    var tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    month = month.toString()
+    console.log(typeof (month))
+    console.log(month.length)
+    if (month.length == 1) {
+      month = String('0') + String(month)
+    }
+    console.log(month)
+    if (date.length == 1) {
+      date = String('0') + String(date)
+    }
+    this.setState({ Tomorrow: tomorrow })
+    console.log("tomorrow: " + tomorrow)
+    this.setState({ time: firebase.firestore.FieldValue.serverTimestamp() })
+    this.setState({ Date: year + '-' + month + '-' + date })
     // this.setState({time:hours+min+sec})
+    var TomorrowDate = tomorrow.toString().slice(8, 10)
+    var TomorrowMonth = tomorrow.toString().slice(4, 7)
+    var TomorrowYear = tomorrow.toString().slice(11, 15)
+    switch (TomorrowMonth) {
+      case "Jan":
+        TomorrowMonth="01"
+        break;
+      case "Feb":
+        TomorrowMonth="02"
+        break;
+      case "Mar":
+        TomorrowMonth="03"
+        break;
+      case "Apr":
+        TomorrowMonth="04"
+        break;
+      case "May":
+        TomorrowMonth="05"
+        break;
+      case "Jun":
+        TomorrowMonth="06"
+        break;
+      case "Jul":
+        TomorrowMonth="07"
+        break;
+      case "Aug":
+        TomorrowMonth="08"
+        break;
+      case "Sep":
+        TomorrowMonth="09"
+        break;
+      case "Oct":
+        TomorrowMonth="10"
+        break;
+      case "Nov":
+        TomorrowMonth="11"
+        break;
+      case "Dec":
+        TomorrowMonth="12"
+        break;
+      
+
+
+    }
+    this.setState({ Tomorrow: TomorrowYear + '-' + TomorrowMonth + '-' + TomorrowDate })
     
   }
 
-  get_text_success=async(arr)=>{
-     
-     
-     
-     this.setState({ items: arr })
-     
+  get_text_success = async (arr) => {
+
+
+
+    this.setState({ items: arr })
+
   }
 
-  get_text_fail=async(error)=>{
-      // console.log(error);
+  get_text_fail = async (error) => {
+    // console.log(error);
   }
- 
-  
+
+
 
 
   update() {
-    database.readMessage(this.state.email,this.state.Date,this.get_text_success,this.get_text_fail);
-    
+    database.readMessage(this.state.email, this.state.Date, this.get_text_success, this.get_text_fail);
+
   }
 
   render() {
@@ -78,54 +139,54 @@ export default class Items2 extends React.Component {
     console.log("Print items ")
     console.log(items)
     return (
-    
-        <View style={{flex:1,alignItems:'center' ,flexDirection:'column',justifyContent: 'center',backgroundColor:"#transparent",alignContent:'center'}}>
-        {items.map(({ date,id, message,time }) => (
-         
 
-        <Card style={{ flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 55, marginTop:12}} >
-        {/*    
+      <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column', justifyContent: 'center', backgroundColor: "#transparent", alignContent: 'center' }}>
+        {items.map(({ date, id, message, time }) => (
+
+
+          <Card style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 55, marginTop: 12 }} >
+            {/*    
            ใส่ปุ่มบริเวณนี้       
                   */}
-         
-          
-          <TouchableOpacity
-            key={id}
-            onPress={() => this.props.onPressTodo(id)}
-            style={{
-              backgroundColor: 'transparent', 
-              borderColor: '#DADADA',
-              //   borderWidth: 1,
-              padding: 8,
-              borderRadius: 10
-              
-            }}
-          >
-             <Image style={{marginLeft:"5%",width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png'}}/>
-           
-          </TouchableOpacity>
-          <View style={{flex:1,marginLeft:"1%"}}>
-          <Text style={{ color:"#000", }} onPress={() => {this.props.onPressTodo3(id)}}>{message}</Text>
-          </View>
-           
-          <TouchableOpacity
-            
-            onPress={() => {this.props.onPressTodo2(id)}}
-            style={{
-              backgroundColor: 'transparent',
-              borderColor: '#DADADA',
-              //   borderWidth: 1,
-              padding: 8,
-              borderRadius: 10
-              
-            }}
-          >
-            <View>
-              <Image style={{width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png'}}/>
+
+
+            <TouchableOpacity
+              key={id}
+              onPress={() => this.props.onPressTodo(id)}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: '#DADADA',
+                //   borderWidth: 1,
+                padding: 8,
+                borderRadius: 10
+
+              }}
+            >
+              <Image style={{ marginLeft: "5%", width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
+
+            </TouchableOpacity>
+            <View style={{ flex: 1, marginLeft: "1%" }}>
+              <Text style={{ color: "#000", }} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
             </View>
-          </TouchableOpacity>
+
+            <TouchableOpacity
+
+              onPress={() => { this.props.onPressTodo2(id) }}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: '#DADADA',
+                //   borderWidth: 1,
+                padding: 8,
+                borderRadius: 10
+
+              }}
+            >
+              <View>
+                <Image style={{ width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png' }} />
+              </View>
+            </TouchableOpacity>
           </Card>
-          
+
         ))}
       </View>
     );
@@ -162,8 +223,8 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginBottom: 16,
-    padding:16,
-    margin:16,
+    padding: 16,
+    margin: 16,
     marginHorizontal: 16
   },
   sectionHeading: {
