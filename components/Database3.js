@@ -93,7 +93,7 @@ class Database{
 
  async readCompleted(User,Date,read_Message_success,read_Message_fail){
   let array=[]
-  let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).where('status','==','0').orderBy('time');
+  let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('status','==','0').orderBy('time');
   query.get().then(snapshot=>{
     if(snapshot.emtry)
     {
