@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     alignItems: 'center',
-    resizeMode: 'stretch',
+    // resizeMode: 'stretch',
     margin: '10%',
     borderRadius:180,
   },
