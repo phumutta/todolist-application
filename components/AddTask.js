@@ -193,17 +193,17 @@ getRepeat = () =>{
                   <Image style={{flex:0.1,marginLeft:30, marginRight:10 ,width:15,height:15}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrTgsz.png'}}/>
 
           </View>
-
-          <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ podo: !this.state.podo })}>
+{/* 
+         <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ podo: !this.state.podo })}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:28,height:28}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrkimE.png'}}/>
                   <View style={{flexDirection: 'column'}} >
                     <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Pomodoro Number<Text style={{color:'#D4D4D4'}}> {this.state.selectPodo}</Text></Text>
                   </View>
-                  {/* <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:130}}>0 / 0</Text> */}
+                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:130}}>0 / 0</Text>
             </TouchableOpacity>
-            {this.PodoPicker()}
+            {this.PodoPicker()}  */}
 
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker })}>
+            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:"7%",backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker })}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
                   <View style={{flexDirection: 'column'}} >
                     <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Due Date<Text style={{color:'#D4D4D4'}}> {this.state.date}</Text></Text>

@@ -75,20 +75,58 @@ class Database{
     })
     .catch(read_Message_fail());
 
-    // let observer = query.onSnapshot(
-    //   snapshot => {
-    //     if (snapshot.empty) {
-    //       read_Message_fail();
-    //       return;
-    //     }
-
-    //     snapshot.forEach(doc => {
-    //       read_Message_success(doc.data());
-    //     })
-
-    //   })
+  
 
  }
+
+ async readSomeday(User,Date,Tomorrow,Upcoming,read_Message_success,read_Message_fail){
+   console.log(Date+Tomorrow+Upcoming)
+  let array=[]
+  let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('status','==','1').orderBy('time');
+  query.get().then(snapshot=>{
+    if(snapshot.emtry)
+    {
+
+      read_Message_fail();
+      return;
+    }
+     snapshot.forEach(doc=>{
+      var tmp =doc.data().Date
+      
+      console.log(typeof(Tomorrow))
+      console.log("ForEACH"+Date+Tomorrow)
+       console.log(doc.data().Date)
+       if(tmp==Date ){
+        console.log("DATEE")
+        // array.push(doc.data())
+       }
+
+       else if(tmp==Upcoming) {
+        console.log("UPCOME")
+        // array.push(doc.data())
+       }
+       else if(tmp==Tomorrow ){
+        console.log("TOMORROW")
+        // array.push(doc.data())
+       }
+       else{
+        array.push(doc.data())
+       }
+      
+      
+      // array.push(Object.values(doc.data()))
+
+    
+      // read_Message_success(doc.data())
+      
+      })
+      read_Message_success(array)
+  })
+  .catch(read_Message_fail());
+
+
+
+}
 
 
  async readCompleted(User,Date,read_Message_success,read_Message_fail){
@@ -111,19 +149,6 @@ class Database{
       read_Message_success(array)
   })
   .catch(read_Message_fail());
-
-  // let observer = query.onSnapshot(
-  //   snapshot => {
-  //     if (snapshot.empty) {
-  //       read_Message_fail();
-  //       return;
-  //     }
-
-  //     snapshot.forEach(doc => {
-  //       read_Message_success(doc.data());
-  //     })
-
-  //   })
 
 }
 
