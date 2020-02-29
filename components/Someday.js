@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput, Scro
 import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-shadow-cards';
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
-import Items2 from './Items2'
+import Items_someday from './Items_someday'
 import database2 from './Database2'
 import Constants from "expo-constants";
 import ActionButton from 'react-native-action-button';
@@ -297,7 +297,7 @@ this.props.navigation.navigate('Edit')
                       <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
                           <ScrollView style={styles.listArea}>
                                 
-                                <Items2
+                                <Items_someday
                                     ref={todo => (this.todo = todo)}
                                     onPressTodo={this.delete_Complete}
                                     onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
