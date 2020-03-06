@@ -46,6 +46,7 @@ export default class Items_upcome extends React.Component {
     var tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 2)
     month = month.toString()
+    date=date.toString()
     console.log(typeof (month))
     console.log(month.length)
     if (month.length == 1) {

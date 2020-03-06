@@ -50,6 +50,7 @@ export default class Items_someday extends React.Component {
     tomorrow.setDate(tomorrow.getDate() + 1)
     Upcome.setDate(Upcome.getDate()+2)
     month = month.toString()
+    date=date.toString()
     console.log(typeof (month))
     console.log(month.length)
     if (month.length == 1) {
