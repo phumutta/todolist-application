@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  StyleSheet, Text, View, TouchableOpacity, Image,  } from "react-native";
+import {  StyleSheet, Text, View, TouchableOpacity, Image, AsyncStorage } from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, } from 'native-base';
 // import ActionButton from 'react-native-action-button';
@@ -13,8 +13,22 @@ import '@firebase/firestore';
 export default class AddColor extends Component {
 
 
-
-
+async onPressHigh(){
+  await AsyncStorage.setItem('@Pri','https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png');
+  this.props.navigation.navigate("AddTask");
+}
+async onPressMedi(){
+  await AsyncStorage.setItem('@Pri','https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png');
+  this.props.navigation.navigate("AddTask");
+}
+async onPressLow(){
+  await AsyncStorage.setItem('@Pri','https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png');
+  this.props.navigation.navigate("AddTask");
+}
+async onPressNo(){
+  await AsyncStorage.setItem('@Pri','https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png');
+  this.props.navigation.navigate("AddTask");
+}
 onPressBack(){
   this.props.navigation.navigate("AddTask");
   
@@ -45,13 +59,13 @@ onPressBack(){
 
         <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
           <View style={{flex:1,flexDirection:'row'}}>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }}  onPress={()=>this.onPressBack()} >
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }}  onPress={()=>this.onPressHigh()} >
               <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png'}}/>
             <Text style={{color:'#D4D4D4'}} >High Priority</Text>
             </View>
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressBack()}>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressMedi()}>
               <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png'}}/>
             <Text style={{color:'#D4D4D4'}}>Medium Priority</Text>
@@ -59,13 +73,13 @@ onPressBack(){
             </TouchableOpacity>
             </View>
             <View style={{flex:1,flexDirection:'row'}}>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressBack()}>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressLow()}>
               <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png'}}/>
             <Text style={{color:'#D4D4D4'}}>Low Priority</Text>
             </View>
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressBack()}>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressNo()}>
               <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png'}}/>
             <Text style={{color:'#D4D4D4'}}>No Priority</Text>
