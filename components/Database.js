@@ -288,6 +288,7 @@ class Database{
   }
 
   async readImgGroup(name,id,read_Success,read_Fail){
+    console.log("SDASDasdsaasdasdasdasdasdasdadasda")
     await firebase.firestore().collection("Group").get().then(snapshot=>{
       if(snapshot.empty){
         console.log("readFail")
@@ -299,7 +300,10 @@ class Database{
     
         console.log(doc.data().uri)
         if (doc.id==name){
-        await firebase.firestore().collection("Account").doc(id).collection("Group").doc(name).update({uri:doc.data().uri})
+
+        await firebase.firestore().collection("Account").doc(id).collection("Group").doc(name).update({uri:doc.data().uri}).then(()=>{
+          console.log("ADD URI")
+        })
         }
       })
      
@@ -332,14 +336,20 @@ class Database{
         // array.push(doc.data())
         // read_Message_success(doc.data())
         if(doc.id == id){
+          state=1;
           await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(async ()=>{
             console.log("HERE")
             console.log(id)
+            
             await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).set(Name)
-            state=1;
+            await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).update({uri:doc.data().uri}).then(()=>{
+              add_Success()
+            },add_Fail())
+            
             },add_Fail());
 
         }
+        
         
         
         })
@@ -351,7 +361,7 @@ class Database{
 
       
    
-       
+      add_Success() 
     })
     .catch(add_Fail());
     // await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(()=>{
