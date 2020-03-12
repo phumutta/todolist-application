@@ -34,6 +34,7 @@ import Edit_PomodoroNumber from './Edit_PomodoroNumber'
 import Edit_Reminder from './Edit_Reminder'
 import Edit_Repeat from './Edit_Repeat'
 import CreateNewGroup from './CreateNewGroup'
+import GroupDetail from './GroupDetail'
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -151,6 +152,11 @@ const navigator = createSwitchNavigator({
   Group: {
     screen: Group, navigationOptions: {
       title: 'Group'
+    }
+  },
+  GroupDetail: {
+    screen: GroupDetail, navigationOptions: {
+      title: 'GroupDetail'
     }
   },
 
