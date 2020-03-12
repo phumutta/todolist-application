@@ -52,6 +52,7 @@ export default class Login2 extends React.Component {
     await AsyncStorage.setItem('@name',doc.name);
     await AsyncStorage.setItem('@last',doc.last);
     await AsyncStorage.setItem('@uri',doc.uri);
+    await AsyncStorage.setItem('@pwd',this.state.password)
     this.props.navigation.navigate('Main1')
   }
 

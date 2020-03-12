@@ -98,10 +98,10 @@ export default class Register extends React.Component {
                   placeholder="password"
                   onChangeText={this.onChangeTextpassword}
               />
-              <TouchableOpacity style={styles.viewBtn2}>
-                <Text style={styles.txt2} onPress={() => this.onPressBack()}> Home </Text>
+              {/* <TouchableOpacity style={{backgroundColor:"#000000"}} onPress={() => this.onPressBack()}>
+                <Text style={styles.txt2} > Home </Text>
               </TouchableOpacity>
-              
+                */}
               
             
              
@@ -116,7 +116,10 @@ export default class Register extends React.Component {
               <Text style={styles.txt}>SIGNUP</Text>
             </TouchableOpacity>
             <Text style={{fontSize: 13,color: 'black',margin: 5, paddingLeft:16, paddingRight:16,}}>By signing up, you agree to Photo’s<Text style={{fontSize: 13,color: 'black',margin: 5,textDecorationLine : 'underline'}}> Terms of Service </Text><Text style={{fontSize: 13,color: 'black',margin: 5}}>and</Text><Text style={{fontSize: 13,color: 'black',margin: 5,textDecorationLine : 'underline'}}> Privacy Policy.</Text></Text>
-            
+            <TouchableOpacity 	
+            onPress={this.onPressBack} >	
+              <Text style={{fontSize:17, color:'#000000',textAlign:'center',textDecorationLine:'underline',marginBottom:5,}}> back</Text>	
+            </TouchableOpacity>
         </View>
       </LinearGradient>
     );

@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AsyncStorage} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
 import DialogInput from 'react-native-dialog-input';
 import Dialog from "react-native-dialog";
+import Items_Group from './Items_Group'
+import database from './Database';
 export default class Group extends Component {
 
   state = {
     dialogVisible: false,
+    email:'',
+    
   };
+  
  
   showDialog = () => {
     this.setState({ dialogVisible: true });
@@ -19,12 +24,42 @@ export default class Group extends Component {
     this.setState({ dialogVisible: false });
   };
  
-  handleDelete = () => {
+  handleDelete = async() => {
     // The user has pressed the "Delete" button, so here you can do your own logic.
     // ...Your logic
-    this.setState({ dialogVisible: true });
+    
+    console.log(this.state.email)
+    // await database.addGroupAccount(Name,this.state.Group,this.join_success,this.join_fail)
+    await database.joinGroup(Name,this.state.Group,this.join_success,this.join_fail)
+    console.log(this.state.Group)
+    this.setState({ dialogVisible: false });
   };
-
+  async join_success(){
+   console.log("Success")
+   await database.readImgGroup(this.state.group,this.state.email,this.update_S,this.update_F)
+ }
+ update_S(){
+  console.log("Success")
+ }
+ update_F(){
+  console.log("Fail")
+ }
+  // async join_success(array){
+  //   array.forEach(name=>{
+  //     console.log(name)
+  //     // await database.addGroupUser(Name,this.state.Group,this.addGroupUser_S,this.addGroupUser_F) 
+  //   })
+    
+  // }
+  // addGroupUser_S(){
+  //   console.log("Success")
+  // }
+  // addGroupUser_F(){
+  //   console.log("Fail")
+  // }
+  join_fail(){
+    console.log("Fail")
+  }
   onPressBack(){
     this.props.navigation.navigate('Main1')
  }
@@ -32,6 +67,29 @@ export default class Group extends Component {
  onPressCreateNewGroup() {
   this.props.navigation.navigate('CreateNewGroup')
 }
+onFocusFunction = async () => {
+  const email_store = await AsyncStorage.getItem('@email');
+
+  this.setState({ email: email_store })
+  Name={
+    email:this.state.email
+  }
+  this.update()
+}
+  
+
+
+
+async update(){
+  await this.group.update();
+
+}
+ componentDidMount(){
+  this.onFocusFunction();
+
+  // console.log(Name.email)
+
+ }
     render() {
         return (
             <Container>
@@ -66,13 +124,25 @@ export default class Group extends Component {
 
           <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
 
-          <Text style={{fontSize:20 , color:'#666666', marginLeft:'10%',marginTop:'5%', fontWeight:'bold'}}>My Group</Text>
+          <Text style={{fontSize:25 , color:'#666666', marginLeft:'5%',marginTop:'10%', fontWeight:'bold'}}>My Group</Text>
 
-          <TouchableOpacity  style={{flex:0.2,marginTop:20,backgroundColor:'#ffffff',alignItems: 'center',justifyContent: 'center',}}>
+          {/* <TouchableOpacity  style={{flex:0.2,marginTop:20,backgroundColor:'#ffffff',alignItems: 'center',justifyContent: 'center',}}>
                   <Text style={{fontSize:18 , color:'#D4D4D4'}}>Haven’t joined any group yet</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+           <View style={{flex:1,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
+                          <ScrollView style={{flex:1,flexDirection:'column',backgroundColor:'#transparent',marginTop:"5%"}}>
+                              
+                                <Items_Group
+                                     ref={group => (this.group = group)}
+                                    // onPressTodo={this.delete_Complete}
+                                    // onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
+                                    // onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                                      />
 
-          <View style={{flex:0.08,flexDirection: 'row',justifyContent:'center', alignItems:'center', marginLeft:'10%'}}>
+                          </ScrollView>
+                      </View>
+
+          {/* <View style={{flex:0.08,flexDirection: 'row',justifyContent:'center', alignItems:'center', marginLeft:'10%'}}>
             <View style={{flex:4,}}>
             <Text style={{fontSize:20 , color:'#666666',  fontWeight:'bold'}}>More Group</Text>
             </View>
@@ -124,7 +194,7 @@ export default class Group extends Component {
                     <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>Join</Text>
                   </View>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
 
             <View>
@@ -132,7 +202,7 @@ export default class Group extends Component {
 
                   <Dialog.Title>Join Group</Dialog.Title>
                   <Dialog.Description>Enter the group code</Dialog.Description>
-                  <Dialog.Input />
+                  <Dialog.Input    onChangeText={Group => this.setState({Group})} />
                   <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
                   <Dialog.Button label="Join"  color="#6F41E9" onPress={this.handleDelete} />
                   

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,AsyncStorage} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
 import * as ImagePicker from 'expo-image-picker';
+import database from './Database'
 
 
 
@@ -13,17 +14,22 @@ export default class CreateNewGroup extends Component {
   state = {
     imageuri: 'https://sv1.picz.in.th/images/2020/02/26/xuP1s9.png',
     uploaduri: 'https://sv1.picz.in.th/images/2020/02/26/xuP1s9.png',
+    uri:'',
     txtButton: '',
     id: '',
     progress: 0,
     indeterminate: true,
     text: null,
+    email:'',
+    group:'',
+    des:''
   };
+  
 
   componentDidMount() {
 
     this.animate();
-
+    this.onFocusFunction();
 
   }
 
@@ -47,14 +53,53 @@ export default class CreateNewGroup extends Component {
   onFocusFunction = async () => {
     const email_store = await AsyncStorage.getItem('@email');
 
-    this.setState({ id: email_store })
+    this.setState({ email: email_store })
+    this.setState({id:email_store})
 
   }
+  async addGroup_success(){
+    
+  console.log("success")
+    
+    
+    // User={
+    //   Email:this.state.email
+    // }
+    // await database.createGroupUser(User,this.state.group,this.add_CreateGroupUserSuccess,this.add_CreateGroupUserFail)
+    // await database.createGroupUser(this.state.email,this.state.group,this.add_CreateGroupUserSuccess,this.add_CreateGroupUserFail)
+  }
+  
+  // async createUser(){
+  //     User={
+  //     email:this.state.email
+  //   }
+  //   await database.createGroupUser(User,this.state.group,this.add_CreateGroupUserSuccess,this.add_CreateGroupUserFail)
+  // }
+  addGroup_fail(){
+    console.log("fail")
+  }
+  add_CreateGroupUserSuccess(){
+    // this.onPressBack()
+    console.log("success")
 
+  }
+  add_CreateGroupUserFail(){
+    console.log("fail")
+  }
 
-  onPressOK = () => {
-    database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
-    console.log(this.state.imageuri)
+  onPressOK =async () => {
+    // this.setState({group:text})
+    AdminGroup={
+      AdminGroup: this.state.email,
+      uri:''
+
+    }
+    
+    await database.createGroup(AdminGroup,this.state.group,this.addGroup_success,this.addGroup_fail)
+    
+    await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
+    this.textInput.clear()
+    // console.log(this.state.imageuri)
 
   };
 
@@ -64,18 +109,27 @@ export default class CreateNewGroup extends Component {
     // await database.addImage(this.state.id,url,this.add_success,this.add_fail)
     // this.setState({txtButton:"Success"});
 
+
     this.addURL()
 
   }
   addURL = async () => {
 
-    database.addImage(this.state.id, this.state.uploaduri, this.add_success, this.add_fail)
+    await database.addImageGroup(this.state.group, this.state.uploaduri, this.add_success, this.add_fail)
+    await database.readImgGroup(this.state.group,this.state.email,this.update_S,this.update_F)
     this.setState({ txtButton: "Success" });
+  }
+  update_S(){
+    this.props.navigation.navigate('Group')
+  }
+  update_F(){
+    console.log("Fail")
   }
   add_success = async (error) => {
 
-    await AsyncStorage.setItem('@uri', this.state.uploaduri);
+  
     Alert.alert("Add Avatar Success");
+    this.props.navigation.navigate('Group')
   }
   add_fail = async (error) => {
     Alert.alert("Add Avatar Fail");
@@ -112,7 +166,8 @@ export default class CreateNewGroup extends Component {
   onPressBack(){
     this.props.navigation.navigate('Group')
  }
- onChangeText = text => this.setState({ text });
+ onChangeText = group => this.setState({ group });
+ onChangeDes = des => this.setState({des});
 
     render() {
         return (
@@ -127,7 +182,7 @@ export default class CreateNewGroup extends Component {
                 <Title>Create New Group</Title>
               </View>
               
-              <TouchableOpacity>
+              <TouchableOpacity   onPress={()=>this.onPressOK()}>
                 <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
                   {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
                   <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
@@ -153,14 +208,16 @@ export default class CreateNewGroup extends Component {
                   <Image
                     style={styles.imgStyles}
                     source={{ uri: this.state.imageuri }}
-                    source={{ uri: this.state.uploaduri }} />
+                    />
                 </TouchableOpacity>
               </View>
-                    <TextInput style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
+                    <TextInput ref={input => { this.textInput = input }}  style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
             </View>
 
             <View  style={{flex:0.3,marginTop:'7%',backgroundColor:'#ffffff'}}>
-                    <TextInput style={styles.txtIn3} placeholder="Description..." onChangeText={this.onChangeText} />
+                    <TextInput style={styles.txtIn3} placeholder="Description..." onChangeText={this.onChangeDes}
+                     
+                      />
             </View>
           
 
@@ -299,14 +356,15 @@ const styles = StyleSheet.create({
   },
 
   imgStyles: {
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
     alignItems: 'center',
     margin: '10%',
     flex:1,
+    borderRadius:90
     // backgroundColor:'black',
     // margin:20,
-    padding:10,
+    // padding:10,
     
 
   },

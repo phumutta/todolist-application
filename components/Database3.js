@@ -152,6 +152,12 @@ class Database{
 
 }
 
+async createGroup(user,group,add_Success,add_Fail){
+  firebase.firestore().collection("Group").doc(group).collection("user").doc(user).then(()=>{
+    add_Success()
+  },add_Fail);
+}
+
 
 //   async addMessage(message,add_Message_success,add_Message_fail)
 //    {

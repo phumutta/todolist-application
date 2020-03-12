@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View,Alert,TouchableOpacity, Image} from 'react-native';
-
+import { StyleSheet, Text, View,Alert,TouchableOpacity, Image,AsyncStorage} from 'react-native';
+import database from './Database'
 export default class First extends React.Component {
 
-
+  state={
+    email:'',
+    password:''
+  };
   onPressLogin()
   {
     this.props.navigation.navigate('Login')
@@ -11,6 +14,33 @@ export default class First extends React.Component {
 
   onPressRegister(){
     this.props.navigation.navigate('Register')
+  }
+  async login(){
+    await database.login(account,this.login_success,this.login__fail);
+  }
+  componentDidMount(){
+    this.setState({email:AsyncStorage.getItem('@email')})
+    this.setState({password:AsyncStorage.getItem('@pwd')})
+    account={
+      email:this.state.email,
+      password:this.state.password,
+    }
+    console.log(account)
+
+    // if(this.state.email !==null ){
+    //   this.login()   
+    //  }
+  }
+  login_success=async()=>{
+   
+   
+    Alert.alert("Login Success");
+
+  
+
+  }
+  login__fail=async(error)=>{
+   
   }
 
   render() {

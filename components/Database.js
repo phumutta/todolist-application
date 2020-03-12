@@ -1,5 +1,7 @@
 import * as firebase from 'firebase';
 import '@firebase/firestore';
+import { Alert } from 'react-native';
+import { createPortal } from 'react-dom';
 
 
 const config = {
@@ -116,7 +118,7 @@ class Database{
     }
   }
 
-
+  
 
   async createAccount(Account,add_Account_success,add_Account_fail)
   {
@@ -143,6 +145,26 @@ class Database{
       console.log("ADDDDDDDDDDDDDDDDDDDD")
       
       await firebase.firestore().collection("Account").doc(id).update({uri:url})
+      add_Account_success();
+    } catch (e) {
+      add_Account_fail();
+    } finally {
+
+    }
+
+  }
+
+  async addImageGroup(id,url,add_Account_success,add_Account_fail)
+  {
+    //set ชื่อ doc
+    
+    try {
+      console.log("ADDDDDDDDDDDDDDDDDDDD")
+      let IMG={
+        url:url
+      }
+      
+      await firebase.firestore().collection("Group").doc(id).update({uri:url})
       add_Account_success();
     } catch (e) {
       add_Account_fail();
@@ -200,6 +222,158 @@ class Database{
 
     });
   }
+ 
+  async createGroup(AdminGroup,group,add_Success,add_Fail){
+    let array=[]
+    let Name ={
+      email:AdminGroup.AdminGroup,
+      id:group,
+      uri:''
+    }
+    await firebase.firestore().collection("Group").get().then(snapshot=>{
+      if(snapshot.emtry)
+      {
+        console.log("ReadFail")
+        add_Fail();
+        return;
+      }
+
+      let state =0;
+      snapshot.forEach(async doc=>{
+        console.log("Read")
+        array.push(doc.id)
+        console.log(doc.id)
+        // array.push(Object.values(doc.data()))
+        // array.push(doc.data())
+        // read_Message_success(doc.data())
+        if (doc.id == group){
+          state=1
+        }
+        
+        
+        })
+        if (state ==0){
+          firebase.firestore().collection("Group").doc(group).set(AdminGroup).then(async()=>{
+            await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(AdminGroup)
+            await firebase.firestore().collection("Account").doc(AdminGroup.AdminGroup).collection("Group").doc(group).set(Name)
+          },add_Fail());
+        }
+
+    })
+    // await firebase.firestore().collection("Group").doc(group).set(AdminGroup).then(async ()=>{
+    //   await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(AdminGroup)
+    // },add_Fail());
+  }
+  // async createGroupUser(user,group,add_Success,add_Fail){
+  //   await firebase.firestore().collection("Group").doc(group).collection("user").doc(user).set(user).then(()=>{
+  //     add_Success()
+  //   },add_Fail);
+  // }
+  async readMyGroup(user,read_suc,read_fail){
+    await firebase.firestore().collection("Account").doc(user).collection("Group").get().then(snapshot=>{
+      if(snapshot.empty){
+        console.log("ReadFail")
+        read_fail();
+        return;
+      }
+      let array=[]
+      snapshot.forEach(async doc=>{
+        array.push(doc.data())
+        console.log(doc.id)
+      })
+      read_suc(array)
+
+    })
+    .catch(read_fail())
+  }
+
+  async readImgGroup(name,id,read_Success,read_Fail){
+    await firebase.firestore().collection("Group").get().then(snapshot=>{
+      if(snapshot.empty){
+        console.log("readFail")
+        read_Fail()
+        return;
+      }
+      
+      snapshot.forEach(async doc=>{
+    
+        console.log(doc.data().uri)
+        if (doc.id==name){
+        await firebase.firestore().collection("Account").doc(id).collection("Group").doc(name).update({uri:doc.data().uri})
+        }
+      })
+     
+
+    })
+  }
+
+  
+  async joinGroup(name,id,add_Success,add_Fail){
+    console.log(name)
+    let array=[]
+    let Name={
+      email:name.email,
+      id:id,
+      uri:''
+    }
+    await firebase.firestore().collection("Group").get().then(snapshot=>{
+      if(snapshot.emtry)
+      {
+        console.log("ReadFail")
+        add_Fail();
+        return;
+      }
+      let state =0;
+      snapshot.forEach(async doc=>{
+        console.log("Read")
+        array.push(doc.id)
+        console.log(doc.id)
+        // array.push(Object.values(doc.data()))
+        // array.push(doc.data())
+        // read_Message_success(doc.data())
+        if(doc.id == id){
+          await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(async ()=>{
+            console.log("HERE")
+            console.log(id)
+            await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).set(Name)
+            state=1;
+            },add_Fail());
+
+        }
+        
+        
+        })
+        if (state==0){
+          
+            Alert.alert("don't have this Group")
+          
+        }
+
+      
+   
+       
+    })
+    .catch(add_Fail());
+    // await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(()=>{
+    //   add_Success()
+    // },add_Fail());
+  }
+
+  async addGroupUser(name,id,add_Success,add_Fail){
+    await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(()=>{
+      add_Success()
+    },add_Fail());
+  }
+
+  async addGroupAccount(name,id,add_Success,add_Fail){
+    console.log(name)
+    await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).set(name).then(()=>{
+      add_Success()
+    },add_Fail());
+  }
+  async readGroup(id,email,add_Success,add_Fail){
+    // await firebase.firestore().collection("Group").
+  }
 
   async uploadImage(id,uri, success_callback, fail_callback,uploading_callback)
   {
@@ -207,6 +381,28 @@ class Database{
     const blob =await response.blob();
 
     var uploadTask=firebase.storage().ref('avatar').child(id).put(blob);
+
+        uploadTask.on('state_changed', function(snapshot){
+
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      uploading_callback(progress)
+
+    }, function(error) {
+      fail_callback(error.message);
+    }, function() {
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      success_callback(downloadURL);
+        //console.log('File available at', downloadURL);
+      });
+    });
+  }
+  async uploadImageGroup(id,uri, success_callback, fail_callback,uploading_callback)
+  {
+    const response =await fetch(uri);
+    const blob =await response.blob();
+
+    var uploadTask=firebase.storage().ref('Group').child(id).put(blob);
 
         uploadTask.on('state_changed', function(snapshot){
 
