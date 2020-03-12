@@ -34,19 +34,19 @@ export default class Group extends Component {
    
     console.log("READIMG")
     console.log(this.state.Group)
-    this.update();
+    this.group.update();
     this.setState({ dialogVisible: false });
     
   };
   async join_success(){
-    this.update();
+    this.group.update();
    console.log("Success")
    
   //  await database.readImgGroup(this.state.group,this.state.email,this.update_S,this.update_F)
   
  }
  update_S(){
-  this.update();
+  this.group.update();
     
   console.log("Success")
 
@@ -92,8 +92,8 @@ onFocusFunction = async () => {
 
 
 
-async update(){
-  await this.group.update();
+update(){
+   this.group.update();
 
 }
  componentDidMount(){
@@ -135,8 +135,11 @@ async update(){
 
 
           <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
-
+          <View  >
           <Text style={{fontSize:25 , color:'#666666', marginLeft:'5%',marginTop:'10%', fontWeight:'bold'}}>My Group</Text>
+
+          </View>
+          
           
 
           {/* <TouchableOpacity  style={{flex:0.2,marginTop:20,backgroundColor:'#ffffff',alignItems: 'center',justifyContent: 'center',}}>

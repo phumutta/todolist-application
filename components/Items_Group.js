@@ -79,7 +79,7 @@ export default class Items_Group extends React.Component {
         <TouchableOpacity key={id} style={{flex:1,backgroundColor:'#ffffff',alignItems: 'flex-start',justifyContent: 'center'}}>
                   <Text style={{fontSize:30 , color:'#000000',marginLeft:'3%'}}>{id}</Text>
         </TouchableOpacity>
-
+        
       </TouchableOpacity>
 
       
