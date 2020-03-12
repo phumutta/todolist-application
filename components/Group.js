@@ -31,17 +31,28 @@ export default class Group extends Component {
     console.log(this.state.email)
     // await database.addGroupAccount(Name,this.state.Group,this.join_success,this.join_fail)
     await database.joinGroup(Name,this.state.Group,this.join_success,this.join_fail)
+   
+    console.log("READIMG")
     console.log(this.state.Group)
+    this.update();
     this.setState({ dialogVisible: false });
+    
   };
   async join_success(){
+    this.update();
    console.log("Success")
-   await database.readImgGroup(this.state.group,this.state.email,this.update_S,this.update_F)
+   
+  //  await database.readImgGroup(this.state.group,this.state.email,this.update_S,this.update_F)
+  
  }
  update_S(){
+  this.update();
+    
   console.log("Success")
+
  }
  update_F(){
+  
   console.log("Fail")
  }
   // async join_success(array){
@@ -58,6 +69,7 @@ export default class Group extends Component {
   //   console.log("Fail")
   // }
   join_fail(){
+    
     console.log("Fail")
   }
   onPressBack(){
@@ -74,7 +86,7 @@ onFocusFunction = async () => {
   Name={
     email:this.state.email
   }
-  this.update()
+  this.update();
 }
   
 
@@ -125,6 +137,7 @@ async update(){
           <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
 
           <Text style={{fontSize:25 , color:'#666666', marginLeft:'5%',marginTop:'10%', fontWeight:'bold'}}>My Group</Text>
+          
 
           {/* <TouchableOpacity  style={{flex:0.2,marginTop:20,backgroundColor:'#ffffff',alignItems: 'center',justifyContent: 'center',}}>
                   <Text style={{fontSize:18 , color:'#D4D4D4'}}>Haven’t joined any group yet</Text>
