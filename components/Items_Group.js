@@ -70,36 +70,24 @@ export default class Items_Group extends React.Component {
    
     return (
       <View>
-      {items.map (({id, email,uri}) => (
 
+          {items.map (({id, email,uri}) => (
 
-    
-      // <TouchableOpacity style={{height:75,flexDirection:"row",backgroundColor:"#ffffff",marginTop:"2%"}}>
-      //     <TouchableOpacity style={{ flex:1, alignContent: 'center',justifyContent: 'center',marginLeft: "5%"}}>
-      //        <Image style={{  alignContent: 'center',alignItems: 'center',justifyContent: 'center',marginLeft: "5%", width: 65, height: 65,borderRadius:10 }} source={{ uri: uri }} />   
-      //     </TouchableOpacity>
-      //     <TouchableOpacity key={id} style={{flex:3, backgroundColor:'#000000',alignItems: 'flex-start',justifyContent: 'center', alignContent:'center'}}>
-      //         <Text style={{fontSize:30 , color:'#ffffff',marginLeft:'3%'}}>{id}</Text>
-      //     </TouchableOpacity>
-
-      // </TouchableOpacity>
-
-      <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
-        <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:'uri'}}/>
-          <View style={{flex:1, flexDirection: 'column'}} >
-            <Text style={{fontSize:18,color:'#171D33',marginLeft:2,marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
-            <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>Created by Oat Phattaraphon</Text>
-          </View>
-          <TouchableOpacity style={{marginRight:'8%'}}>
-            <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-              <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>More</Text>
+            <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
+            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:'uri'}}/>
+              <View style={{flex:1, flexDirection: 'column'}} >
+                <Text style={{fontSize:18,color:'#171D33',marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
+                <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by Phattaraphon.c@ku.th</Text>
+              </View>
+              <TouchableOpacity style={{marginRight:'8%'}}>
+                <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
+                  <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>More</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-      </View>
 
+          ))}
 
-      
-      ))}
       </View>
 
       // <View style={{flex:0.125,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
