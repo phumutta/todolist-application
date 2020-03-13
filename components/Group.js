@@ -102,6 +102,10 @@ async update(){
 
   // console.log(Name.email)
  }
+ onPressMore(id){
+  AsyncStorage.setItem('@group',id);
+  this.props.navigation.navigate('GroupDetail', { name: 'GroupDetail' })
+ }
 
 
     render() {
@@ -129,11 +133,11 @@ async update(){
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>this.onPressGroupDetail()}>
+                {/* <TouchableOpacity onPress={()=>this.onPressGroupDetail()}>
                   <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center'}}>
                     <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
               </Header>
 
@@ -147,7 +151,9 @@ async update(){
                         
                           <Items_Group
                                 ref={group => (this.group = group)}
-                              // onPressTodo={this.delete_Complete}
+                                 onPressTodo={(id)=>{
+                                    AsyncStorage.setItem('@group',id);
+                                   this.props.navigation.navigate('GroupDetail', { name: 'GroupDetail' })}}
                               // onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
                               // onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
                                 />

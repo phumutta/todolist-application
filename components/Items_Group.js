@@ -20,7 +20,7 @@ import { Card } from 'react-native-shadow-cards';
 import TouchableScale from 'react-native-touchable-scale';
 // import LinearGradient from 'react-native-linear-gradient';
 
-export default class Items_Group extends React.Component {
+export default class Items_GroupNew extends React.Component {
   state = {
     items: [],
     email: '',
@@ -71,15 +71,15 @@ export default class Items_Group extends React.Component {
     return (
       <View>
 
-          {items.map (({id, email,uri}) => (
+          {items.map (({id, email,uri,admin}) => (
 
             <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
             <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:'uri'}}/>
               <View style={{flex:1, flexDirection: 'column'}} >
                 <Text style={{fontSize:18,color:'#171D33',marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
-          <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {email}</Text>
+          <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {admin}</Text>
               </View>
-              <TouchableOpacity style={{marginRight:'8%'}}>
+              <TouchableOpacity style={{marginRight:'8%'}} onPress={() => { this.props.onPressTodo(id) }}>
                 <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
                   <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>More</Text>
                 </View>

@@ -3,18 +3,18 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput, Scro
 import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-shadow-cards';
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input, Thumbnail} from 'native-base';
-import Items2 from './Items2'
+import Items_GroupNew from './Items_GroupNew'
 import database2 from './Database2'
 import Constants from "expo-constants";
 import ActionButton from 'react-native-action-button';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
-import database from './Database3';
+import database from './Database';
 // import { Block, Button, Card, Icon, Input, NavBar, Text } from 'galio-framework';
 // import { Avatar } from 'monalisa-ui';
 import { Avatar } from 'react-native-elements';
 import CalendarStrip from 'react-native-calendar-strip';
-
+import Dialog from "react-native-dialog";
 
 
 export default class GroupDetail extends React.Component {
@@ -27,8 +27,44 @@ export default class GroupDetail extends React.Component {
     Priority:'',
     name: '',
     last: '',
-    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png"
+    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
+    group:'',
+    dialogVisible: false,
   };
+
+  showDialog = () => {
+    this.setState({ dialogVisible: true });
+  };
+ 
+  handleCancel = () => {
+    this.setState({ dialogVisible: false });
+  };
+ 
+  handleDelete = async() => {
+    // The user has pressed the "Delete" button, so here you can do your own logic.
+    // ...Your logic
+    
+    
+    this.setState({ dialogVisible: false });
+    Message={
+      message:this.state.message, 
+      user:this.state.email,
+      time:this.state.time,
+      status:'1',
+      uri:this.state.uri
+    }
+    await database.addGroupMessage(this.state.group,Message,this.addMessage_Success,this.addMessage_Fail)
+    this.Task.update();
+    
+  };
+  addMessage_Success(){
+    this.Task.update();
+    console.log("Success")
+  }
+  addMessage_Fail(){
+    this.Task.update();
+    console.log("Fail")
+  }
 
 //   onFocusFunction = async () => {
 
@@ -83,7 +119,9 @@ export default class GroupDetail extends React.Component {
 
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
-  this.update()
+  this.setState({group:await AsyncStorage.getItem('@group')})
+  this.setState({uri:await AsyncStorage.getItem('@uri')});
+  this.Task.update();
 }
 // update (){
 //   this.todo.update();
@@ -125,82 +163,10 @@ componentDidMount(){
 
 onChangeText = message => this.setState({ message });
 
-onPressAdd = async() => {
-    await this.addText();
-    this.setState({ text:null});
-    this.textInput.clear() 
-};
 
-addText=async()=>{
-  
-  Message={
-    message:this.state.message,
-    time: this.state.time,
-    Date:this.state.Date,
-    status:'1',
-    CountTask:'',
-    Countall:'',
-    CountComplete:'',
-    id:'',
 
-  }
-  
-  console.log(this.state.email)
-  await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
-
-}
-
-addMessageSuccess=async(id)=>{
-    console.log("Successsssssssss");
-    await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
-    this.todo.update()
-    // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
-
-    console.log("Successsssssssss");
-    await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
-    this.update();
-    // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
-
-}
-
-addMessageFail=async()=>{
-    console.log("addMessageFail");
-}
-
-async updateSuccess(){
-    console.log("updateID");
-    this.todo.update()
-}
-
-updateFail(){
-    console.log("FailUpdate");
-}
-
-delete_Complete=async (id)=>{
-    await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
-    // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
-    //this.onPressTrack();
-    this.todo.update()
-}
-
-deleteSuccess(){
-    console.log("del success")
-}
-
-deleteFail(){
-    console.log("del fail")
-}
-  
-readMessageSuccess=async(doc)=>{
-  console.log("message :" +doc.message);
-}
-
-readMessageFail=async()=>{
-    console.log("read F");
-}
-
-async update(){
-    await this.todo.update();
+ update(){
+     this.Task.update();
 };
 
 onPressBack(){
@@ -226,7 +192,7 @@ onPressEdit(){
             </Button>
           </View>
           <View style={styles.MainContainer2}>
-            <Title>Group Details</Title>
+            <Title>{this.state.group}</Title>
           </View>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
             <Image style={{ width: 20, height: 20 }}
@@ -328,6 +294,17 @@ onPressEdit(){
 
               </View>
             </Card>
+            <View>
+                      <Dialog.Container visible={this.state.dialogVisible} >
+
+                        <Dialog.Title>Add Task</Dialog.Title>
+                        <Dialog.Description>Add a new task for this group</Dialog.Description>
+                        <Dialog.Input    onChangeText={message => this.setState({message})} />
+                        <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
+                        <Dialog.Button label="Add"  color="#6F41E9" bold="10" onPress={this.handleDelete} />
+                        
+                      </Dialog.Container>
+                  </View>
 
 
             
@@ -339,11 +316,10 @@ onPressEdit(){
                       <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
                           <ScrollView style={styles.listArea}>
                                 
-                                <Items2
-                                    ref={todo => (this.todo = todo)}
+                                <Items_GroupNew
+                                    ref={Task => (this.Task = Task)}
                                     onPressTodo={this.delete_Complete}
-                                    onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
-                                    onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                                   
                                       />
 
                           </ScrollView>
@@ -361,15 +337,10 @@ onPressEdit(){
             </Card>
 
               <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
-                 <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() =>  this.props.navigation.navigate('AddTask')}>
+                 <ActionButton.Item buttonColor='#000000' title="New Task" onPress={this.showDialog}>
                   <Icon name="md-create" style={{color:'white'}} />
                 </ActionButton.Item>
-                {/* <ActionButton.Item buttonColor='#CCCCCC' title="Today" onPress={() =>  this.props.navigation.navigate('Today')}>
-                  <Icon name="md-home" style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#ffffff' title="Tomorrow" onPress={() =>  this.props.navigation.navigate('Tomorrow')}>
-                  <Icon name="md-home" style={styles.actionButtonIcon} />
-                </ActionButton.Item> */}
+                
                 <ActionButton.Item buttonColor='#ffffff' title="Home" onPress={() =>  this.props.navigation.navigate('Main1')}>
                   <Icon name="md-home" style={styles.actionButtonIcon} />
                 </ActionButton.Item>

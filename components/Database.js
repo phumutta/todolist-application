@@ -300,7 +300,7 @@ class Database{
     
         console.log(doc.data().uri)
         if (doc.id==name){
-
+        await firebase.firestore().collection("Account").doc(id).collection("Group").doc(name).update({admin:doc.data().AdminGroup})
         await firebase.firestore().collection("Account").doc(id).collection("Group").doc(name).update({uri:doc.data().uri}).then(()=>{
           console.log("ADD URI")
         })
@@ -310,6 +310,33 @@ class Database{
 
     })
   }
+  async addGroupMessage(group,Message,add_Message_success,add_Message_fail){
+    await firebase.firestore().collection("Group").doc(group).collection("Task").add(Message).then(ref=>{add_Message_success(ref.id)},add_Message_fail)
+  }
+  async readMessageGroup(group,read_Message_success,read_Message_fail){
+    let array=[]
+    let query= await firebase.firestore().collection("Group").doc(group).collection("Task").where('status','==','1').orderBy('time');
+    query.get().then(snapshot=>{
+      if(snapshot.emtry)
+      {
+
+        read_Message_fail();
+        return;
+      }
+      snapshot.forEach(doc=>{
+        // console.log(doc.data())
+        // array.push(Object.values(doc.data()))
+        array.push(doc.data())
+        // read_Message_success(doc.data())
+        
+        })
+        read_Message_success(array)
+    })
+    .catch(read_Message_fail());
+
+  
+
+ }
 
   
   async joinGroup(name,id,add_Success,add_Fail){
@@ -318,7 +345,8 @@ class Database{
     let Name={
       email:name.email,
       id:id,
-      uri:''
+      uri:'',
+      admin:''
     }
     await firebase.firestore().collection("Group").get().then(snapshot=>{
       if(snapshot.emtry)
@@ -342,6 +370,7 @@ class Database{
             console.log(id)
             
             await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).set(Name)
+            await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).update({admin:doc.data().AdminGroup})
             await firebase.firestore().collection("Account").doc(name.email).collection("Group").doc(id).update({uri:doc.data().uri}).then(()=>{
               add_Success()
             },add_Fail())

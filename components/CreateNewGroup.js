@@ -208,6 +208,7 @@ export default class CreateNewGroup extends Component {
                   <Image
                     style={styles.imgStyles}
                     source={{ uri: this.state.imageuri }}
+                    
                     />
                 </TouchableOpacity>
               </View>
