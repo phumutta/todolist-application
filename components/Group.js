@@ -110,7 +110,7 @@ async update(){
               <Header >
                 <View style = { styles.MainContainer1}>
                   <Button transparent onPress={()=>this.onPressBack()}>
-                      <Icon name='close' style={{color:'#DBDBDB'}} />
+                      <Icon name='ios-arrow-back' style={{color:'#DBDBDB'}} />
                   </Button>
                 </View>
                 <View style = { styles.MainContainer2 }>
