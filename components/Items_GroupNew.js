@@ -16,7 +16,7 @@ import * as SQLite from 'expo-sqlite';
 import database from './Database';
 
 import { Card } from 'react-native-shadow-cards';
-import Tomorrow from "./Tomorrow";
+// import Tomorrow from "./Tomorrow";
 import { Avatar } from 'react-native-elements';
 
 
@@ -103,8 +103,6 @@ export default class Items_GroupNew extends React.Component {
       case "Dec":
         TomorrowMonth="12"
         break;
-      
-
 
     }
     this.setState({ Tomorrow: TomorrowYear + '-' + TomorrowMonth + '-' + TomorrowDate })
@@ -112,23 +110,15 @@ export default class Items_GroupNew extends React.Component {
   }
 
   get_text_success = async (arr) => {
-
-
-
     this.setState({ items: arr })
-
   }
 
   get_text_fail = async (error) => {
     // console.log(error);
   }
 
-
-
-
   update() {
     database.readMessageGroup(this.state.group,this.get_text_success, this.get_text_fail);
-
   }
 
   render() {
@@ -143,57 +133,40 @@ export default class Items_GroupNew extends React.Component {
     console.log(items)
     return (
 
-      <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column', justifyContent: 'center', backgroundColor: "#transparent", alignContent: 'center', }}>
+
+      <View style={{flex:1, alignItems:'center', flexDirection:'column', justifyContent:'center', backgroundColor:"transparent", }}>
+
         {items.map(({ date, id, message, time,user ,uri}) => (
 
-
-          <Card style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 20, marginTop: 12, padding:10}} >
-            {/*    
-           ใส่ปุ่มบริเวณนี้       
-                  */}
-
+          <Card style={{ flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:20, marginTop:12, padding:10}} >
 
             <TouchableOpacity
-              key={id}
-              onPress={() => this.props.onPressTodo(id)}
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: '#DADADA',
-                //   borderWidth: 1,
-                padding: 8,
-                borderRadius: 10
-              }}
-            >
-              <Image style={{ marginLeft: "5%", width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
+              // key={id}
+              // onPress={() => this.props.onPressTodo(id)}
+              style={{backgroundColor: 'transparent', borderColor: '#DADADA', padding:8, borderRadius:10 }} >
 
+              <Image style={{ marginLeft:"5%", width:25, height:25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
             </TouchableOpacity>
 
-
-            <View style={{ flex: 1, marginLeft: "1%" }}>
-              <Text style={{ color: "#000",fontSize: 18, }} >{message}</Text>
-              <Text style={{ color: "#C4C4C4", marginTop:'2%'}}>Created by {user}</Text>
+            <View style={{ flex:1, marginLeft:"1%" }}>
+              <Text style={{ color:"#000000", fontSize:18, }}>{message}</Text>
+              <Text style={{ color:"#C4C4C4", marginTop:'2%'}}>Created by {user}</Text>
             </View>
 
             <TouchableOpacity
-
               // onPress={() => { this.props.onPressTodo2(id) }}
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: '#DADADA',
-                //   borderWidth: 1,
-                padding: 8,
-                borderRadius: 10
-
-              }}
-            >
+              style={{backgroundColor:'transparent', borderColor:'#DADADA', padding:8, borderRadius:10}} >
+                
               <View>
                 <Avatar rounded containerStyle={{marginLeft:'5%'}} source={{uri:uri}}/>
               </View>
+
             </TouchableOpacity>
 
           </Card>
 
         ))}
+        
       </View>
     );
   }
