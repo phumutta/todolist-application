@@ -179,31 +179,22 @@ export default class CreateNewGroup extends Component {
     render() {
         return (
             <Container>
-            <Header >
-              <View style = { styles.MainContainer1}>
-                <Button transparent onPress={()=>this.onPressBack()}>
-                    <Icon name='ios-arrow-back' style={{color:'#DBDBDB'}} />
-                </Button>
-              </View>
-              <View style = { styles.MainContainer2 }>
-                <Title>Create New Group</Title>
-              </View>
-              
-              <TouchableOpacity   onPress={()=>this.onPressOK()}>
-                <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
-                  {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
-                  <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
+              <Header >
+                <View style = { styles.MainContainer1}>
+                  <Button transparent onPress={()=>this.onPressBack()}>
+                      <Icon name='ios-arrow-back' style={{color:'#DBDBDB'}} />
+                  </Button>
                 </View>
-              </TouchableOpacity>
-
-            </Header>
-            {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
-            {/* <TouchableOpacity
-            
-            onPress={this.onPressOK}>
-            <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
-          </TouchableOpacity> */}
-
+                <View style = { styles.MainContainer2 }>
+                  <Title>Create New Group</Title>
+                </View>
+                <TouchableOpacity   onPress={()=>this.onPressOK()}>
+                  <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
+                    {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
+                    <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
+                  </View>
+                </TouchableOpacity>
+              </Header>
 
 
 
@@ -212,27 +203,18 @@ export default class CreateNewGroup extends Component {
             <View  style={{flex:0.2,marginTop:'7%',backgroundColor:'#ffffff',justifyContent: 'center',flexDirection:'row'}}>
               <View style={{ alignItems: 'center'}}>
                 <TouchableOpacity onPress={this.pickImage}>
-                  <Image
-                    style={styles.imgStyles}
-                    source={{ uri: this.state.imageuri }}
-                    
-                    />
+                  <Image style={styles.imgStyles} source={{ uri: this.state.imageuri }} />
                 </TouchableOpacity>
               </View>
-                    <TextInput ref={input => { this.textInput = input }}  style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
+              <TextInput ref={input => { this.textInput = input }}  style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
             </View>
 
             <View  style={{flex:0.3,marginTop:'7%',backgroundColor:'#ffffff'}}>
-                    <TextInput style={styles.txtIn3} placeholder="Description..." onChangeText={this.onChangeDes}
-                     
-                      />
+              <TextInput style={styles.txtIn3} placeholder="Description..." onChangeText={this.onChangeDes} />
             </View>
+
+          </View>
           
-
-
-
-        </View>
-
         </Container>
 
     );
