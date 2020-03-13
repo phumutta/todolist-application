@@ -70,8 +70,8 @@ export default class Items_Group extends React.Component {
           <TouchableOpacity style={{ flex:1, alignContent: 'center',justifyContent: 'center',marginLeft: "5%"}}>
              <Image style={{  alignContent: 'center',alignItems: 'center',justifyContent: 'center',marginLeft: "5%", width: 65, height: 65,borderRadius:10 }} source={{ uri: uri }} />   
           </TouchableOpacity>
-          <TouchableOpacity key={id} style={{flex:3, backgroundColor:'#000000',alignItems: 'flex-start',justifyContent: 'center', alignContent:'center'}}>
-              <Text style={{fontSize:30 , color:'#ffffff',marginLeft:'3%'}}>{id}</Text>
+          <TouchableOpacity key={id} style={{flex:3, backgroundColor:'#ffffff',alignItems: 'flex-start',justifyContent: 'center', alignContent:'center'}}>
+              <Text style={{fontSize:30 , color:'#666666',marginLeft:'3%'}}>{id}</Text>
           </TouchableOpacity>
 
       </TouchableOpacity>

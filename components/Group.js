@@ -135,9 +135,14 @@ update(){
 
 
           <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
-          <View  >
+          <View  style={{flexDirection:'row'}}>
           <Text style={{fontSize:25 , color:'#666666', marginLeft:'5%',marginTop:'10%', fontWeight:'bold'}}>My Group</Text>
-
+          <TouchableOpacity style={{marginTop:'12%'}} onPress={()=>this.update()}>
+            
+              <Image style={{width:20,height:20}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHllzZ.png'}}/>
+              
+            
+          </TouchableOpacity>
           </View>
           
           
