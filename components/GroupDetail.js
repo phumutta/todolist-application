@@ -40,7 +40,7 @@ export default class GroupDetail extends React.Component {
     this.setState({ dialogVisible: false });
   };
  
-  handleDelete = async() => {
+  handleAdd = async() => {
     // The user has pressed the "Delete" button, so here you can do your own logic.
     // ...Your logic
     
@@ -187,12 +187,12 @@ onPressEdit(){
     return (
       <Container>
         <Header>
-          <View style={styles.MainContainer1}>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', right: 10}}>
             <Button transparent onPress={() => this.onPressGroup()}>
               <Icon name='ios-arrow-back' style={{ color: '#DBDBDB' }} />
             </Button>
           </View>
-          <View style={styles.MainContainer2}>
+          <View style={{flex: 4, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
             <Title>{this.state.group}</Title>
           </View>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
@@ -203,49 +203,25 @@ onPressEdit(){
         </Header>
 
 
-        <LinearGradient
-          colors={['#FFFFFF', '#FFFFFF']}
-          style={{
-            flex: 1,
-            // position: 'absolute',
-            // left: 0,
-            // right: 0,
-            // top: 0,
-            // height: 500,
-          }}>
-
-
-          {/* <View style={{flex:1,backgroundColor:"#000000"}}></View> */}
-          {/*           
-              <View style={{flex: 1, flexDirection: 'row', alignSelf:'center', marginTop:16, }}>
-                <View>
-                  <TextInput
-                  ref={input => { this.textInput = input }} 
-                  style={styles.txtIn2}
-                  placeholder="insert item"
-                  onChangeText={this.onChangeText}
-                  />
-                </View>
-            </View> */}
-            
+        <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{ flex:1}}>
 
             <CalendarStrip 
-                // calendarAnimation={{type: 'sequence', duration: 30}}
-                // daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
-                // selection={'border'}
-                // selectionAnimation={{duration: 300, borderWidth: 1}}
-                highlightColor={'white'}
+                // highlightColor={'white'}
                 style={{height:'14%', paddingTop: '3%'}} 
                 calendarHeaderStyle={{color: 'white'}} 
                 // calendarColor={'rgba(75,21,184,2)'}
                 calendarColor={'black'}
-                dateNumberStyle={{color: '#CCCCCC'}}
-                dateNameStyle={{color: '#CCCCCC'}}
+                dateNumberStyle={{color: '#CCCCCC'}} // 13
+                dateNameStyle={{color: '#CCCCCC'}} // FRI
                 highlightDateNumberStyle={{color: 'rgba(75,21,184,2)'}}
                 highlightDateNameStyle={{color: 'white'}}
                 disabledDateNameStyle={{color: 'grey'}}
                 disabledDateNumberStyle={{color: 'grey'}}
                 iconContainer={{flex: 0.2}}
+                // calendarAnimation={{type: 'sequence', duration: 30}}
+                // daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
+                // selection={'border'}
+                // selectionAnimation={{duration: 300, borderWidth: 1}}
                 // updateWeek={false}
                 // datesWhitelist={datesWhitelist}
                 // datesBlacklist={datesBlacklist}
@@ -262,66 +238,63 @@ onPressEdit(){
 
           <View style={{ flex: 1, marginTop: '5%', backgroundColor: "#transparent", alignItems: 'center', }}>
 
-            <Card style={{ flex:0.15, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
-              <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
-                <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
-                  <Text style={styles.Text2}>3</Text>
-                        <View style={{ alignItems: 'center' }}>
-                          <Text style={styles.under}>All Tasks</Text>
-                        </View>
+              <Card style={{ flex:0.15, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
+                <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
+                  <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
+                    <Text style={styles.Text2}>3</Text>
+                          <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.under}>All Tasks</Text>
+                          </View>
+                    </View>
+
+                  <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center'}} >
+                    <Text style={styles.TTT} >|</Text>
+                  </View>
+                  
+                  <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
+                      <Text style={styles.Text2} >2</Text>
+                      <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.under}>Tasks to be Completed</Text>
+                      </View>
                   </View>
 
-                <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center'}} >
-                  <Text style={styles.TTT} >|</Text>
-                </View>
-                
-                <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                    <Text style={styles.Text2} >2</Text>
-                    <View style={{ alignItems: 'center' }}>
-                      <Text style={styles.under}>Tasks to be Completed</Text>
-                    </View>
-                </View>
+                  <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center',}} >
+                    <Text style={styles.TTT}>|</Text>
+                  </View>
 
-                <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center',}} >
-                  <Text style={styles.TTT}>|</Text>
-                </View>
+                  <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
+                      <Text style={styles.Text2} >1</Text>
+                      <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.under}>Completed  Tasks</Text>
+                      </View>
+                  </View>
 
-                <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                    <Text style={styles.Text2} >1</Text>
-                    <View style={{ alignItems: 'center' }}>
-                      <Text style={styles.under}>Completed  Tasks</Text>
-                    </View>
                 </View>
+              </Card>
 
+              <View>
+                <Dialog.Container visible={this.state.dialogVisible} >
+
+                  <Dialog.Title>Add Task</Dialog.Title>
+                  <Dialog.Description>Add a new task for this group</Dialog.Description>
+                  <Dialog.Input onChangeText={message => this.setState({message})} />
+                  <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
+                  <Dialog.Button label="Add"  color="#6F41E9" bold="10" onPress={this.handleAdd} />
+                  
+                </Dialog.Container>
               </View>
-            </Card>
-            <View>
-                      <Dialog.Container visible={this.state.dialogVisible} >
 
-                        <Dialog.Title>Add Task</Dialog.Title>
-                        <Dialog.Description>Add a new task for this group</Dialog.Description>
-                        <Dialog.Input    onChangeText={message => this.setState({message})} />
-                        <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
-                        <Dialog.Button label="Add"  color="#6F41E9" bold="10" onPress={this.handleDelete} />
-                        
-                      </Dialog.Container>
-                  </View>
-
-
-            
               <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: '2%', }}>
                   <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent',marginTop:"5%"}}>
 
                       <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>All Tasks</Text>
 
                       <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
-                          <ScrollView style={styles.listArea}>
+                          <ScrollView style={{backgroundColor: "transparent", padding:20, flex: 1, marginTop: 10,}}>
                                 
                                 <Items_GroupNew
                                     ref={Task => (this.Task = Task)}
-                                    onPressTodo={this.delete_Complete}
-                                   
-                                      />
+                                    onPressTodo={this.delete_Complete} />
 
                           </ScrollView>
                       </View>
@@ -329,41 +302,46 @@ onPressEdit(){
               </View>
 
               <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
-              <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
-              <View style={{ flexDirection: 'row',justifyContent: 'center', }}>
-                <Avatar rounded containerStyle={{marginLeft:'5%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSTJR.png',}}/>
-                <Avatar rounded containerStyle={{marginLeft:'3%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSwh0.png',}}/>
-                <Avatar rounded containerStyle={{marginLeft:'3%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSOEN.png',}}/>
-              </View>
-            </Card>
+
+                <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
+                <View style={{ flexDirection: 'row',justifyContent: 'center', }}>
+                  <Avatar rounded containerStyle={{marginLeft:'5%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSTJR.png',}}/>
+                  <Avatar rounded containerStyle={{marginLeft:'3%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSwh0.png',}}/>
+                  <Avatar rounded containerStyle={{marginLeft:'3%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSOEN.png',}}/>
+                </View>
+
+              </Card>
+
 
               <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
-                 <ActionButton.Item buttonColor='#000000' title="New Task" onPress={this.showDialog}>
+
+                <ActionButton.Item buttonColor='#000000' title="New Task" onPress={this.showDialog}>
                   <Icon name="md-create" style={{color:'white'}} />
                 </ActionButton.Item>
-                
                 <ActionButton.Item buttonColor='#ffffff' title="Home" onPress={() =>  this.props.navigation.navigate('Main1')}>
-                  <Icon name="md-home" style={styles.actionButtonIcon} />
+                  <Icon name="md-home" style={{color:'black'}} />
                 </ActionButton.Item>
+
               </ActionButton>
+
           </View>          
          
         </LinearGradient>
-      </Container>
 
+      </Container>
 
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'flex-start',
-    flex: 1,
-    flexDirection: 'row',
-    marginRight: 16,
-    marginTop: 5,
-    marginBottom: 5,
-    backgroundColor: 'transparent',
+    // alignItems: 'flex-start',
+    // flex: 1,
+    // flexDirection: 'row',
+    // marginRight: 16,
+    // marginTop: 5,
+    // marginBottom: 5,
+    // backgroundColor: 'transparent',
   },
   title: {
     fontSize: 16,
@@ -442,7 +420,6 @@ const styles = StyleSheet.create({
 
   listArea: {
     backgroundColor: "transparent",
-    // backgroundColor:'black',
     padding:20,
     flex: 1,
     marginTop: 16,
