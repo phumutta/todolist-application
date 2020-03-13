@@ -83,10 +83,12 @@ export default class Group extends Component {
 
   onFocusFunction = async () => {
     const email_store = await AsyncStorage.getItem('@email');
+    this.setState({uri:await AsyncStorage.getItem('@uri')});
 
     this.setState({ email: email_store })
     Name={
-    email:this.state.email
+    email:this.state.email,
+    uri:this.state.uri
   }
 
   this.update();

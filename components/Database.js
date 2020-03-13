@@ -223,7 +223,7 @@ class Database{
     });
   }
  
-  async createGroup(AdminGroup,group,add_Success,add_Fail){
+  async createGroup(AdminGroup,data,group,add_Success,add_Fail){
     let array=[]
     let Name ={
       email:AdminGroup.AdminGroup,
@@ -237,6 +237,7 @@ class Database{
         add_Fail();
         return;
       }
+     
 
       let state =0;
       snapshot.forEach(async doc=>{
@@ -254,7 +255,7 @@ class Database{
         })
         if (state ==0){
           firebase.firestore().collection("Group").doc(group).set(AdminGroup).then(async()=>{
-            await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(AdminGroup)
+            await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(data)
             await firebase.firestore().collection("Account").doc(AdminGroup.AdminGroup).collection("Group").doc(group).set(Name)
           },add_Fail());
         }

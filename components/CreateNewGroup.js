@@ -52,9 +52,14 @@ export default class CreateNewGroup extends Component {
 
   onFocusFunction = async () => {
     const email_store = await AsyncStorage.getItem('@email');
-
+    this.setState({uri:await AsyncStorage.getItem('@uri')});
     this.setState({ email: email_store })
     this.setState({id:email_store})
+    Name={
+      email:this.state.email,
+      uri:this.state.uri
+    }
+  
 
   }
   async addGroup_success(){
@@ -94,8 +99,10 @@ export default class CreateNewGroup extends Component {
       uri:''
 
     }
+
     
-    await database.createGroup(AdminGroup,this.state.group,this.addGroup_success,this.addGroup_fail)
+    
+    await database.createGroup(AdminGroup,Name,this.state.group,this.addGroup_success,this.addGroup_fail)
     
     await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
     this.textInput.clear()

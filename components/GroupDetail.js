@@ -54,6 +54,7 @@ export default class GroupDetail extends React.Component {
       uri:this.state.uri
     }
     await database.addGroupMessage(this.state.group,Message,this.addMessage_Success,this.addMessage_Fail)
+    
     this.Task.update();
     
   };

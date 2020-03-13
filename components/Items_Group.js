@@ -74,7 +74,7 @@ export default class Items_GroupNew extends React.Component {
           {items.map (({id, email,uri,admin}) => (
 
             <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
-            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:'uri'}}/>
+            <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:uri}}/>
               <View style={{flex:1, flexDirection: 'column'}} >
                 <Text style={{fontSize:18,color:'#171D33',marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
           <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {admin}</Text>
