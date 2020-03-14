@@ -15,6 +15,7 @@ import database from './Database';
 import { Avatar } from 'react-native-elements';
 import CalendarStrip from 'react-native-calendar-strip';
 import Dialog from "react-native-dialog";
+import Items_Members from './Items_Members'
 
 
 export default class GroupDetail extends React.Component {
@@ -300,8 +301,21 @@ onPressEdit(){
                       </View>
                   </View>
               </View>
+          
+              {/* <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
 
-              <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
+              <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
+              <ScrollView horizontal={true} > */}
+              <Items_Members 
+                ref={imgGroup=>(this.imgGroup =imgGroup)}
+
+              />
+                    
+                {/* </ScrollView>
+
+              </Card> */}
+              
+              {/* <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
 
                 <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
                 <View style={{ flexDirection: 'row',justifyContent: 'center', }}>
@@ -310,7 +324,7 @@ onPressEdit(){
                   <Avatar rounded containerStyle={{marginLeft:'3%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/13/QBSOEN.png',}}/>
                 </View>
 
-              </Card>
+              </Card> */}
 
 
               <ActionButton buttonColor="rgba(75,21,184,2)" position="right">

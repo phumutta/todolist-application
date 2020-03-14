@@ -459,6 +459,24 @@ class Database{
       });
     });
   }
+  async readIMGUserGroup(id,read_Success,read_Fail){
+    let array=[]
+    await firebase.firestore().collection("Group").doc(id).collection("user").get().then(snapshot=>{
+      if(snapshot.empty){
+        read_Fail()
+        return;
+      }
+      snapshot.forEach(doc=>{
+        // console.log(doc.data())
+        // array.push(Object.values(doc.data()))
+        array.push(doc.data())
+        // read_Message_success(doc.data())
+        
+        })
+        read_Success(array)
+    })
+    .catch(read_Fail());
+  }
 
 }
 

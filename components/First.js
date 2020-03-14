@@ -25,7 +25,7 @@ export default class First extends React.Component {
       email:this.state.email,
       password:this.state.password,
     }
-    console.log(account)
+    console.log(this.state.email)
 
     // if(this.state.email !==null ){
     //   this.login()   

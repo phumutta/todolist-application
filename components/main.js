@@ -11,7 +11,8 @@ export default class main extends React.Component {
     email: '',
     name: '',
     last: '',
-    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png"
+    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
+    pwd:''
 
   };
   onPressToday() {
@@ -50,11 +51,16 @@ export default class main extends React.Component {
   }
   onFocusFunction = async () => {
 
-    // const value =await AsyncStorage.getItem('@email');
-    // this.setState({email:value})
+     const value =await AsyncStorage.getItem('@email');
+     this.setState({email:value})
+     const value2 =await AsyncStorage.getItem('@pwd');
+     this.setState({pwd:value2})
+     console.log(this.state.email)
+     console.log(this.state.pwd)
     // database.readdata(this.state.email,this.read_Account_success,this.read_Account_fail)
     // console.log("test")
     // console.log(this.state.email)
+    
     const name_store = await AsyncStorage.getItem('@name');
     console.log(name_store)
     const last_store = await AsyncStorage.getItem('@last');
