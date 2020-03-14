@@ -52,19 +52,27 @@ export default class GroupDetail extends React.Component {
       user:this.state.email,
       time:this.state.time,
       status:'1',
-      uri:this.state.uri
+      uri:this.state.uri,
+      id:''
     }
     await database.addGroupMessage(this.state.group,Message,this.addMessage_Success,this.addMessage_Fail)
     
     this.Task.update();
     
   };
-  addMessage_Success(){
+  async addMessage_Success(id){
+    await database.updateID(id,this.state.group,this.update_Success,update_Fail)
     this.Task.update();
     console.log("Success")
   }
   addMessage_Fail(){
     this.Task.update();
+    console.log("Fail")
+  }
+  update_Success(){
+    console.log("Success")
+  }
+  update_Fail(){
     console.log("Fail")
   }
 
