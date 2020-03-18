@@ -13,6 +13,13 @@ import database from './Database3';
 // Edit_PomodoroNumber
 // Edit_Reminder
 // Edit_Repeat
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,
+} from 'react-native-popup-menu';
 
 export default class AddTask extends Component {
 
@@ -178,6 +185,7 @@ addText=async()=>{
   updateFail(){
     console.log("FailUpdate");
   }
+  
 
 
 
@@ -190,6 +198,11 @@ getRepeat = () =>{
 }
 
     render() {
+
+      const CheckedOption = (props) => (
+        <MenuOption {...props} text={(props.checked ? '\u2713 ' : '') + props.text} />
+      )
+
       let PickerIOSItem = PickerIOS.Item
         return (
             <Container>
@@ -218,15 +231,15 @@ getRepeat = () =>{
 
 
         <View  style={{flex:0.1,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',height:25}} >
-                <Image style={{flex:0.15,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr9eWe.png'}}/>
-                <TextInput style={{flex:1}}
+                <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png'}}/>
+                <TextInput style={{flex:12, fontSize:18}}
                   ref={input => { this.textInput = input }} 
                   placeholder="Add a task..."
                   onChangeText={this.onChangeText}
 
                 />
-                <TouchableOpacity  style={{flex:0.1, marginRight:20 ,height:20}}  onPress={()=>this.onPressAddColor()}>
-                <Image style={{height:25}} source={{uri:this.state.imgPri}}/>
+                <TouchableOpacity  style={{flex:1, marginRight:20 ,height:20}}  onPress={()=>this.onPressAddColor()}>
+                <Image style={{height:20, width:20}} source={{uri:this.state.imgPri}}/>
                 </TouchableOpacity>
 
           </View>
@@ -235,8 +248,8 @@ getRepeat = () =>{
             <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker})}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
                   <View style={{flexDirection: 'row'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10}}>Due Date</Text>
-                    <Text style={{fontSize:18,color:'#D4D4D4',marginLeft:60,fontSize:18}}>{this.state.date}</Text>
+                    <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Due Date</Text>
+                    <Text style={{flex:2,fontSize:18,color:'#D4D4D4',fontSize:18, textAlign:'center'}}>{this.state.date}</Text>
                   </View>
                   {/* <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:162}}>Tomorrow</Text> */}
             </TouchableOpacity>
@@ -246,8 +259,8 @@ getRepeat = () =>{
             <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.setState({ parker: !this.state.parker})}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3eJD.png'}}/>
                 <View style={{flexDirection: 'row'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10}}>Reminder</Text>
-                    <Text style={{fontSize:18,color:'#D4D4D4',marginLeft:60,fontSize:18}}>{this.state.datex}</Text>
+                    <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Reminder</Text>
+                    <Text style={{flex:2,fontSize:18,color:'#D4D4D4',fontSize:18, textAlign:'center'}}>{this.state.datex}</Text>
                   </View>
                   {/* <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:192}}>None</Text> */}
             </TouchableOpacity>
@@ -256,8 +269,8 @@ getRepeat = () =>{
             <TouchableOpacity   style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.setState({ repeat: !this.state.repeat})}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3F5J.png'}}/>
                 <View style={{flexDirection: 'row'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10}}>Repeat</Text>
-                    <Text style={{fontSize:18,color:'#D4D4D4',marginLeft:90,fontSize:18}}>{this.state.selectRepeat}</Text>
+                    <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Repeat</Text>
+                    <Text style={{flex:2,fontSize:18,color:'#D4D4D4',fontSize:18, textAlign:'center'}}>{this.state.selectRepeat}</Text>
                   </View>
                   {/* <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:210}}>None</Text> */}
             </TouchableOpacity>
@@ -273,6 +286,47 @@ getRepeat = () =>{
                 />
 
           </View>
+
+          {/* <MenuProvider style={{flex:1,marginLeft:30}}>
+            <View>
+              <Menu>
+                <MenuTrigger>
+                  <Image style={{height:20, width:20}} source={{uri:this.state.imgPri}}/> 
+                </MenuTrigger>
+                <MenuOptions>
+
+                  <MenuOption value={1} onSelect={() => alert(`Hight Priority`)} >
+                    <View  style={{flex:0.1,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} >
+                      <Image style={{flex:1 ,width:15,height:15,marginLeft:'7%', marginRight:'10%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png'}}/>
+                      <Text style={{flex:9, color: '#e74c3c', fontSize:18, }}>Hight Priority</Text>
+                    </View>
+                  </MenuOption>
+                  <MenuOption checked value={2} onSelect={() => alert(`Medium Priority`)} >
+                    <View  style={{flex:0.1,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} >
+                      <Image style={{flex:1 ,width:15,height:15,marginLeft:'7%', marginRight:'10%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png'}}/>
+                      <Text style={{flex:9, color: '#f1c40f', fontSize:18, }}>Medium Priority</Text>
+                    </View>
+                  </MenuOption>
+                  <MenuOption onSelect={() => alert(`Low Priority`)} >
+                    <View  style={{flex:0.1,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} >
+                      <Image style={{flex:1 ,width:15,height:15,marginLeft:'7%', marginRight:'10%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png'}}/>
+                      <Text style={{flex:9, color: '#2ecc71', fontSize:18, }}>Low Priority</Text>
+                    </View>
+                  </MenuOption>
+                  <MenuOption onSelect={() => alert(`No Priority`)} >
+                    <View  style={{flex:0.1,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}} >
+                      <Image style={{flex:1 ,width:15,height:15,marginLeft:'7%', marginRight:'10%'}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png'}}/>
+                      <Text style={{flex:9, color: '#D4D4D4', fontSize:18, }}>No Priority</Text>
+                    </View>
+                  </MenuOption>
+
+                </MenuOptions>
+              </Menu>
+
+            </View>
+          </MenuProvider> */}
+
+          
 
         </View>
 
@@ -305,7 +359,7 @@ getRepeat = () =>{
           //   }}
           // />
           <DatePickerIOS
-          style={{ flex: 0.5,width: 300,marginLeft:25, marginTop:1 }}
+          style={{ flex: 0.33,width: '100%', height:'2%', marginTop:1 }}
           date={this.state.chosenDate}
           onDateChange={this.setDate}
           
@@ -338,7 +392,7 @@ getRepeat = () =>{
           //   }}
           // />
           <DatePickerIOS
-          style={{ flex: 0.5,width: 300,marginLeft:25, marginTop:1 }}
+          style={{ flex: 0.36,width: '100%', marginTop:1 }}
           date={this.state.chosenDate2}
           onDateChange={this.setDate2}
           mode="datetime"
@@ -352,7 +406,7 @@ getRepeat = () =>{
       if (this.state.repeat) {
         return (
           <PickerIOS 
-              style={{ flex: 0.5,width: 200,marginLeft:65, marginTop:1 }}
+          style={{ flex: 0.36,width: '100%', marginTop:1 }}
               selectedValue={ this.state.selectRepeat }
               onValueChange={(itemValue, itemIndex) => this.setState({ selectRepeat: itemValue})}>
               { this.getRepeat() }
