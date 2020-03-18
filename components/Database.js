@@ -311,12 +311,45 @@ class Database{
 
     })
   }
+
+ 
   async addGroupMessage(group,Message,add_Message_success,add_Message_fail){
     await firebase.firestore().collection("Group").doc(group).collection("Task").add(Message).then(async ref=>{
       await firebase.firestore().collection("Group").doc(group).collection("Task").doc(ref.id).update({id:ref.id})
       add_Message_success()
       },add_Message_fail)
   }
+  async CountTask(group,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Group").doc(group).collection("Task").get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
+  async CountToComplete(group,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Group").doc(group).collection("Task").where('status','==','1').get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
+  async CountComplete(group,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Group").doc(group).collection("Task").where('status','==','0').get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
+
   async readMessageGroup(group,read_Message_success,read_Message_fail){
     let array=[]
     let query= await firebase.firestore().collection("Group").doc(group).collection("Task").where('status','==','1').orderBy('time');
