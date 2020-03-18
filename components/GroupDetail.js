@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-shadow-cards';
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input, Thumbnail} from 'native-base';
 import Items_GroupNew from './Items_GroupNew'
+// import Items_Group from './Items_Group'
 import database2 from './Database2'
 import Constants from "expo-constants";
 import ActionButton from 'react-native-action-button';
@@ -259,12 +260,31 @@ onPressEdit(){
                 /> */}
 
 
-          <View style={{ flex: 1, marginTop: '5%', backgroundColor: "#transparent", alignItems: 'center', }}>
+        <View>
+          <LinearGradient colors={['#000000', '#FFFFFF']}>
+            <View style={{height:110,}}></View>
+              <Image style={styles.avatar} source={{uri: 'https://sv1.picz.in.th/images/2020/03/13/QBSTJR.png'}}/>
+              <View style={styles.body}>
+                <View style={styles.bodyContent}>
+                  <Text style={styles.name}>{this.state.group}</Text>
+                  <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text>
+                  {/* <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text> */}
+                </View>
+            </View>
+          </LinearGradient> 
+      </View>
+
+
+          <View style={{ flex: 1, marginTop: '3%', backgroundColor: "#transparent", alignItems: 'center', }}>
+
+
 
               <Card style={{ flex:0.15, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
+                
                 <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
-                  <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
-                    <Text style={styles.Text2}>{this.state.Alltask}</Text>
+
+                    <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
+                      <Text style={styles.Text2}>{this.state.Alltask}</Text>
                           <View style={{ alignItems: 'center' }}>
                             <Text style={styles.under}>All Tasks</Text>
                           </View>
@@ -460,4 +480,40 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 16,
   },
+  avatar: {
+    width: 90,
+    height: 90,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    // marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:20
+  },
+  body:{
+    // marginTop:10,
+  },
+  bodyContent: {
+    alignItems: 'center',
+    padding:5,
+  },
+  name:{
+    fontSize:25,
+    color: "#696969",
+    fontWeight: "600",
+    color:'#000000'
+  },
+  info:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:8,
+    textAlign: 'center'
+  },
+
 });
