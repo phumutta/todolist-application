@@ -72,7 +72,7 @@ export default class Items_Members extends React.Component {
    
     return (
       
-        <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
+        <Card style={{ flex:0.15, flexDirection: 'row',alignItems:'center',  }} >
 
         <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
         {/* <ScrollView horizontal={true} > */}
