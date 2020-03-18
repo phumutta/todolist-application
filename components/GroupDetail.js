@@ -61,7 +61,7 @@ export default class GroupDetail extends React.Component {
     
   };
   async addMessage_Success(id){
-    await database.updateID(id,this.state.group,this.update_Success,update_Fail)
+    //await database.updateID(id,this.state.group,this.update_Success,this.update_Fail)
     this.Task.update();
     console.log("Success")
   }
@@ -72,8 +72,8 @@ export default class GroupDetail extends React.Component {
   update_Success(){
     console.log("Success")
   }
-  update_Fail(){
-    console.log("Fail")
+  update_Fail(error){
+    console.log(error)
   }
 
 //   onFocusFunction = async () => {

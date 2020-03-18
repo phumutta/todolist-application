@@ -312,7 +312,10 @@ class Database{
     })
   }
   async addGroupMessage(group,Message,add_Message_success,add_Message_fail){
-    await firebase.firestore().collection("Group").doc(group).collection("Task").add(Message).then(ref=>{add_Message_success(ref.id)},add_Message_fail)
+    await firebase.firestore().collection("Group").doc(group).collection("Task").add(Message).then(async ref=>{
+      await firebase.firestore().collection("Group").doc(group).collection("Task").doc(ref.id).update({id:ref.id})
+      add_Message_success()
+      },add_Message_fail)
   }
   async readMessageGroup(group,read_Message_success,read_Message_fail){
     let array=[]
@@ -491,11 +494,12 @@ class Database{
 
   async updateID(ID,User,addSuccess,addFail){
     try{
+      console.log(ID)
     await firebase.firestore().collection("Group").doc(User).collection("Task").doc(ID).update({id:ID})
       addSuccess();
     }
     catch(e){
-      addFail()
+      addFail(e)
       
     }
   }
