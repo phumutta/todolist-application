@@ -43,9 +43,27 @@ export default class GroupDetail extends React.Component {
   handleCancel = () => {
     this.setState({ dialogVisible: false });
   };
-  delete_Complete(id){
-    console.log(id)
+  delete_Complete=async (id)=>{
+    await database.updateStatus(id,this.state.group,this.deleteSuccess,this.deleteFail)
+    // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+    // await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
+    await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+    await database.CountComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
+    //this.onPressTrack();
+    this.Task.update();
+    
+    
   }
+  async deleteSuccess(){
+    
+  this.Task.update();
+  console.log("del success")
+  }
+  deleteFail(){
+    this.Task.update();
+  console.log("del fail")
+  }
+    
   handleAdd = async() => {
     // The user has pressed the "Delete" button, so here you can do your own logic.
     // ...Your logic
@@ -61,12 +79,15 @@ export default class GroupDetail extends React.Component {
       id:''
     }
     await database.addGroupMessage(this.state.group,Message,this.addMessage_Success,this.addMessage_Fail)
-    
+    await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
+    await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+   
     this.Task.update();
     
   };
   async addMessage_Success(id){
     //await database.updateID(id,this.state.group,this.update_Success,this.update_Fail)
+    
     this.Task.update();
     console.log("Success")
   }
@@ -75,6 +96,7 @@ export default class GroupDetail extends React.Component {
     console.log("Fail")
   }
   update_Success(){
+
     console.log("Success")
   }
   update_Fail(error){
@@ -132,6 +154,11 @@ export default class GroupDetail extends React.Component {
 //  }
 
 
+async readcount(){
+  await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
+  await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+  await database.CountComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
+}
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
   this.setState({group:await AsyncStorage.getItem('@group')})

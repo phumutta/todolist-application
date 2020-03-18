@@ -514,16 +514,16 @@ class Database{
     .catch(read_Fail());
   }
 
-  // async updateStatus(ID,Group,addSuccess,addFail){
-  //   try{
-  //   await firebase.firestore().collection("Group").doc(group).collection("Task").doc(ID).update({status:'0'})
-  //     addSuccess();
-  //   }
-  //   catch(e){
-  //     addFail()
+  async updateStatus(ID,Group,addSuccess,addFail){
+    try{
+    await firebase.firestore().collection("Group").doc(Group).collection("Task").doc(ID).update({status:'0'})
+      addSuccess();
+    }
+    catch(e){
+      addFail()
       
-  //   }
-  // } 
+    }
+  } 
 
   async updateID(ID,User,addSuccess,addFail){
     try{
