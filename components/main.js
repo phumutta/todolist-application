@@ -267,7 +267,7 @@ export default class main extends React.Component {
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/Ruqkxy.png" }} style={styles.photo2} />
                 </View>
                 <View style={{ marginLeft: 15, alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text} >Inbox</Text>
+                  <Text style={styles.Text} >Note</Text>
                 </View>
               </Card>
             </TouchableOpacity>
@@ -289,8 +289,8 @@ export default class main extends React.Component {
                 <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() =>  this.props.navigation.navigate('Group')}>
                   <Icon name="md-people" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#ffffff' title="All Tasks" onPress={() => {}}>
-                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => {}}>
+                  <Icon name="md-save" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
               </ActionButton>
 
