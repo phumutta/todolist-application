@@ -141,8 +141,8 @@ export default class Items_GroupNew extends React.Component {
           <Card style={{ flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:20, marginTop:12, padding:10}} >
 
             <TouchableOpacity
-              // key={id}
-              // onPress={() => this.props.onPressTodo(id)}
+              key={id}
+              onPress={() => this.props.onPressTodo(id)}
               style={{backgroundColor: 'transparent', borderColor: '#DADADA', padding:8, borderRadius:10 }} >
 
               <Image style={{ marginLeft:"5%", width:25, height:25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />

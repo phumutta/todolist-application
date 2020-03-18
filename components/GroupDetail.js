@@ -43,7 +43,9 @@ export default class GroupDetail extends React.Component {
   handleCancel = () => {
     this.setState({ dialogVisible: false });
   };
- 
+  delete_Complete(id){
+    console.log(id)
+  }
   handleAdd = async() => {
     // The user has pressed the "Delete" button, so here you can do your own logic.
     // ...Your logic
@@ -136,7 +138,7 @@ onFocusFunction=async()=>{
   this.setState({uri:await AsyncStorage.getItem('@uri')});
   await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
   await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
-  await database.CountToComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
+  await database.CountComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
   this.Task.update();
 }
 // update (){
