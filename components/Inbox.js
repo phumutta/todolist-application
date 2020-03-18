@@ -10,7 +10,6 @@ import ActionButton from 'react-native-action-button';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
-// import {ListItem, Button, Icon } from 'react-native-elements'
 
 
 export default class Inbox extends React.Component {
@@ -25,8 +24,6 @@ export default class Inbox extends React.Component {
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png"
 
   };
-
-  
 
 //   onFocusFunction = async () => {
 
@@ -196,8 +193,6 @@ this.props.navigation.navigate('Edit')
 
 
   render() {
-
-
     return (
       <Container>
         <Header>
@@ -230,45 +225,103 @@ this.props.navigation.navigate('Edit')
           }}>
 
 
-    <View style={{flexDirection:'column', alignItems:'center'}}>
-      <View style={{flexDirection:'row'}}>
-      <Card style={{padding: 10, margin: 10,opacity:'0.5', cornerRadius:10, elevation:'3'}}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </Card>
-      <Card style={{padding: 10, margin: 10}}>
+          {/* <View style={{flex:1,backgroundColor:"#000000"}}></View> */}
+          {/*           
+              <View style={{flex: 1, flexDirection: 'row', alignSelf:'center', marginTop:16, }}>
+                <View>
+                  <TextInput
+                  ref={input => { this.textInput = input }} 
+                  style={styles.txtIn2}
+                  placeholder="insert item"
+                  onChangeText={this.onChangeText}
+                  />
+                </View>
+            </View> */}
 
-      <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Button
+          <View style={{ flex: 1, marginTop: '5%', backgroundColor: "#transparent", alignItems: 'center', }}>
+
+            <Card style={{ flex:0.12, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
+
+              <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
+
+                <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
+                  <Text style={styles.Text2}>6</Text>
+                        <View style={{ alignItems: 'center' }}>
+                          <Text style={styles.under}>Tasks for Inbox</Text>
+                        </View>
+                  </View>
+
+
+                <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center'}} >
+                  <Text style={styles.TTT} >|</Text>
+                </View>
+
+                
+                <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
+                    <Text style={styles.Text2} >3</Text>
+                    <View style={{ alignItems: 'center' }}>
+                      <Text style={styles.under}>Tasks to be Completed</Text>
+                    </View>
+                </View>
+
+
+                <View style={{ alignItems: 'center', justifyContent: 'center' ,alignContent:'center',}} >
+                  <Text style={styles.TTT}>|</Text>
+                </View>
+
+
+                <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
+                    <Text style={styles.Text2} >1</Text>
+                    <View style={{ alignItems: 'center' }}>
+                      <Text style={styles.under}>Completed  Tasks</Text>
+                    </View>
+                </View>
+
+              </View>
+            </Card>
+
+
+
+
+
+
+
+
+
+              <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: '2%', }}>
+                  <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent',marginTop:"5%"}}>
+
+                      <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Inbox</Text>
+
+                      <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
+                          <ScrollView style={styles.listArea}>
+                                
+                                <Items2
+                                    ref={todo => (this.todo = todo)}
+                                    onPressTodo={this.delete_Complete}
+                                    onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
+                                    onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                                      />
+
+                          </ScrollView>
+                      </View>
+                  </View>
+              </View>
+
+              <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+                 <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() =>  this.props.navigation.navigate('AddTask')}>
+                  <Icon name="md-create" style={{color:'white'}} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() => {}}>
+                  <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#ffffff' title="All Tasks" onPress={() => {}}>
+                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+              </ActionButton>
+          </View>
           
-        />
-      </Card>
-      </View>
-
-      <View style={{flexDirection:'column'}}>
-      <Card style={{padding: 10, margin: 10,opacity:'0.5', backgroundColor:'#ffffff'}}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </Card>
-      <Card style={{padding: 10, margin: 10}}>
-
-      <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Button
-          onPress={()=>{}}
-          title="Learn More"
-          color="#000000"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </Card>
-      </View>
-    </View>
-          
+         
         </LinearGradient>
       </Container>
 
@@ -278,7 +331,9 @@ this.props.navigation.navigate('Edit')
 }
 const styles = StyleSheet.create({
   container: {
-    // alignItems: 'flex-start',
+    alignItems: 'flex-start',
+    flex: 1,
+    flexDirection: 'row',
     marginRight: 16,
     marginTop: 5,
     marginBottom: 5,
