@@ -157,7 +157,7 @@ this.props.navigation.navigate('Edit')
             </Header>
 
             <View style={styles.container1}>
-                <CalendarStrip 
+                {/* <CalendarStrip 
                 style={{height:'20%', paddingTop: '5%', paddingBottom: 10,}} 
                 calendarHeaderStyle={{color: 'grey'}} 
                 calendarColor={'#white'}
@@ -174,6 +174,36 @@ this.props.navigation.navigate('Edit')
                 iconContainer={{flex: 0.2}}
                 // showDayNumber={{}}
                 markedDatesStyle={{}}
+                /> */}
+
+                <CalendarStrip 
+                // highlightColor={'white'}
+                style={{height:'14%', paddingTop: '3%'}} 
+                calendarHeaderStyle={{color: 'white'}} 
+                // calendarColor={'rgba(75,21,184,2)'}
+                calendarColor={'black'}
+                dateNumberStyle={{color: '#CCCCCC'}} // 13
+                dateNameStyle={{color: '#CCCCCC'}} // FRI
+                highlightDateNumberStyle={{color: 'rgba(75,21,184,2)'}}
+                highlightDateNameStyle={{color: 'white'}}
+                disabledDateNameStyle={{color: 'grey'}}
+                disabledDateNumberStyle={{color: 'grey'}}
+                iconContainer={{flex: 0.2}}
+                // calendarAnimation={{type: 'sequence', duration: 30}}
+                // daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
+                // selection={'border'}
+                // selectionAnimation={{duration: 300, borderWidth: 1}}
+                // updateWeek={false}
+                // datesWhitelist={datesWhitelist}
+                // datesBlacklist={datesBlacklist}
+                // iconLeft={require('./images/icons8-chevron-left-90.png')}
+                // iconLeft={require('./images/icons8-chevron-right-90.png')}
+                // showDayNumber={{}}
+                // markedDatesStyle={{borderWidth: 1}}
+                // datesWhitelist={this.props.datesWhiteList}
+                // customDatesStyles={this.state.selectedDateMM.format("YYYYMMDD")==moment().format("YYYYMMDD")?[]:customDatesStyles}
+                // onDateSelected={(day) =>  {this._selectDate.bind(this)(day)}}
+                // onWeekChanged={(day) =>  {this._weekChanged.bind(this)(day)}}
                 />
 
 <ScrollView style={styles.listArea}>

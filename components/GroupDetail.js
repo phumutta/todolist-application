@@ -252,19 +252,17 @@ leave_F(){
           <View style={{flex: 4, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
             <Title>{this.state.group}</Title>
           </View>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
-          <Button transparent onPress={() => this.onPressLeaveGroup()}>
-            <Image style={{ width: 20, height: 20 }}
-              source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
-            />
-            </Button>
-          </View>
+          <TouchableOpacity onPress={()=>this.onPressLeftgroup()}>
+            <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
+              <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/03/18/Qc7eXQ.png' }}/>
+            </View>
+          </TouchableOpacity>
         </Header>
 
 
         <LinearGradient colors={['#FFFFFF', '#FFFFFF']} style={{ flex:1}}>
 
-            <CalendarStrip 
+            {/* <CalendarStrip 
                 // highlightColor={'white'}
                 style={{height:'14%', paddingTop: '3%'}} 
                 calendarHeaderStyle={{color: 'white'}} 
@@ -292,7 +290,7 @@ leave_F(){
                 // customDatesStyles={this.state.selectedDateMM.format("YYYYMMDD")==moment().format("YYYYMMDD")?[]:customDatesStyles}
                 // onDateSelected={(day) =>  {this._selectDate.bind(this)(day)}}
                 // onWeekChanged={(day) =>  {this._weekChanged.bind(this)(day)}}
-                />
+                /> */}
 
 
           <View style={{ flex: 1, marginTop: '5%', backgroundColor: "#transparent", alignItems: 'center', }}>
