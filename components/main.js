@@ -30,8 +30,8 @@ export default class main extends React.Component {
   onPressCompleted() {
     this.props.navigation.navigate('Completed')
   }
-  onPressInbox() {
-    this.props.navigation.navigate('Inbox')
+  onPressNote() {
+    this.props.navigation.navigate('Note')
   }
   onPressSetting() {
     this.props.navigation.navigate('Setting')
@@ -261,7 +261,7 @@ export default class main extends React.Component {
               </Card>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.onPressInbox()}>
+            <TouchableOpacity onPress={() => this.onPressNote()}>
               <Card style={{ padding: 18, margin: 10, flexDirection: 'row' }}>
                 <View style={{ flex: 0.1, marginLeft: 10, alignItems: 'center', justifyContent: 'center' }}>
                   <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/Ruqkxy.png" }} style={styles.photo2} />
@@ -289,7 +289,7 @@ export default class main extends React.Component {
                 <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() =>  this.props.navigation.navigate('Group')}>
                   <Icon name="md-people" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => {}}>
+                <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() =>  this.props.navigation.navigate('AddNote')}>
                   <Icon name="md-save" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
               </ActionButton>
