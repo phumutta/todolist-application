@@ -524,6 +524,14 @@ class Database{
       
     }
   } 
+  async LeaveGroup(group,email,del_S,del_F){
+    await firebase.firestore().collection("Group").doc(group).collection("user").doc(email).delete()
+    await firebase.firestore().collection("Account").doc(email).collection("Group").doc(group).delete().then(()=>{
+      del_S()
+    },del_F())
+    
+
+  }
 
   async updateID(ID,User,addSuccess,addFail){
     try{

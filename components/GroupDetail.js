@@ -231,8 +231,13 @@ onPressGroup(){
 onPressEdit(){
     this.props.navigation.navigate('Edit')
 }
+async onPressLeaveGroup(){
+  await database.LeaveGroup(this.state.group,this.state.email,(()=>{this.props.navigation.navigate('Group')}),this.leave_F)
+}
 
-
+leave_F(){
+  console.log("leaveFail")
+}
 
 
   render() {
@@ -248,9 +253,11 @@ onPressEdit(){
             <Title>{this.state.group}</Title>
           </View>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
+          <Button transparent onPress={() => this.onPressLeaveGroup()}>
             <Image style={{ width: 20, height: 20 }}
               source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
             />
+            </Button>
           </View>
         </Header>
 
