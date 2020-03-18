@@ -31,6 +31,9 @@ export default class GroupDetail extends React.Component {
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
     group:'',
     dialogVisible: false,
+    Alltask:'',
+    ToCompletedTask:'',
+    CompletedTask:''
   };
 
   showDialog = () => {
@@ -61,7 +64,7 @@ export default class GroupDetail extends React.Component {
     
   };
   async addMessage_Success(id){
-    await database.updateID(id,this.state.group,this.update_Success,update_Fail)
+    //await database.updateID(id,this.state.group,this.update_Success,this.update_Fail)
     this.Task.update();
     console.log("Success")
   }
@@ -72,8 +75,8 @@ export default class GroupDetail extends React.Component {
   update_Success(){
     console.log("Success")
   }
-  update_Fail(){
-    console.log("Fail")
+  update_Fail(error){
+    console.log(error)
   }
 
 //   onFocusFunction = async () => {
@@ -131,13 +134,21 @@ onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
   this.setState({group:await AsyncStorage.getItem('@group')})
   this.setState({uri:await AsyncStorage.getItem('@uri')});
+  await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
+  await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+  await database.CountToComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
   this.Task.update();
 }
 // update (){
 //   this.todo.update();
 
 // };
+countSuccess(count){
+  this.setState({ Alltask: count });
+}
+countFail(){
 
+}
 componentDidMount(){
 
   
@@ -148,6 +159,7 @@ componentDidMount(){
   var min = new Date().getMinutes(); //Current Minutes
   var sec = new Date().getSeconds(); //Current Seconds
   this.onFocusFunction();
+  
   // this.setState({time:hours+":"+min+":"+sec})
   // console.log(this.state.time)
   this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
@@ -190,6 +202,8 @@ onPressGroup(){
 onPressEdit(){
     this.props.navigation.navigate('Edit')
 }
+
+
 
 
   render() {
@@ -250,7 +264,7 @@ onPressEdit(){
               <Card style={{ flex:0.15, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
                 <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
                   <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
-                    <Text style={styles.Text2}>3</Text>
+                    <Text style={styles.Text2}>{this.state.Alltask}</Text>
                           <View style={{ alignItems: 'center' }}>
                             <Text style={styles.under}>All Tasks</Text>
                           </View>
@@ -261,7 +275,7 @@ onPressEdit(){
                   </View>
                   
                   <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                      <Text style={styles.Text2} >2</Text>
+                      <Text style={styles.Text2} >{this.state.ToCompletedTask}</Text>
                       <View style={{ alignItems: 'center' }}>
                         <Text style={styles.under}>Tasks to be Completed</Text>
                       </View>
@@ -272,7 +286,7 @@ onPressEdit(){
                   </View>
 
                   <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                      <Text style={styles.Text2} >1</Text>
+                      <Text style={styles.Text2} >{this.state.CompletedTask}</Text>
                       <View style={{ alignItems: 'center' }}>
                         <Text style={styles.under}>Completed  Tasks</Text>
                       </View>
