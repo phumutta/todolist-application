@@ -13,7 +13,7 @@ import Tomorrow from './Tomorrow'
 import Upcoming from './Upcoming'
 import Someday from './Someday'
 import Completed from './Completed'
-import Inbox from './Inbox'
+import Note from './Note'
 import First from './First'
 import Login from './Login'
 import Register from './Register'
@@ -35,6 +35,7 @@ import Edit_Reminder from './Edit_Reminder'
 import Edit_Repeat from './Edit_Repeat'
 import CreateNewGroup from './CreateNewGroup'
 import GroupDetail from './GroupDetail'
+import AddNote from './AddNote'
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -89,9 +90,14 @@ const navigator = createSwitchNavigator({
       title: 'Completed', headerShown: false
     }
   },
-  Inbox: {
-    screen: Inbox, navigationOptions: {
-      title: 'Inbox', headerShown: false
+  Note: {
+    screen: Note, navigationOptions: {
+      title: 'Note', headerShown: false
+    }
+  },
+  AddNote: {
+    screen: AddNote, navigationOptions: {
+      title: 'AddNote'
     }
   },
 
