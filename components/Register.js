@@ -92,14 +92,14 @@ export default class Register extends React.Component {
               <TextInput
                   style={styles.txtIn2}
                   placeholder="email"
-                  maxLength={20}
+                  maxLength={25}
                   onChangeText={this.onChangeTextEmail}
               />
               <Text style={styles.txt}> </Text>
               <TextInput
                   style={styles.txtIn2}
                   placeholder="password"
-                  maxLength={15}
+                  maxLength={20}
                   secureTextEntry ={true}
                   onChangeText={this.onChangeTextpassword}
               />

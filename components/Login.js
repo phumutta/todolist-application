@@ -96,7 +96,7 @@ export default class Login2 extends React.Component {
               <TextInput
                 style={styles.txtIn2}
                 placeholder="email"
-                maxLength={15}
+                maxLength={25}
                 onChangeText={this.onChangeTextEmail}
               />
               <Text style={styles.txt}> </Text>
@@ -104,7 +104,7 @@ export default class Login2 extends React.Component {
                 style={styles.txtIn2}
                 placeholder="••••••••"
                 secureTextEntry ={true}
-                maxLength={15}
+                maxLength={20}
                 onChangeText={this.onChangeTextPassword}
               />
               <TouchableOpacity style={styles.viewBtn2}>
