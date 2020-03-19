@@ -55,6 +55,12 @@ class Database{
   async addMessageToday(User,Message,add_Message_success,add_Message_fail){
       await firebase.firestore().collection("Todo").doc(User).collection("Today").add(Message).then(ref=>{add_Message_success(ref.id)},add_Message_fail)
   }
+
+  async UpdateMessageToday(User,Message,add_Message_success,add_Message_fail){
+    await firebase.firestore().collection("Todo").doc(User).collection("Today").doc(Message.id).update(Message).then(ref=>{add_Message_success()},add_Message_fail)
+}
+
+
   async addNote(User,Message,add_Message_success,add_Message_fail){
     console.log(User)
     await firebase.firestore().collection("Todo").doc(User).collection("Note").add(Message).then(async ref=>{

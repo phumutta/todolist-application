@@ -36,6 +36,7 @@ export default class Edit extends Component {
       date:null,
       email: '',
       message:'',
+      Message:'',
       time:'',
       Date:'',
       Priority:'',
@@ -47,6 +48,8 @@ export default class Edit extends Component {
       imgPre:'https://sv1.picz.in.th/images/2020/03/19/Qi4t3l.png',
       singlePickerVisible: false,
       singlePickerSelectedItem: [],
+      id:'',
+      des:''
 
       
     };
@@ -55,9 +58,24 @@ export default class Edit extends Component {
     this.setDate = this.setDate.bind(this);
     this.setDate2 = this.setDate2.bind(this);
   }
+  FocusFunction=async()=>{
+    this.setState({Message:await AsyncStorage.getItem('@Message')})
+    this.setState({message:await AsyncStorage.getItem('@Message')})
 
+    this.setState({id:await AsyncStorage.getItem('@TaskID')})
+    this.setState({des:await AsyncStorage.getItem('@Des')})
+
+    this.setState({email:await AsyncStorage.getItem('@email')})
+    
+  }
 
   onFocusFunction=async()=>{
+    this.setState({Message:await AsyncStorage.getItem('@Message')})
+    this.setState({message:await AsyncStorage.getItem('@Message')})
+
+    this.setState({id:await AsyncStorage.getItem('@TaskID')})
+    this.setState({des:await AsyncStorage.getItem('@Des')})
+
     this.setState({email:await AsyncStorage.getItem('@email')})
     if (this.state.singlePickerSelectedItem.label == "HIGH PRIORITY") {
       this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png" })
@@ -89,12 +107,13 @@ export default class Edit extends Component {
    await this.setState({date: myJSON});
     
     console.log(this.state.date)
+    
   
   }
   componentDidMount(){
 
     this.onFocusFunction();
-  
+    // this.FocusFunction()
     this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
     
     
@@ -103,6 +122,7 @@ export default class Edit extends Component {
  }
   
   onChangeText = message => this.setState({ message });
+  onChangeDes =des=>this.setState({des})
 
   
   async setDate(newDate) {
@@ -166,23 +186,24 @@ addText=async()=>{
         await  this.setState({Priority:'0'})
         break;
     }
-    Message={
+    Message=await {
       message:this.state.message,
       time: this.state.time,
       Date:this.state.date,
       status:'1',
-      id:'',
-      PriImg:this.state.imgPri,
-      Priority:this.state.Priority
+      id:this.state.id,
+      PriImg:this.state.imgPre,
+      Priority:this.state.Priority,
+      Des:this.state.des
     }
     console.log(this.state.email)
-   await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+   await  database.UpdateMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
  
   }
   addMessageSuccess=async(id)=>{
   
     console.log("Successsssssssss");
-    await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+    
    
     // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
     
@@ -226,7 +247,7 @@ getRepeat = () =>{
                 </Button>
               </View>
               <View style = { styles.MainContainer2 }>
-                <Title>Edit</Title>
+                <Title>{this.state.Message}</Title>
               </View>
             
               <TouchableOpacity style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 10}} onPress={this.onPressAdd}>  
@@ -246,10 +267,10 @@ getRepeat = () =>{
                 <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:this.state.imgPre}}/>
                 <TextInput style={{flex:12, fontSize:18}}
                   ref={input => { this.textInput = input }} 
-                  placeholder="Add a task..."
+                 
                   onChangeText={this.onChangeText}
 
-                />
+        >{this.state.message}</TextInput>
                 <TouchableOpacity  style={{flex:1, marginRight:20 ,height:20}}  onPress={() => this.setState({ singlePickerVisible: true })}>
                 <Image style={{height:20, width:20}} source={{uri:this.state.imgPri}}/>
                 </TouchableOpacity>
@@ -304,7 +325,7 @@ getRepeat = () =>{
                       <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
                             {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
-                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
+        <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} onChangeText={this.onChangeDes}>{this.state.des}</TextInput>
                           </View>
                       </SafeAreaView>
                   </ScrollView>
@@ -360,6 +381,7 @@ getRepeat = () =>{
           onCancel={() => this.setState({ singlePickerVisible: false })}
           addPadding={true}
           onOk={result => {
+            
             this.setState({ singlePickerVisible: false });
             this.setState({ singlePickerSelectedItem: result.selectedItem });
             this.onFocusFunction();

@@ -342,8 +342,7 @@ this.props.navigation.navigate('Edit')
                                 <Items2
                                     ref={todo => (this.todo = todo)}
                                     onPressTodo={this.delete_Complete}
-                                    onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
-                                    onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                                    onPressTodo2={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
                                       />
 
                           </ScrollView>
