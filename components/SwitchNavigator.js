@@ -36,6 +36,7 @@ import Edit_Repeat from './Edit_Repeat'
 import CreateNewGroup from './CreateNewGroup'
 import GroupDetail from './GroupDetail'
 import AddNote from './AddNote'
+import EditGroupTask from './EditGroupTask'
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -165,7 +166,11 @@ const navigator = createSwitchNavigator({
       title: 'GroupDetail'
     }
   },
-
+  EditGroupTask: {
+    screen: EditGroupTask, navigationOptions: {
+      title: 'EditGroupTask'
+    }
+  },
 
   Edit_DueDate: {
     screen: Edit_DueDate, navigationOptions: {
