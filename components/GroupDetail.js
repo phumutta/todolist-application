@@ -36,6 +36,7 @@ export default class GroupDetail extends React.Component {
     Alltask:'',
     ToCompletedTask:'',
     CompletedTask:'',
+    groupUri:''
  
   };
 
@@ -165,13 +166,13 @@ async readcount(){
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
   this.setState({group:await AsyncStorage.getItem('@group')})
-  // this.setState({uri:await AsyncStorage.getItem('@uri')});
+  this.setState({uri:await AsyncStorage.getItem('@uri')});
   await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
   await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
   await database.CountComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
   await database.readGroupDetail(this.state.group,data=>{
     this.setState({des:data.des})
-    this.setState({uri:data.uri})
+    this.setState({groupUri:data.uri})
   },this.readGroupDetail_Fail)
   this.Task.update();
 }
@@ -318,7 +319,7 @@ leave_F(){
         <View>
           <LinearGradient colors={['#000000', '#FFFFFF']}>
             <View style={{height:110,}}></View>
-              <Image style={styles.avatar} source={{uri:this.state.uri}}/>
+              <Image style={styles.avatar} source={{uri:this.state.groupUri}}/>
               <View style={styles.body}>
                 <View style={styles.bodyContent}>
                   <Text style={styles.name}>{this.state.group}</Text>

@@ -432,12 +432,13 @@ class Database{
         if (state==0){
           
             Alert.alert("don't have this Group")
+            add_Success() 
           
         }
 
       
    
-      add_Success() 
+      
     })
     .catch(add_Fail());
     // await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(()=>{

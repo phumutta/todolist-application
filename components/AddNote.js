@@ -27,7 +27,8 @@ export default class AddNote extends React.Component {
     last: '',
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
     date: '',
-    note:''
+    note:'',
+    noteTime:''
 
   };
 
@@ -39,30 +40,31 @@ export default class AddNote extends React.Component {
 
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
-  this.update()
+
+  
 }
 // update (){
 //   this.todo.update();
 
 // };
 
-componentDidMount(){
+// componentDidMount(){
 
-  this.onFocusFunction();
-  let date = new Date().getDate(); //Current Date
-  var month = new Date().getMonth() + 1; //Current Month
-  var year = new Date().getFullYear(); //Current Year
-  var hours = new Date().getHours(); //Current Hours
-  var min = new Date().getMinutes(); //Current Minutes
-  var sec = new Date().getSeconds(); //Current Seconds
-  // this.setState({time:hours+":"+min+":"+sec})
-  // console.log(this.state.time)
-  this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
-  this.setState({Date:date + '/' + month + '/' + year})
+//   this.onFocusFunction();
+//   let date = new Date().getDate(); //Current Date
+//   var month = new Date().getMonth() + 1; //Current Month
+//   var year = new Date().getFullYear(); //Current Year
+//   var hours = new Date().getHours(); //Current Hours
+//   var min = new Date().getMinutes(); //Current Minutes
+//   var sec = new Date().getSeconds(); //Current Seconds
+//   // this.setState({time:hours+":"+min+":"+sec})
+//   // console.log(this.state.time)
+//   this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+//   this.setState({Date:date + '/' + month + '/' + year})
   
 
  
-}
+// }
 
 
 onChangeText = message => this.setState({ message });
@@ -172,7 +174,11 @@ constructor(props){
   };
 }
 componentDidMount(){
+  this.onFocusFunction()
   this.props.navigation.setParams({addNotes:this.addNotes})
+  var now = moment().format();
+  let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  this.setState({noteTime:time})
 }
 // dummyCategory = () => {
 //     let dummyCtgy = []
@@ -199,10 +205,26 @@ getCategoryBtn = () =>{
       <Picker.Item key={item.id} label={item.name} value={item.id}/>  
   ))
 }
-onPressOK(){
-  let dateCreate=moment(now).format('MMMM Do YYYY, h:mm a');
-  console.log(dateCreate)
+async onPressOK(){
+  
+  console.log(this.state.noteTime)
   console.log(this.state.note)
+  console.log(this.state.email)
+   Message= await{
+    note: this.state.note,
+    time:this.state.noteTime,
+    id:''
+  }
+  console.log(Message)
+  await database.addNote(this.state.email,Message,this.addNote_S,this.addNote_F)
+
+
+}
+addNote_S(){
+
+}
+addNote_F(){
+
 }
 
 
@@ -211,7 +233,9 @@ onChangeText = note => this.setState({ note });
 
   render() {
 
-    var now = moment().format();
+    // var now = moment().format();
+    // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+    // // this.setState({noteTime:time})
 
     return (
       <Container>
@@ -239,7 +263,7 @@ onChangeText = note => this.setState({ note });
                   <ScrollView style={{flex:1,width:'100%'}}>
                       <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
-                            <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text>
+                            <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{this.state.noteTime}</Text>
                             <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%'}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
                           </View>
                       </SafeAreaView>
