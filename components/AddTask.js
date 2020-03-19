@@ -13,6 +13,13 @@ import database from './Database3';
 // Edit_PomodoroNumber
 // Edit_Reminder
 // Edit_Repeat
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,
+} from 'react-native-popup-menu';
 
 export default class AddTask extends Component {
 
@@ -178,6 +185,7 @@ addText=async()=>{
   updateFail(){
     console.log("FailUpdate");
   }
+  
 
 
 
@@ -190,6 +198,11 @@ getRepeat = () =>{
 }
 
     render() {
+
+      const CheckedOption = (props) => (
+        <MenuOption {...props} text={(props.checked ? '\u2713 ' : '') + props.text} />
+      )
+
       let PickerIOSItem = PickerIOS.Item
         return (
             <Container>
