@@ -21,7 +21,10 @@ export default class Today extends React.Component {
     Priority:'',
     name: '',
     last: '',
-    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png"
+    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
+    Alltask:'',
+    ToCompletedTask:'',
+    CompletedTask:'',
 
   };
 
@@ -78,42 +81,49 @@ export default class Today extends React.Component {
 
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
-  this.update()
-}
-// update (){
-//   this.todo.update();
-
-// };
-
-componentDidMount(){
-
-  
   let date = new Date().getDate(); //Current Date
   var month = new Date().getMonth() + 1; //Current Month
   var year = new Date().getFullYear(); //Current Year
   var hours = new Date().getHours(); //Current Hours
   var min = new Date().getMinutes(); //Current Minutes
   var sec = new Date().getSeconds(); //Current Seconds
-  this.onFocusFunction();
-  // this.setState({time:hours+":"+min+":"+sec})
-  // console.log(this.state.time)
-  this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
-  // month=String(month)
-  // var len=month.length()
-  // if(len==1){
-  //   month=String('0')+String(month)
-  //   console.log(month)
-  // }
-  month=month.toString()
-  console.log(typeof(month))
+  var today = new Date()
+  month = month.toString()
+  date=date.toString()
+  console.log(typeof (month))
   console.log(month.length)
-  if (month.length==1){
-    month=String('0')+String(month)
+  if (month.length == 1) {
+    month = String('0') + String(month)
   }
   console.log(month)
-  if(date.length==1){
-    date=String('0')+String(date)
+  if (date.length == 1) {
+    date = String('0') + String(date)
   }
+
+  this.setState({ Date: year + '-' + month + '-' + date })
+  await database.CountTask(this.state.email,this.state.Date,count=>{this.setState({ Alltask: count })},this.countFail)
+  await database.CountToComplete(this.state.email,this.state.Date,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+  await database.CountComplete(this.state.email,this.state.Date,count=>{this.setState({ CompletedTask: count })},this.countFail)
+  this.update()
+}
+// update (){
+//   this.todo.update();
+
+// };
+countFail(){
+
+}
+
+componentDidMount(){
+
+ 
+
+
+  this.onFocusFunction();
+  
+  this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+
+ 
 
  
 }
@@ -163,6 +173,9 @@ addMessageFail=async()=>{
 console.log("addMessageFail");
 }
 async updateSuccess(){
+  await database.CountTask(this.state.email,this.state.Date,count=>{this.setState({ Alltask: count })},this.countFail)
+  await database.CountToComplete(this.state.email,this.state.Date,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+  await database.CountComplete(this.state.email,this.state.Date,count=>{this.setState({ CompletedTask: count })},this.countFail)
   
   console.log("updateID");
   this.todo.update()
@@ -171,7 +184,14 @@ updateFail(){
 console.log("FailUpdate");
 }
 delete_Complete=async (id)=>{
-  await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
+  await database.updateStatus(id,this.state.email,(async()=>{
+    // await database.CountTask(this.state.email,this.state.Date,count=>{this.setState({ Alltask: count })},this.countFail)
+    await database.CountToComplete(this.state.email,this.state.Date,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+    await database.CountComplete(this.state.email,this.state.Date,count=>{this.setState({ CompletedTask: count })},this.countFail)
+  
+  console.log("updateID");
+  this.todo.update()
+  }),this.updateFail)
   // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
   //this.onPressTrack();
   this.todo.update()
@@ -268,7 +288,7 @@ this.props.navigation.navigate('Edit')
               <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
 
                 <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
-                  <Text style={styles.Text2}>6</Text>
+                  <Text style={styles.Text2}>{this.state.Alltask}</Text>
                         <View style={{ alignItems: 'center' }}>
                           <Text style={styles.under}>Tasks for Today</Text>
                         </View>
@@ -281,7 +301,7 @@ this.props.navigation.navigate('Edit')
 
                 
                 <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                    <Text style={styles.Text2} >3</Text>
+                    <Text style={styles.Text2} >{this.state.ToCompletedTask}</Text>
                     <View style={{ alignItems: 'center' }}>
                       <Text style={styles.under}>Tasks to be Completed</Text>
                     </View>
@@ -294,7 +314,7 @@ this.props.navigation.navigate('Edit')
 
 
                 <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                    <Text style={styles.Text2} >1</Text>
+                    <Text style={styles.Text2} >{this.state.CompletedTask}</Text>
                     <View style={{ alignItems: 'center' }}>
                       <Text style={styles.under}>Completed  Tasks</Text>
                     </View>

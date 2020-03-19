@@ -166,7 +166,11 @@ addText=async()=>{
   addMessageSuccess=async(id)=>{
   
     console.log("Successsssssssss");
-    await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+    await database.updateID(id,this.state.email,(async()=>{
+      await AsyncStorage.removeItem('@Pri');
+      this.props.navigation.navigate("Main1");
+      
+    }),this.updateFail)
    
     // await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
     

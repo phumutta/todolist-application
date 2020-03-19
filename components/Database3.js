@@ -22,6 +22,36 @@ class Database{
         console.log("firebase apps already running...");
     }
   }
+  async CountTask(email,Date,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Todo").doc(email).collection("Today").where('Date','==',Date).get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
+  async CountToComplete(email,Date,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Todo").doc(email).collection("Today").where('status','==','1').where('Date','==',Date).get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
+  async CountComplete(email,Date,read_Success,read_fail){
+    let size;
+    
+    await firebase.firestore().collection("Todo").doc(email).collection("Today").where('status','==','0').where('Date','==',Date).get().then(snap => {
+      size = snap.size 
+      console.log("HEREEEEE")
+      console.log(size)
+      read_Success(size)
+   },read_fail());
+  }
   async addMessageToday(User,Message,add_Message_success,add_Message_fail){
       await firebase.firestore().collection("Todo").doc(User).collection("Today").add(Message).then(ref=>{add_Message_success(ref.id)},add_Message_fail)
   }
