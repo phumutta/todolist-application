@@ -56,7 +56,8 @@ export default class EditGroupTask extends Component {
       des:'',
       groupUri:'',
       group:'',
-      uri:''
+      uri:'',
+      user:''
 
       
     };
@@ -71,7 +72,7 @@ export default class EditGroupTask extends Component {
     this.setState({Message:await AsyncStorage.getItem('@Message')})
     this.setState({message:await AsyncStorage.getItem('@Message')})
     this.setState({uri:await AsyncStorage.getItem('@OwnTask')})
-    this.setState({email:await AsyncStorage.getItem('@OwnTaskEmail')})
+    this.setState({user:await AsyncStorage.getItem('@OwnTaskEmail')})
     this.setState({id:await AsyncStorage.getItem('@TaskID')})
     this.setState({des:await AsyncStorage.getItem('@Des')})
     this.setState({group:await AsyncStorage.getItem('@group')})
@@ -188,7 +189,7 @@ addText=async()=>{
     }
     Message={
       message:this.state.message, 
-      user:this.state.email,
+      user:this.state.user,
       time:this.state.time,
       status:'1',
       uri:this.state.uri,
@@ -269,7 +270,7 @@ getRepeat = () =>{
               <View style={styles.body}>
                 <View style={styles.bodyContent}>
                   <Text style={styles.name}>{this.state.group}</Text>
-                  <Text style={styles.description}>{this.state.email}</Text>
+                  <Text style={styles.description}>{this.state.user}</Text>
                   {/* <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text> */}
                 </View>
             </View>

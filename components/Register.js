@@ -23,7 +23,7 @@ export default class Register extends React.Component {
     account={
       name:this.state.name,
       last:this.state.last,
-      email:this.state.email,
+      email:this.state.email.toLowerCase(),
       // password:this.state.password,
       uri:''
     }
@@ -37,7 +37,7 @@ export default class Register extends React.Component {
     account={
       name:this.state.name,
       last:this.state.last,
-      email:this.state.email,
+      email:this.state.email.toLowerCase(),
       password:this.state.password,
     }
     database.createAut(account,this.add_Aut_success,this.add_Aut_fail);

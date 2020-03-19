@@ -21,7 +21,7 @@ export default class Login2 extends React.Component {
     // digest=digest.slice(0,16)
     // console.log(digest)
     account={
-      email:this.state.email,
+      email:this.state.email.toLowerCase(),
       password:this.state.password,
     }
     database.login(account,this.login_success,this.login__fail);
@@ -34,7 +34,7 @@ export default class Login2 extends React.Component {
 
   login_success=async()=>{
    
-    await database.readdata(this.state.email,this.read_Account_success,this.read_Account_fail)
+    await database.readdata(this.state.email.toLowerCase(),this.read_Account_success,this.read_Account_fail)
     Alert.alert("Login Success");
   
 
