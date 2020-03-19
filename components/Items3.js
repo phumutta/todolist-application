@@ -73,15 +73,18 @@ export default class Items3 extends React.Component {
     const heading = "Todo";
 
     if (items === null || items.length === 0) {
-      return (<View style={{flex: 6,alignItems: 'center',justifyContent: 'center' }}>
+      return (
+      
+      <View style={{flex: 6,alignItems: 'center',justifyContent: 'center' ,alignContent:'center'}}>
       <Image style={{ width: 200, height: 152.77, }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/R2bmVk.png' }}/>
       <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>Don't have any completed task! #TodoblackZero{'\n'}Enjoy your night.</Text>
-  </View> );
+      </View>
+     );
     }
     console.log("Print items ")
     console.log(items)
     return (
-    
+
         <View style={{flex:1,alignItems:'center' ,flexDirection:'column',justifyContent: 'center',backgroundColor:"#transparent",alignContent:'center'}}>
         {items.map(({ date,id, message,time }) => (
          
@@ -103,7 +106,7 @@ export default class Items3 extends React.Component {
               borderRadius: 10
               
             }}
-          >
+          >   
              <Image style={{marginLeft:"5%",marginTop:"3%",width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/02/26/xCLwtn.png'}}/>
            
           </TouchableOpacity>

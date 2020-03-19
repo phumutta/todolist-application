@@ -47,6 +47,7 @@ export default class AddTask extends Component {
       imgPre:'https://sv1.picz.in.th/images/2020/03/19/Qi4t3l.png',
       singlePickerVisible: false,
       singlePickerSelectedItem: [],
+      Des:''
 
       
     };
@@ -103,6 +104,7 @@ export default class AddTask extends Component {
  }
   
   onChangeText = message => this.setState({ message });
+  onChangeDes=Des=>this.setState({Des})
 
   
   async setDate(newDate) {
@@ -172,8 +174,9 @@ addText=async()=>{
       Date:this.state.date,
       status:'1',
       id:'',
-      PriImg:this.state.imgPri,
-      Priority:this.state.Priority
+      PriImg:this.state.imgPre,
+      Priority:this.state.Priority,
+      Des:this.state.Des
     }
     console.log(this.state.email)
    await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
@@ -308,7 +311,7 @@ getRepeat = () =>{
                       <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
                             {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
-                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
+                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeDes}/>
                           </View>
                       </SafeAreaView>
                   </ScrollView>

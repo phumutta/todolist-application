@@ -199,7 +199,7 @@ export default class Items_someday extends React.Component {
     return (
 
       <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column', justifyContent: 'center', backgroundColor: "#transparent", alignContent: 'center' }}>
-        {items.map(({ date, id, message, time }) => (
+        {items.map(({ date, id, message, time ,PriImg}) => (
 
 
           <Card style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 55, marginTop: 12 }} >
@@ -220,7 +220,7 @@ export default class Items_someday extends React.Component {
 
               }}
             >
-              <Image style={{ marginLeft: "5%", width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
+              <Image style={{ marginLeft: "5%", width: 25, height: 25 }} source={{ uri:PriImg}} />
 
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: "1%" }}>
