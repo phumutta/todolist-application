@@ -351,7 +351,7 @@ leave_F(){
                     <Text style={styles.TTT} >|</Text>
                   </View>
                   
-                  <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
+                  <View style={{flex:1.3,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
                       <Text style={styles.Text2} >{this.state.ToCompletedTask}</Text>
                       <View style={{ alignItems: 'center' }}>
                         <Text style={styles.under}>Tasks to be Completed</Text>
