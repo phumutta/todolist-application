@@ -75,7 +75,7 @@ export default class Items3 extends React.Component {
     if (items === null || items.length === 0) {
       return (
       
-      <View style={{flex: 6,alignItems: 'center',justifyContent: 'center' ,alignContent:'center'}}>
+      <View style={{flex: 6,alignItems: 'center',justifyContent: 'center' ,alignContent:'center',marginTop:"50%"}}>
       <Image style={{ width: 200, height: 152.77, }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/R2bmVk.png' }}/>
       <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>Don't have any completed task! #TodoblackZero{'\n'}Enjoy your night.</Text>
       </View>
