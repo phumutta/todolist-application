@@ -59,6 +59,47 @@ class Database{
   async UpdateMessageToday(User,Message,add_Message_success,add_Message_fail){
     await firebase.firestore().collection("Todo").doc(User).collection("Today").doc(Message.id).update(Message).then(ref=>{add_Message_success()},add_Message_fail)
 }
+async readStatus(User, success_callback, fail_callback){
+  firebase.firestore().collection("Todo").doc(User).collection("Today").get().then(snapshot=>{
+    var objMenu = [];
+    var success = 0;
+    if(snapshot.emtry)
+    {
+      fail_callback();
+      return;
+    }
+    snapshot.forEach(doc => {
+      objMenu.push(doc.data());
+      if (doc.get("status") == 0) success += 1
+    });
+    success_callback(objMenu, objMenu.length, success);
+  });
+}
+
+ async readPiority(User,priority_callback,read_Message_fail){
+  firebase.firestore().collection("Todo").doc(User).collection("Today").get().then(snapshot=>{
+    var objPriority=[];
+    var priority0=0;
+    var priority1=0;
+    var priority2=0;
+    var priority3=0;
+    if(snapshot.emtry)
+    {
+
+      read_Message_fail();
+      return;
+    }
+    snapshot.forEach(doc=>{
+      objPriority.push(doc.data());
+      if (doc.get("Priority") == 0) priority0 += 1
+      if (doc.get("Priority") == 1) priority1 += 1
+      if (doc.get("Priority") == 2) priority2 += 1
+      if (doc.get("Priority") == 3) priority3 += 1
+    });
+      
+    priority_callback(objPriority,objPriority.length,priority0,priority1,priority2,priority3);
+  });
+}
 
 
   async addNote(User,Message,add_Message_success,add_Message_fail){
