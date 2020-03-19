@@ -38,8 +38,12 @@ export default class Avatar extends Component {
 
 
   onPressOK = async() => {
-   await database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
-    console.log(this.state.imageuri)
+    if(this.state.imageuri != 'https://sv1.picz.in.th/images/2019/08/22/ZRRyeW.png'){
+      await database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
+      console.log(this.state.imageuri)}
+       else{
+      Alert.alert("Please add Avatar");
+      }
 
   };
 
