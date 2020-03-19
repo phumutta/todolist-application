@@ -300,6 +300,7 @@ readMessageFail=async()=>{
   console.log("read F");
 }
 async update(){
+  await database.CountSomeday(this.state.email, this.state.Date,this.state.Tomorrow,this.state.Upcoming,(num=>{ this.setState({count:num})}), this.get_text_fail);
   await this.todo.update();
 
 };
