@@ -56,7 +56,7 @@ class Database{
   }
   async readMessage(User,Date,read_Message_success,read_Message_fail){
     let array=[]
-    let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).where('status','==','1').orderBy('time');
+    let query= await firebase.firestore().collection("Todo").doc(User).collection("Today").where('Date','==',Date).where('status','==','1').orderBy('Priority',"desc");
     query.get().then(snapshot=>{
       if(snapshot.emtry)
       {
@@ -67,7 +67,7 @@ class Database{
       snapshot.forEach(doc=>{
         // console.log(doc.data())
         // array.push(Object.values(doc.data()))
-        array.push(doc.data())
+        array.push(doc.data()) 
         // read_Message_success(doc.data())
         
         })

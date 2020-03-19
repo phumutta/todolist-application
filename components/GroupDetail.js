@@ -252,7 +252,7 @@ leave_F(){
           <View style={{flex: 4, justifyContent: 'center', alignItems: 'center', marginTop: 5}}>
             <Title>{this.state.group}</Title>
           </View>
-          <TouchableOpacity onPress={()=>this.onPressLeftgroup()}>
+          <TouchableOpacity onPress={()=>this.onPressLeaveGroup()}>
             <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
               <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/03/18/Qc7eXQ.png' }}/>
             </View>

@@ -27,7 +27,7 @@ export default class Group extends Component {
     
     console.log(this.state.email)
     // await database.addGroupAccount(Name,this.state.Group,this.join_success,this.join_fail)
-    await database.joinGroup(Name,this.state.Group,this.join_success,this.join_fail)
+    await database.joinGroup(Name,this.state.Group,(()=>{this.group.update();}),this.join_fail)
    
     console.log("READIMG")
     console.log(this.state.Group)
