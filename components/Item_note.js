@@ -13,15 +13,15 @@ import '@firebase/firestore';
 import Constants from "expo-constants";
 
 import * as SQLite from 'expo-sqlite';
-import database from './Database';
-
+import database from './Database3';
+import { CardViewWithImage, CardViewWithIcon } from 'react-native-simple-card-view'
 import { Card } from 'react-native-shadow-cards';
 // import Tomorrow from "./Tomorrow";
 import TouchableScale from 'react-native-touchable-scale';
 // import LinearGradient from 'react-native-linear-gradient';
 import { Avatar } from 'react-native-elements';
-
-export default class Items_note extends React.Component {
+import CardView from 'react-native-cardview'
+export default class Item_note extends React.Component {
   state = {
     items: [],
     email: '',
@@ -48,7 +48,7 @@ export default class Items_note extends React.Component {
 
   update() {
     // console.log(this.state.email)
-    database.readMyGroup(this.state.email, this.get_text_success, this.get_text_fail);
+    database.readNote(this.state.email, this.get_text_success, this.get_text_fail);
     
   }
   // onPressGroupDetail() {
@@ -71,25 +71,22 @@ export default class Items_note extends React.Component {
    
     return (
       <View>
+          
+          {items.map (({id,note,time}) => (
+             <CardViewWithImage
+             source={ {uri: 'https://placeimg.com/640/480/nature'} }
+             content={ note }
+             title={ time }
+             imageWidth={ '0%' }
+             imageHeight={ '0%' }
+             roundedImage={ false }
+             onPress={() => console.log("CardViewWithImage Clicked!")}
+             width={'50%'}
+         />
 
-          {items.map (({id, email,uri,admin}) => (
-
-            <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
-            {/* <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:uri}}/> */}
-              <Avatar rounded size="large" containerStyle={{marginLeft:'3%', marginRight:'5%'}} source={{uri:uri}}/>
-              <View style={{flex:1, flexDirection: 'column'}} >
-                <Text style={{fontSize:18,color:'#171D33',marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
-          <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {admin}</Text>
-              </View>
-              <TouchableOpacity style={{marginRight:'8%'}} onPress={() => { this.props.onPressTodo(id) }}>
-                <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-                  <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>More</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
 
           ))}
-
+        
       </View>
 
     );

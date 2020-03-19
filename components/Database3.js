@@ -101,7 +101,21 @@ async readStatus(User, success_callback, fail_callback){
   });
 }
 
+async readNote(User,read_Success,read_fail){
+  let array=[]
+  await firebase.firestore().collection("Todo").doc(User).collection("Note").get().then(snap=>{
+    if(snap.empty){
+      read_fail()
+      return;
+    }
+    snap.forEach(doc=>{
+      array.push(doc.data())
+    })
+    read_Success(array)
+  })
+  .catch(read_fail());
 
+}
   async addNote(User,Message,add_Message_success,add_Message_fail){
     console.log(User)
     await firebase.firestore().collection("Todo").doc(User).collection("Note").add(Message).then(async ref=>{

@@ -33,10 +33,7 @@ export default class AddNote extends React.Component {
   };
 
 
-  onPressBack(){
-    this.props.navigation.navigate('Note')
- }
-
+ 
 
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
@@ -143,7 +140,7 @@ async update(){
 
 
 onPressBack(){
-  this.props.navigation.navigate('Main1')
+  this.props.navigation.navigate('Note')
 }
 onPressEdit(){
 this.props.navigation.navigate('Edit')
@@ -216,7 +213,7 @@ async onPressOK(){
     id:''
   }
   console.log(Message)
-  await database.addNote(this.state.email,Message,this.addNote_S,this.addNote_F)
+  await database.addNote(this.state.email,Message,(()=>{this.props.navigation.navigate('Note')}),this.addNote_F)
 
 
 }
