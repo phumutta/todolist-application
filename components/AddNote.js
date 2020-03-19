@@ -27,55 +27,11 @@ export default class AddNote extends React.Component {
     last: '',
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
     date: '',
+    note:''
 
   };
 
-//   onFocusFunction = async () => {
 
-//     // const value =await AsyncStorage.getItem('@email');
-//     // this.setState({email:value})
-//     // database.readdata(this.state.email,this.read_Account_success,this.read_Account_fail)
-//     // console.log("test")
-//     // console.log(this.state.email)
-
-//     const name_store = await AsyncStorage.getItem('@name');
-//     console.log(name_store)
-//     const last_store = await AsyncStorage.getItem('@last');
-//     const uri_store = await AsyncStorage.getItem('@uri');
-//     if (uri_store == null) {
-//       this.setState({ uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png" })
-//       this.setState({ name: name_store })
-//       this.setState({ last: last_store })
-//     }
-//     else {
-//       this.setState({ name: name_store })
-//       this.setState({ last: last_store })
-//       this.setState({ uri: uri_store })
-//     }
-//   }
-
-
-//   // read_Account_success=async(doc)=>{
-//   //   this.setState({name:doc.name})
-//   //   this.setState({email:doc.email})
-//   //   this.setState({last:doc.last})
-//   //   console.log(this.state.name);
-
-//   //   await AsyncStorage.setItem('@name',this.state.name);
-//   //   await AsyncStorage.setItem('@last',this.state.last);
-//   // }
-
-//   // read_Account_fail=async()=>{
-//   //   console.log("error")
-
-
-//   // }
-//   componentDidMount() {
-
-//     this.onFocusFunction();
-
-
-//   }
   onPressBack(){
     this.props.navigation.navigate('Note')
  }
@@ -243,10 +199,15 @@ getCategoryBtn = () =>{
       <Picker.Item key={item.id} label={item.name} value={item.id}/>  
   ))
 }
+onPressOK(){
+  let dateCreate=moment(now).format('MMMM Do YYYY, h:mm a');
+  console.log(dateCreate)
+  console.log(this.state.note)
+}
 
 
 
-
+onChangeText = note => this.setState({ note });
 
   render() {
 
@@ -279,7 +240,7 @@ getCategoryBtn = () =>{
                       <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
                             <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text>
-                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%'}} multiline={true} numberOfLines={10} placeholder='Description... '/>
+                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%'}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
                           </View>
                       </SafeAreaView>
                   </ScrollView>

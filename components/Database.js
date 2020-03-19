@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import '@firebase/firestore';
-import { Alert } from 'react-native';
+import { Alert ,AsyncStorage} from 'react-native';
 import { createPortal } from 'react-dom';
 
 
@@ -225,6 +225,8 @@ class Database{
  
   async createGroup(AdminGroup,data,group,add_Success,add_Fail){
     let array=[]
+    console.log(AdminGroup)
+    console.log("GHHGFFFFFFFFFFFFFFFFF")
     let Name ={
       email:AdminGroup.AdminGroup,
       id:group,
@@ -372,6 +374,14 @@ class Database{
     .catch(read_Message_fail());
 
   
+
+ }
+ async readGroupDetail(group,read_suc,read_fail){
+   await firebase.firestore().collection("Group").doc(group).get().then(async doc=>{
+    console.log(doc.data())
+ 
+    read_suc(doc.data())
+   })
 
  }
 

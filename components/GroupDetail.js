@@ -22,6 +22,7 @@ import Items_Members from './Items_Members'
 export default class GroupDetail extends React.Component {
 
   state = {
+    des:'',
     email: '',
     message:'',
     time:'',
@@ -34,7 +35,8 @@ export default class GroupDetail extends React.Component {
     dialogVisible: false,
     Alltask:'',
     ToCompletedTask:'',
-    CompletedTask:''
+    CompletedTask:'',
+ 
   };
 
   showDialog = () => {
@@ -163,12 +165,17 @@ async readcount(){
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
   this.setState({group:await AsyncStorage.getItem('@group')})
-  this.setState({uri:await AsyncStorage.getItem('@uri')});
+  // this.setState({uri:await AsyncStorage.getItem('@uri')});
   await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
   await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
   await database.CountComplete(this.state.group,count=>{this.setState({ CompletedTask: count })},this.countFail)
+  await database.readGroupDetail(this.state.group,data=>{
+    this.setState({des:data.des})
+    this.setState({uri:data.uri})
+  },this.readGroupDetail_Fail)
   this.Task.update();
 }
+
 // update (){
 //   this.todo.update();
 
@@ -211,6 +218,20 @@ componentDidMount(){
     date=String('0')+String(date)
   }
 
+
+}
+readGroupDetail_Fail(){
+
+}
+async readGroupDetail_Su(){
+
+  this.setState({des:await AsyncStorage.getItem('@GroupDes')})
+  this.setState({uri:await AsyncStorage.getItem('@GroupIMG')})
+  console.log(this.state.des)
+    // this.setState({des:data.des})
+    // this.setState({uri:data.uri})
+
+  
 }
 
 onChangeText = message => this.setState({ message });
@@ -297,11 +318,11 @@ leave_F(){
         <View>
           <LinearGradient colors={['#000000', '#FFFFFF']}>
             <View style={{height:110,}}></View>
-              <Image style={styles.avatar} source={{uri: 'https://sv1.picz.in.th/images/2020/03/13/QBSTJR.png'}}/>
+              <Image style={styles.avatar} source={{uri:this.state.uri}}/>
               <View style={styles.body}>
                 <View style={styles.bodyContent}>
                   <Text style={styles.name}>{this.state.group}</Text>
-                  <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text>
+                  <Text style={styles.description}>{this.state.des}</Text>
                   {/* <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text> */}
                 </View>
             </View>

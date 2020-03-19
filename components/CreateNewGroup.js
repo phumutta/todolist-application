@@ -96,7 +96,8 @@ export default class CreateNewGroup extends Component {
     // this.setState({group:text})
     AdminGroup={
       AdminGroup: this.state.email,
-      uri:''
+      uri:'',
+      des:this.state.des
 
     }
 
