@@ -249,7 +249,7 @@ getRepeat = () =>{
         <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
 
 
-        <View  style={{flex:0.1,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',height:25}} >
+        <View  style={{flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',height:50}} >
                 <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:this.state.imgPre}}/>
                 <TextInput style={{flex:12, fontSize:18}}
                     maxLength={20}
@@ -265,7 +265,7 @@ getRepeat = () =>{
           </View>
 
 
-            <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker})}>
+            <TouchableOpacity style={{height:40,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker})}>
                 <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
                   <View style={{flexDirection: 'row'}} >
                     <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Due Date</Text>
@@ -403,7 +403,7 @@ getRepeat = () =>{
           //   }}
           // />
           <DatePickerIOS
-          style={{ flex: 0.33,width: '100%', height:'2%', marginTop:1 }}
+          style={{ flex: 0.6,width: '100%', height:'2%', marginTop:1 }}
           date={this.state.chosenDate}
           onDateChange={this.setDate}
           
