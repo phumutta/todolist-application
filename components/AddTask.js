@@ -318,8 +318,10 @@ getRepeat = () =>{
                       <Text style={{flex:9, color: '#D4D4D4', fontSize:18, }}>No Priority</Text>
                     </View>
                   </MenuOption>
+
                 </MenuOptions>
               </Menu>
+
             </View>
           </MenuProvider> */}
 

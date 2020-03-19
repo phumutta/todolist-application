@@ -72,14 +72,14 @@ export default class Items_Members extends React.Component {
    
     return (
       
-        <Card style={{ flex:0.13, flexDirection: 'row',alignItems:'center',  }} >
+        <Card style={{ flex:0.15, flexDirection: 'row',alignItems:'center',  marginBottom:'2%'}} >
 
-        <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>Members</Text>
+        <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%', marginRight:'3%'}}>Members</Text>
         {/* <ScrollView horizontal={true} > */}
         
           {items.map (({id, email,uri,admin}) => (
             
-            <Avatar rounded containerStyle={{marginLeft:'5%'}} source={{uri:uri}}/>
+            <Avatar rounded containerStyle={{marginLeft:'2%'}} source={{uri:uri}}/>
            
             
            

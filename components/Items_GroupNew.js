@@ -138,7 +138,7 @@ export default class Items_GroupNew extends React.Component {
 
         {items.map(({ date, id, message, time,user ,uri}) => (
 
-          <Card style={{ flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:20, marginTop:12, padding:10}} >
+          <Card style={{ flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:20, marginTop:12, padding:8}} >
 
             <TouchableOpacity
               key={id}
