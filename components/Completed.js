@@ -11,7 +11,7 @@ import Items3 from './Items3'
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default class Completed extends Component {
@@ -156,7 +156,7 @@ this.props.navigation.navigate('Edit')
               </View>
             </Header>
 
-            <View style={styles.container1}>
+            
                 {/* <CalendarStrip 
                 style={{height:'20%', paddingTop: '5%', paddingBottom: 10,}} 
                 calendarHeaderStyle={{color: 'grey'}} 
@@ -175,20 +175,22 @@ this.props.navigation.navigate('Edit')
                 // showDayNumber={{}}
                 markedDatesStyle={{}}
                 /> */}
+<LinearGradient colors={['#000000', '#FFFFFF']}
+style={{flex:1}} >
 
-                <CalendarStrip 
+<CalendarStrip 
                 // highlightColor={'white'}
                 style={{height:'14%', paddingTop: '3%'}} 
                 calendarHeaderStyle={{color: 'white'}} 
                 // calendarColor={'rgba(75,21,184,2)'}
-                calendarColor={'black'}
+                calendarColor={'#252525'}
                 dateNumberStyle={{color: '#CCCCCC'}} // 13
                 dateNameStyle={{color: '#CCCCCC'}} // FRI
                 highlightDateNumberStyle={{color: 'rgba(75,21,184,2)'}}
                 highlightDateNameStyle={{color: 'white'}}
                 disabledDateNameStyle={{color: 'grey'}}
                 disabledDateNumberStyle={{color: 'grey'}}
-                iconContainer={{flex: 0.2}}
+                iconContainer={{flex: 0.15}}
                 // calendarAnimation={{type: 'sequence', duration: 30}}
                 // daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
                 // selection={'border'}
@@ -216,9 +218,11 @@ this.props.navigation.navigate('Edit')
                               />
                         
                 </ScrollView>
-            </View>
 
 
+
+</LinearGradient>
+             
 
 
 
@@ -264,7 +268,7 @@ const styles = StyleSheet.create({
   listArea: {
     backgroundColor: "transparent",
     flex: 1,
-    // paddingTop: 16
+    paddingTop: '2%'
   },
   sectionContainer: {
     marginBottom: 16,
