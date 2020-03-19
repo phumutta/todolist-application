@@ -341,6 +341,10 @@ class Database{
       read_Success(size)
    },read_fail());
   }
+
+  async UpdateMessageGroup(Group,Message,add_Message_success,add_Message_fail){
+    await firebase.firestore().collection("Group").doc(Group).collection("Task").doc(Message.id).update(Message).then(ref=>{add_Message_success()},add_Message_fail)
+}
   async CountComplete(group,read_Success,read_fail){
     let size;
     

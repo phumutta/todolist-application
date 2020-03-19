@@ -7,7 +7,7 @@ import Dialog from "react-native-dialog";
 import DatePicker from 'react-native-datepicker'
 import * as firebase from 'firebase';
 import '@firebase/firestore';
-import database from './Database3';
+import database from './Database';
 import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
 import { LinearGradient } from 'expo-linear-gradient';
 import Items_Members from './Items_Members'
@@ -56,6 +56,7 @@ export default class EditGroupTask extends Component {
       des:'',
       groupUri:'',
       group:'',
+      uri:''
 
       
     };
@@ -64,23 +65,16 @@ export default class EditGroupTask extends Component {
     this.setDate = this.setDate.bind(this);
     this.setDate2 = this.setDate2.bind(this);
   }
-  FocusFunction=async()=>{
-    this.setState({Message:await AsyncStorage.getItem('@Message')})
-    this.setState({message:await AsyncStorage.getItem('@Message')})
-
-    this.setState({id:await AsyncStorage.getItem('@TaskID')})
-    this.setState({des:await AsyncStorage.getItem('@Des')})
-
-    this.setState({email:await AsyncStorage.getItem('@email')})
-    
-  }
+  
 
   onFocusFunction=async()=>{
     this.setState({Message:await AsyncStorage.getItem('@Message')})
     this.setState({message:await AsyncStorage.getItem('@Message')})
-
+    this.setState({uri:await AsyncStorage.getItem('@OwnTask')})
+    this.setState({email:await AsyncStorage.getItem('@OwnTaskEmail')})
     this.setState({id:await AsyncStorage.getItem('@TaskID')})
     this.setState({des:await AsyncStorage.getItem('@Des')})
+    this.setState({group:await AsyncStorage.getItem('@group')})
 
     this.setState({email:await AsyncStorage.getItem('@email')})
     if (this.state.singlePickerSelectedItem.label == "HIGH PRIORITY") {
@@ -160,7 +154,7 @@ export default class EditGroupTask extends Component {
 
   onPressBack(){
     AsyncStorage.removeItem('@Pri');
-    this.props.navigation.navigate("Main1");
+    this.props.navigation.navigate("GroupDetail");
    
     
     
@@ -192,18 +186,17 @@ addText=async()=>{
         await  this.setState({Priority:'0'})
         break;
     }
-    Message=await {
-      message:this.state.message,
-      time: this.state.time,
-      Date:this.state.date,
+    Message={
+      message:this.state.message, 
+      user:this.state.email,
+      time:this.state.time,
       status:'1',
+      uri:this.state.uri,
       id:this.state.id,
-      PriImg:this.state.imgPre,
-      Priority:this.state.Priority,
       Des:this.state.des
     }
     console.log(this.state.email)
-   await  database.UpdateMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+   await  database.UpdateMessageGroup(this.state.group,Message,(()=>{this.props.navigation.navigate("GroupDetail");}),this.addMessageFail)
  
   }
   addMessageSuccess=async(id)=>{
@@ -222,7 +215,7 @@ addText=async()=>{
     
     console.log("updateID");
     await AsyncStorage.removeItem('@Pri');
-    await this.props.navigation.navigate("Main1");
+    await this.props.navigation.navigate("GroupDetail");
     
     
   }
@@ -272,11 +265,11 @@ getRepeat = () =>{
         <View>
           <LinearGradient colors={['#000000', '#FFFFFF']}>
             <View style={{height:110,}}></View>
-              <Image style={styles.avatar} source={{uri:this.state.groupUri}}/>
+              <Image style={styles.avatar} source={{uri:this.state.uri}}/>
               <View style={styles.body}>
                 <View style={styles.bodyContent}>
                   <Text style={styles.name}>{this.state.group}</Text>
-                  <Text style={styles.description}>Create by Phattaraphon.c@ku.th</Text>
+                  <Text style={styles.description}>{this.state.email}</Text>
                   {/* <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis</Text> */}
                 </View>
             </View>
@@ -292,22 +285,12 @@ getRepeat = () =>{
                   onChangeText={this.onChangeText}
 
         >{this.state.message}</TextInput>
-                <TouchableOpacity  style={{flex:1, marginRight:20 ,height:20}}  onPress={() => this.setState({ singlePickerVisible: true })}>
-                <Image style={{height:20, width:20}} source={{uri:this.state.imgPri}}/>
-                </TouchableOpacity>
+            
 
           </View>
 
-
-            <TouchableOpacity style={{height:40,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker})}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
-                  <View style={{flexDirection: 'row'}} >
-                    <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Due Date</Text>
-                    <Text style={{flex:2,fontSize:18,color:'#D4D4D4',fontSize:18, textAlign:'center'}}>{this.state.date}</Text>
-                  </View>
-                  {/* <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:162}}>Tomorrow</Text> */}
-            </TouchableOpacity>
-            {this.renderPicker()}
+          {/* <Text style={{fontSize:25,color:'#000000',marginLeft:"5%",marginTop:"5%"}}>Description </Text> */}
+            
        
 
             {/* <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={()=>this.setState({ parker: !this.state.parker})}>
@@ -334,19 +317,20 @@ getRepeat = () =>{
             {/* <View  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
                 <TextInput style={{flex:1,marginLeft:40}}
                   
-                  placeholder="Add a note..."
+                  placeholder="Description"
                   onChangeText={this.onChangeText}
 
                 />
           </View> */}
 
             <View style={{flex:1, backgroundColor:'#ffffff', marginTop:20}}>
+            
               <View style={{flex:1}}>
                   <ScrollView style={{flex:1,width:'100%'}}>
                       <SafeAreaView forceInset={{top:'always',}} >
                           <View style={{flex:1,marginTop:20,alignItems:'center'}}>
                             {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
-        <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} onChangeText={this.onChangeDes}>{this.state.des}</TextInput>
+        <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} onChangeText={this.onChangeDes} placeholder="Description...">{this.state.des}</TextInput>
                           </View>
                       </SafeAreaView>
                   </ScrollView>

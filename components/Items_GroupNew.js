@@ -136,7 +136,7 @@ export default class Items_GroupNew extends React.Component {
 
       <View style={{flex:1, alignItems:'center', flexDirection:'column', justifyContent:'center', backgroundColor:"transparent", }}>
 
-        {items.map(({ date, id, message, time,user ,uri}) => (
+        {items.map(({ date, id, message, time,user ,uri,Des}) => (
 
           <Card style={{ flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:20, marginTop:12, padding:8}} >
 
@@ -147,12 +147,18 @@ export default class Items_GroupNew extends React.Component {
 
               <Image style={{ marginLeft:"5%", width:25, height:25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
             </TouchableOpacity>
-
+            <TouchableOpacity onPress={() => { this.props.onPressTodo2(id) 
+                                                              AsyncStorage.setItem('@TaskID',id)
+                                                              AsyncStorage.setItem('@Message',message) 
+                                                              AsyncStorage.setItem('@Des',Des) 
+                                                              AsyncStorage.setItem('@OwnTask',uri) 
+                                                              AsyncStorage.setItem('@OwnTaskEmail',user) 
+                                                                                  }}>
             <View style={{ flex:1, marginLeft:"1%" }}>
               <Text style={{ color:"#000000", fontSize:18, }}>{message}</Text>
               <Text style={{ color:"#C4C4C4", marginTop:'2%'}}>Created by {user}</Text>
             </View>
-
+            </TouchableOpacity>
             <TouchableOpacity
               // onPress={() => { this.props.onPressTodo2(id) }}
               style={{backgroundColor:'transparent', borderColor:'#DADADA', padding:8, borderRadius:10}} >

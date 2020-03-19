@@ -80,7 +80,8 @@ export default class GroupDetail extends React.Component {
       time:this.state.time,
       status:'1',
       uri:this.state.uri,
-      id:''
+      id:'',
+      Des:''
     }
     await database.addGroupMessage(this.state.group,Message,this.addMessage_Success,this.addMessage_Fail)
     await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
@@ -393,7 +394,8 @@ leave_F(){
                                 
                                 <Items_GroupNew
                                     ref={Task => (this.Task = Task)}
-                                    onPressTodo={this.delete_Complete} />
+                                    onPressTodo={this.delete_Complete}
+                                    onPressTodo2={() => this.props.navigation.navigate('EditGroupTask', { name: 'EditGroupTask' })} />
 
                           </ScrollView>
                       </View>
