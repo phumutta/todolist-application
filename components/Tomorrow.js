@@ -22,7 +22,11 @@ export default class Tomorrow extends React.Component {
     Priority:'',
     name: '',
     last: '',
-    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png"
+    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
+    Tomorrow: '',
+    Alltask:'',
+    ToCompletedTask:'',
+    CompletedTask:'',
 
   };
 
@@ -30,6 +34,79 @@ export default class Tomorrow extends React.Component {
 
   onFocusFunction=async()=>{
     this.setState({email:await AsyncStorage.getItem('@email')})
+    let date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    var today = new Date()
+    var tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    month = month.toString()
+    date=date.toString()
+    console.log(typeof (month))
+    console.log(month.length)
+    if (month.length == 1) {
+      month = String('0') + String(month)
+    }
+    console.log(month)
+    if (date.length == 1) {
+      date = String('0') + String(date)
+    }
+    this.setState({ Tomorrow: tomorrow })
+    console.log("tomorrow: " + tomorrow)
+    this.setState({ time: firebase.firestore.FieldValue.serverTimestamp() })
+    this.setState({ Date: year + '-' + month + '-' + date })
+    // this.setState({time:hours+min+sec})
+    var TomorrowDate = tomorrow.toString().slice(8, 10)
+    var TomorrowMonth = tomorrow.toString().slice(4, 7)
+    var TomorrowYear = tomorrow.toString().slice(11, 15)
+    switch (TomorrowMonth) {
+      case "Jan":
+        TomorrowMonth="01"
+        break;
+      case "Feb":
+        TomorrowMonth="02"
+        break;
+      case "Mar":
+        TomorrowMonth="03"
+        break;
+      case "Apr":
+        TomorrowMonth="04"
+        break;
+      case "May":
+        TomorrowMonth="05"
+        break;
+      case "Jun":
+        TomorrowMonth="06"
+        break;
+      case "Jul":
+        TomorrowMonth="07"
+        break;
+      case "Aug":
+        TomorrowMonth="08"
+        break;
+      case "Sep":
+        TomorrowMonth="09"
+        break;
+      case "Oct":
+        TomorrowMonth="10"
+        break;
+      case "Nov":
+        TomorrowMonth="11"
+        break;
+      case "Dec":
+        TomorrowMonth="12"
+        break;
+      
+
+
+    }
+    this.setState({ Tomorrow: TomorrowYear + '-' + TomorrowMonth + '-' + TomorrowDate })
+    await database.CountTask(this.state.email,this.state.Tomorrow,count=>{this.setState({ Alltask: count })},this.countFail)
+    await database.CountToComplete(this.state.email,this.state.Tomorrow,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+    await database.CountComplete(this.state.email,this.state.Tomorrow,count=>{this.setState({ CompletedTask: count })},this.countFail)
     this.update()
   }
   // update (){
@@ -40,21 +117,15 @@ export default class Tomorrow extends React.Component {
   componentDidMount(){
 
     this.onFocusFunction();
-    let date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
-    var hours = new Date().getHours(); //Current Hours
-    var min = new Date().getMinutes(); //Current Minutes
-    var sec = new Date().getSeconds(); //Current Seconds
-    // this.setState({time:hours+":"+min+":"+sec})
-    // console.log(this.state.time)
-    this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
-    this.setState({Date:date + '/' + month + '/' + year})
+    
     
   
    
  }
-  
+ countFail(){
+
+}
+
 
   onChangeText = message => this.setState({ message });
 
@@ -100,7 +171,14 @@ updateFail(){
   console.log("FailUpdate");
 }
 delete_Complete=async (id)=>{
-  await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
+  await database.updateStatus(id,this.state.email,(async()=>{
+    // await database.CountTask(this.state.email,this.state.Date,count=>{this.setState({ Alltask: count })},this.countFail)
+    await database.CountToComplete(this.state.email,this.state.Tomorrow,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
+    await database.CountComplete(this.state.email,this.state.Tomorrow,count=>{this.setState({ CompletedTask: count })},this.countFail)
+  
+  console.log("updateID");
+  this.todo.update()
+  }),this.updateFail)
   // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
   //this.onPressTrack();
   await this.update();
@@ -193,7 +271,7 @@ render() {
             <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
 
               <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} >
-                <Text style={styles.Text2}>6</Text>
+                <Text style={styles.Text2}>{this.state.Alltask}</Text>
                       <View style={{ alignItems: 'center' }}>
                         <Text style={styles.under}>Tasks for Tomorrow</Text>
                       </View>
@@ -206,7 +284,7 @@ render() {
 
               
               <View style={{flex:1,  flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text2} >3</Text>
+                  <Text style={styles.Text2} >{this.state.ToCompletedTask}</Text>
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.under}>Tasks to be Completed</Text>
                   </View>
@@ -219,7 +297,7 @@ render() {
 
 
               <View style={{ flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} >
-                  <Text style={styles.Text2} >1</Text>
+                  <Text style={styles.Text2} >{this.state.CompletedTask}</Text>
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.under}>Completed  Tasks</Text>
                   </View>
