@@ -8,6 +8,7 @@ import DatePicker from 'react-native-datepicker'
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
+import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
 // Edit_DueDate
 // Edit_Note
 // Edit_PomodoroNumber
@@ -27,7 +28,7 @@ export default class AddTask extends Component {
 
   constructor(props) {
     super(props);
-    this.dataRepeat = ["None","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday","Everyday"]
+    this.dataRepeat = ["None","Everyday"]
     this.state = {
       chosenDate: new Date(), 
       chosenDate2: new Date(), 
@@ -41,7 +42,10 @@ export default class AddTask extends Component {
       picker:false,
       parker:false,
       repeat:false,
-      imgPri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png'
+      imgPri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png',
+      imgPre:'https://sv1.picz.in.th/images/2020/03/19/Qi4t3l.png',
+      singlePickerVisible: false,
+      singlePickerSelectedItem: [],
 
       
     };
@@ -54,14 +58,25 @@ export default class AddTask extends Component {
 
   onFocusFunction=async()=>{
     this.setState({email:await AsyncStorage.getItem('@email')})
-    const img_pri = await AsyncStorage.getItem('@Pri');
-    if (img_pri == null) {
-      this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png" })
+    if (this.state.singlePickerSelectedItem.label == "HIGH PRIORITY") {
+      this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png" })
+      this.setState({ imgPre: "https://sv1.picz.in.th/images/2020/03/19/QiNa51.png" })
     
     }
-    else {
-      this.setState({ imgPri: img_pri })
-     
+    else if (this.state.singlePickerSelectedItem.label == "MEDIUM PRIORITY") {
+      this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png" })
+      this.setState({ imgPre: "https://sv1.picz.in.th/images/2020/03/19/Qi33PV.png" })
+    
+    }
+    else if (this.state.singlePickerSelectedItem.label == "LOW PRIORITY") {
+      this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png" })
+      this.setState({ imgPre: "https://sv1.picz.in.th/images/2020/03/19/QiBynN.png" })
+    
+    }
+    else if (this.state.singlePickerSelectedItem.label == "NONE PRIORITY") {
+      this.setState({ imgPri: "https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png" })
+      this.setState({ imgPre:"https://sv1.picz.in.th/images/2020/03/19/Qi4t3l.png" })
+    
     }
     
    
@@ -183,13 +198,13 @@ addText=async()=>{
     
     console.log("updateID");
     await AsyncStorage.removeItem('@Pri');
-    this.props.navigation.navigate("Main1");
+    await this.props.navigation.navigate("Main1");
+    
     
   }
   updateFail(){
     console.log("FailUpdate");
   }
-  
 
 
 
@@ -202,11 +217,6 @@ getRepeat = () =>{
 }
 
     render() {
-
-      const CheckedOption = (props) => (
-        <MenuOption {...props} text={(props.checked ? '\u2713 ' : '') + props.text} />
-      )
-
       let PickerIOSItem = PickerIOS.Item
         return (
             <Container>
@@ -218,11 +228,11 @@ getRepeat = () =>{
                 </Button>
               </View>
               <View style = { styles.MainContainer2 }>
-                <Title>AddTask</Title>
+                <Title>Edit</Title>
               </View>
             
-              <TouchableOpacity style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 10}} onPress={this.onPressAdd}>  
-                <Text style={{fontSize:14}}>Done</Text>
+              <TouchableOpacity onPress={() => this.onPressSetting()}>
+                <Image style={{marginLeft:10, marginRight:10 ,marginTop:8 ,width:50,height:50,borderRadius:800,}} source={{uri:this.state.uri}} onPress={() => this.onPressSetting()}/>
               </TouchableOpacity>
             </Header>
             {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
@@ -235,14 +245,14 @@ getRepeat = () =>{
 
 
         <View  style={{flex:0.1,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',height:25}} >
-                <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png'}}/>
+                <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:this.state.imgPre}}/>
                 <TextInput style={{flex:12, fontSize:18}}
                   ref={input => { this.textInput = input }} 
                   placeholder="Add a task..."
                   onChangeText={this.onChangeText}
 
                 />
-                <TouchableOpacity  style={{flex:1, marginRight:20 ,height:20}}  onPress={()=>this.onPressAddColor()}>
+                <TouchableOpacity  style={{flex:1, marginRight:20 ,height:20}}  onPress={() => this.setState({ singlePickerVisible: true })}>
                 <Image style={{height:20, width:20}} source={{uri:this.state.imgPri}}/>
                 </TouchableOpacity>
 
@@ -250,7 +260,7 @@ getRepeat = () =>{
 
 
             <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} onPress={() => this.setState({ picker: !this.state.picker})}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
+                <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
                   <View style={{flexDirection: 'row'}} >
                     <Text style={{flex:1,fontSize:18,color:'#171D33',marginLeft:10}}>Due Date</Text>
                     <Text style={{flex:2,fontSize:18,color:'#D4D4D4',fontSize:18, textAlign:'center'}}>{this.state.date}</Text>
@@ -332,6 +342,19 @@ getRepeat = () =>{
           
 
         </View>
+
+        <SinglePickerMaterialDialog
+          items={SHORT_LIST.map((row, index) => ({ value: index, label: row }))}
+          visible={this.state.singlePickerVisible}
+          selectedItem={this.state.singlePickerSelectedItem}
+          onCancel={() => this.setState({ singlePickerVisible: false })}
+          addPadding={true}
+          onOk={result => {
+            this.setState({ singlePickerVisible: false });
+            this.setState({ singlePickerSelectedItem: result.selectedItem });
+            this.onFocusFunction();
+          }}  
+        />
 
 
 
@@ -420,7 +443,7 @@ getRepeat = () =>{
     }
 }
 
-
+const SHORT_LIST = ["HIGH PRIORITY", "MEDIUM PRIORITY", "LOW PRIORITY","NONE PRIORITY"];
 
 const styles = StyleSheet.create({
   container: {
