@@ -78,24 +78,29 @@ export default class Register extends React.Component {
               <TextInput
                   style={styles.txtIn2}
                   placeholder="firstname"
+                  maxLength={15}
                   onChangeText={this.onChangeTextname}
               />
               <Text style={styles.txt}> </Text>
               <TextInput
                   style={styles.txtIn2}
                   placeholder="lastname"
+                  maxLength={15}
                   onChangeText={this.onChangeTextlast}
               />
               <Text style={styles.txt}> </Text>
               <TextInput
                   style={styles.txtIn2}
                   placeholder="email"
+                  maxLength={20}
                   onChangeText={this.onChangeTextEmail}
               />
               <Text style={styles.txt}> </Text>
               <TextInput
                   style={styles.txtIn2}
                   placeholder="password"
+                  maxLength={15}
+                  secureTextEntry ={true}
                   onChangeText={this.onChangeTextpassword}
               />
               {/* <TouchableOpacity style={{backgroundColor:"#000000"}} onPress={() => this.onPressBack()}>
