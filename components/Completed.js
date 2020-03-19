@@ -152,9 +152,9 @@ this.props.navigation.navigate('Edit')
                 <Title>Completed</Title>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                   <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/02/24/xsbgt2.png' }}/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </Header>
 
@@ -186,8 +186,8 @@ style={{flex:1}} >
                         <Items3
                             ref={Completed => (this.Completed = Completed)}
                             onPressTodo={this.delete_Complete}
-                            onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
-                            onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                            onPressTodo2={() => this.props.navigation.navigate('Edit_Completed', { name: 'Edit_Completed' })}
+                            
                               />
                         
                 </ScrollView>
