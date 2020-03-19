@@ -312,11 +312,11 @@ this.props.navigation.navigate('Edit')
                  <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() =>  this.props.navigation.navigate('AddTask')}>
                   <Icon name="md-create" style={{color:'white'}} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() => {}}>
-                  <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() =>  this.props.navigation.navigate('Group')}>
+                  <Icon name="md-people" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#ffffff' title="All Tasks" onPress={() => {}}>
-                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() =>  this.props.navigation.navigate('AddNote')}>
+                  <Icon name="md-save" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
               </ActionButton>
           </View>
