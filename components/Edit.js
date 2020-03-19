@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity,AsyncStorage, Alert, Image,  DatePickerIOS,PickerIOS} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity,AsyncStorage, Alert, Image,  DatePickerIOS,PickerIOS, SafeAreaView} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import database from './Database3';
 import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
+import moment from 'moment';
 // Edit_DueDate
 // Edit_Note
 // Edit_PomodoroNumber
@@ -214,6 +215,7 @@ getRepeat = () =>{
 
     render() {
       let PickerIOSItem = PickerIOS.Item
+      var now = moment().format();
         return (
             <Container>
             <Header >
@@ -227,8 +229,8 @@ getRepeat = () =>{
                 <Title>Edit</Title>
               </View>
             
-              <TouchableOpacity onPress={() => this.onPressSetting()}>
-                <Image style={{marginLeft:10, marginRight:10 ,marginTop:8 ,width:50,height:50,borderRadius:800,}} source={{uri:this.state.uri}} onPress={() => this.onPressSetting()}/>
+              <TouchableOpacity style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 10}} onPress={this.onPressAdd}>  
+                <Text style={{fontSize:14}}>Done</Text>
               </TouchableOpacity>
             </Header>
             {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
@@ -287,15 +289,27 @@ getRepeat = () =>{
             {this.renderRepeat()} */}
 
 
-            <View  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
+            {/* <View  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
                 <TextInput style={{flex:1,marginLeft:40}}
                   
                   placeholder="Add a note..."
                   onChangeText={this.onChangeText}
 
                 />
+          </View> */}
 
-          </View>
+            <View style={{flex:1, backgroundColor:'#ffffff', marginTop:20}}>
+              <View style={{flex:1}}>
+                  <ScrollView style={{flex:1,width:'100%'}}>
+                      <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
+                          <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
+                            {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
+                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
+                          </View>
+                      </SafeAreaView>
+                  </ScrollView>
+              </View>
+          </View> 
 
           {/* <MenuProvider style={{flex:1,marginLeft:30}}>
             <View>
@@ -340,11 +354,11 @@ getRepeat = () =>{
         </View>
 
         <SinglePickerMaterialDialog
-          title={"Pick one element!"}
           items={SHORT_LIST.map((row, index) => ({ value: index, label: row }))}
           visible={this.state.singlePickerVisible}
           selectedItem={this.state.singlePickerSelectedItem}
           onCancel={() => this.setState({ singlePickerVisible: false })}
+          addPadding={true}
           onOk={result => {
             this.setState({ singlePickerVisible: false });
             this.setState({ singlePickerSelectedItem: result.selectedItem });

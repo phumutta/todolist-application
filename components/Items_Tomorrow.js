@@ -170,7 +170,7 @@ export default class Items_Tomorrow extends React.Component {
 
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: "1%" }}>
-              <Text style={{ color: "#000", }} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
+              <Text style={{ color: "#000", fontSize:16 }} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
             </View>
 
             <TouchableOpacity
@@ -180,7 +180,7 @@ export default class Items_Tomorrow extends React.Component {
                 backgroundColor: 'transparent',
                 borderColor: '#DADADA',
                 //   borderWidth: 1,
-                padding: 13,
+                padding: 15,
                 borderRadius: 10
 
               }}
