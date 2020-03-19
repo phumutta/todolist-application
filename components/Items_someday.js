@@ -221,7 +221,7 @@ export default class Items_someday extends React.Component {
 
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: "1%" }}>
-              <Text style={{ color: "#000", }} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
+              <Text style={{ color: "#000", fontSize:16}} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
             </View>
 
             <TouchableOpacity
@@ -231,14 +231,14 @@ export default class Items_someday extends React.Component {
                 backgroundColor: 'transparent',
                 borderColor: '#DADADA',
                 //   borderWidth: 1,
-                padding: 8,
+                padding: 13,
                 borderRadius: 10
 
               }}
             >
-              <View>
+              {/* <View>
                 <Image style={{ width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png' }} />
-              </View>
+              </View> */}
             </TouchableOpacity>
           </Card>
 
