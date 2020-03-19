@@ -197,7 +197,7 @@ addText=async()=>{
       Des:this.state.des
     }
     console.log(this.state.email)
-   await  database.UpdateMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+   await  database.UpdateMessageToday(this.state.email,Message,(()=>{this.props.navigation.navigate("Main1");}),this.addMessageFail)
  
   }
   addMessageSuccess=async(id)=>{

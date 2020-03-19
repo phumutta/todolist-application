@@ -145,7 +145,7 @@ export default class Items_upcome extends React.Component {
     return (
 
       <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column', justifyContent: 'center', backgroundColor: "#transparent", alignContent: 'center' }}>
-        {items.map(({ date, id, message, time ,PriImg}) => (
+        {items.map(({ date, id, message, time ,PriImg,Des}) => (
 
 
           <Card style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', borderRadius: 55, marginTop: 12 }} >
@@ -170,25 +170,14 @@ export default class Items_upcome extends React.Component {
 
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: "1%" }}>
-              <Text style={{ color: "#000", fontSize:16}} onPress={() => { this.props.onPressTodo3(id) }}>{message}</Text>
+              <Text style={{ color: "#000", fontSize:16}} onPress={() => { this.props.onPressTodo2(id) 
+                                                                             AsyncStorage.setItem('@TaskID',id)
+                                                                             AsyncStorage.setItem('@Message',message) 
+                                                                             AsyncStorage.setItem('@Des',Des) 
+                                                                                  }}>{message}</Text>
             </View>
 
-            <TouchableOpacity
-
-              onPress={() => { this.props.onPressTodo2(id) }}
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: '#DADADA',
-                //   borderWidth: 1,
-                padding: 15,
-                borderRadius: 10
-
-              }}
-            >
-              {/* <View>
-                <Image style={{ width: 25, height: 25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/26/RHxgi8.png' }} />
-              </View> */}
-            </TouchableOpacity>
+          
           </Card>
 
         ))}

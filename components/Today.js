@@ -248,9 +248,9 @@ this.props.navigation.navigate('Edit')
             <Title>Today</Title>
           </View>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', left: 15 }}>
-            <Image style={{ width: 20, height: 20 }}
+            {/* <Image style={{ width: 20, height: 20 }}
               source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }}
-            />
+            /> */}
           </View>
         </Header>
 
@@ -342,7 +342,7 @@ this.props.navigation.navigate('Edit')
                                 <Items2
                                     ref={todo => (this.todo = todo)}
                                     onPressTodo={this.delete_Complete}
-                                    onPressTodo2={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
+                                    onPressTodo2={() => this.props.navigation.navigate('Edit_Today', { name: 'Edit_Today' })}
                                       />
 
                           </ScrollView>

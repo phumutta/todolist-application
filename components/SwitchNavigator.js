@@ -36,7 +36,16 @@ import Edit_Repeat from './Edit_Repeat'
 import CreateNewGroup from './CreateNewGroup'
 import GroupDetail from './GroupDetail'
 import AddNote from './AddNote'
+<<<<<<< HEAD
 import EditGroupTask from './EditGroupTask'
+=======
+import Edit_Today from './Edit_Today'
+import Edit_Tomorrow from './Edit_Tomorrow'
+import Edit_Upcoming from './Edit_Upcoming'
+import Edit_Someday from './Edit_Someday'
+import Edit_Completed from './Edit_Completed'
+
+>>>>>>> d681b4564b61614ab59b83e825417f779da745be
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -212,6 +221,36 @@ const navigator = createSwitchNavigator({
       title: 'AddColor'
     }
   },
+  Edit_Today: {
+    screen: Edit_Today, navigationOptions: {
+      title: 'Edit_Today'
+    }
+  },
+  Edit_Tomorrow: {
+    screen: Edit_Tomorrow, navigationOptions: {
+      title: 'Edit_Tomorrow'
+    }
+  },
+  Edit_Upcoming: {
+    screen: Edit_Upcoming, navigationOptions: {
+      title: 'Edit_Upcoming'
+    }
+  },
+  Edit_Someday: {
+    screen: Edit_Someday, navigationOptions: {
+      title: 'Edit_Someday'
+    }
+  },
+  Edit_Completed: {
+    screen: Edit_Completed, navigationOptions: {
+      title: 'Edit_Completed'
+    }
+  },
+ 
+
+
+
+
  
 
 });

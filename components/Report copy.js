@@ -1,12 +1,12 @@
 import React, { Component,PureComponent } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,Dimensions,AppRegistry,ART,Animated,AsyncStorage} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,Dimensions,AppRegistry,ART,Animated} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input, Row } from 'native-base';
 import ProgressCircle from 'react-native-progress-circle'
-// import AnimatedProgressWheel from 'react-native-progress-wheel';
+import AnimatedProgressWheel from 'react-native-progress-wheel';
 import database from './Database3';
-// import { Svg, G, Line, Rect } from 'react-native-svg'
-
+import { Svg, G, Line, Rect } from 'react-native-svg'
+import * as d3 from 'd3'
 // import "react-sweet-progress/lib/style.css";
 // import { Progress } from 'react-sweet-progress';
 
@@ -22,20 +22,15 @@ export default class Report extends React.Component {
       pRed:0,
       pYellow:0,
       pGreen:0,
-      pGray:0,
-      email:''
+      pGray:0
     }
-    // this.onAsyncReadCom();
-    // this.onAsyncReadPri();
+    this.onAsyncReadCom();
+    this.onAsyncReadPri();
   }
 
   onFocusFunction=async()=>{
     const email_store = await AsyncStorage.getItem('@email');
-    this.setState({ email: email_store })
-    await database.readStatus(this.state.email,this.success_callback, this.fail_callback);
-    await database.readPiority(this.state.email,this.priority_callback, this.fail_callback);
-
-   
+    this.setState({ id: email_store })
     
   }
   componentDidMount(){
@@ -44,8 +39,7 @@ export default class Report extends React.Component {
   }
 //********************************************************************/
   onAsyncReadCom=async ()=>{
-    console.log(this.state.email)
-    database.readStatus(this.state.email,this.success_callback, this.fail_callback);
+    database.readStatus('Phumutta@gmail.com',this.success_callback, this.fail_callback);
   }
   success_callback = (data, allwork, success) =>{
     //console.log(data)
@@ -63,7 +57,7 @@ export default class Report extends React.Component {
   }
 //********************************************************************/
 onAsyncReadPri=async ()=>{
-  database.readPiority(this.state.email,this.priority_callback, this.fail_callback);
+  database.readPiority('Phumutta@gmail.com',this.priority_callback, this.fail_callback);
 }
 priority_callback = (data, allwork,priority0,priority1,priority2,priority3) =>{
   //console.log(data)
