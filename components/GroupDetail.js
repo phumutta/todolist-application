@@ -336,7 +336,7 @@ leave_F(){
 
 
 
-              <Card style={{ flex:0.15, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
+              <Card style={{ flex:0.2, flexDirection: 'row',justifyContent:'center',alignItems:'center' }} >
                 
                 <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
 
