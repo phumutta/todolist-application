@@ -252,6 +252,7 @@ getRepeat = () =>{
         <View  style={{flex:0.1,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center',height:25}} >
                 <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:this.state.imgPre}}/>
                 <TextInput style={{flex:12, fontSize:18}}
+                    maxLength={20}
                   ref={input => { this.textInput = input }} 
                   placeholder="Add a task..."
                   onChangeText={this.onChangeText}

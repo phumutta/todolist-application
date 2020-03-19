@@ -207,7 +207,7 @@ export default class CreateNewGroup extends Component {
                   <Image style={styles.imgStyles} source={{ uri: this.state.imageuri }} />
                 </TouchableOpacity>
               </View>
-              <TextInput ref={input => { this.textInput = input }}  style={styles.txtIn2} placeholder="Group Name" onChangeText={this.onChangeText} />
+              <TextInput ref={input => { this.textInput = input }}  style={styles.txtIn2} maxLength={15} placeholder="Group Name" onChangeText={this.onChangeText} />
             </View>
 
             <View  style={{flex:0.3,marginTop:'7%',backgroundColor:'#ffffff'}}>
