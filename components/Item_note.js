@@ -81,7 +81,7 @@ export default class Item_note extends React.Component {
              imageHeight={ '0%' }
              roundedImage={ false }
              onPress={() => console.log("CardViewWithImage Clicked!")}
-             width={'50%'}
+             width={'90%'}
          />
 
 
