@@ -16,7 +16,6 @@ import CardView from 'react-native-cardview'
 // import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { CardViewWithImage, CardViewWithIcon } from 'react-native-simple-card-view'
 
-
 export default class Note extends React.Component {
   state = {
     email: '',
@@ -216,10 +215,8 @@ export default class Note extends React.Component {
           </View>
         </Header>
 
-
-
-        <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#F6F6F6', alignItems: 'center' }} >
-          {/* <ScrollView style={{flex:1,flexDirection:'column',backgroundColor:'#transparent',marginTop:"5%"}}>
+        
+{/* <ScrollView style={{flex:1,flexDirection:'column',backgroundColor:'#transparent',marginTop:"5%"}}>
 
           <View style={{flex:1,flexDirection:'row'}}>
                       <Item_note
@@ -235,17 +232,54 @@ export default class Note extends React.Component {
 
             
           
-
-         
           </ScrollView> */}
-          <ScrollView style={{ flex: 1, flexDirection: 'column', backgroundColor: '#transparent', marginTop: "5%" }}>
-            <Item_note
-              ref={note => (this.note = note)}
 
-            />
+        {/* <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
+          <View style={{flex:1,flexDirection:'row'}}>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }}  onPress={()=>this.onPressHigh()} >
+              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png'}}/>
+            <Text style={{color:'#D4D4D4'}} >High Priority</Text>
+            </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressMedi()}>
+              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png'}}/>
+            <Text style={{color:'#D4D4D4'}}>Medium Priority</Text>
+            </View>
+            </TouchableOpacity>
+            </View>
+            <View style={{flex:1,flexDirection:'row'}}>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressLow()}>
+              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png'}}/>
+            <Text style={{color:'#D4D4D4'}}>Low Priority</Text>
+            </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressNo()}>
+              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png'}}/>
+            <Text style={{color:'#D4D4D4'}}>No Priority</Text>
+            </View>
+            </TouchableOpacity>
+          </View>
+            </View> */}
 
-          </ScrollView>
 
+
+
+
+        <View style={{ flex: 1,  backgroundColor: '#F6F6F6', flexDirection: 'row',alignItems:'center'}} >   
+          <View style={{flexDirection: 'row', justifyContent: 'center',alignContent :'center',}}>
+
+            <ScrollView style={{backgroundColor: '#transparent',  padding:'6%', marginLeft:'2%'}}>
+              <View style={{marginBottom:'10%'}}>
+              <Item_note ref={note => (this.note = note)} />
+              </View>
+            </ScrollView>
+
+
+          </View>
 
           <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
             <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() => this.props.navigation.navigate('AddTask')}>
