@@ -269,7 +269,7 @@ export default class Note extends React.Component {
 
 
 
-        <View style={{ flex: 1,  backgroundColor: '#F6F6F6', flexDirection: 'row',alignItems:'center'}} >   
+        <View style={{ flex: 1,  backgroundColor: '#000000', flexDirection: 'row',alignItems:'center'}} >   
           <View style={{flexDirection: 'row', justifyContent: 'center',alignContent :'center',}}>
 
             <ScrollView style={{backgroundColor: '#transparent',  padding:'6%', marginLeft:'2%'}}>
