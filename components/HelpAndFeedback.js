@@ -31,28 +31,27 @@ export default class HelpAndFeedback extends React.Component {
         <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Avatar</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Email</Text>
+            <Text style={{flex:2, fontSize:20, color:"#C4C4C4",textAlight:'right',}}>phattaraphon.c@ku.th</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Username</Text>
-            <Text style={{flex:1, fontSize:20,marginLeft:20, color:"#C4C4C4",}}>phattaraphon.c@ku.th</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Line</Text>
+            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right'}}>Khawoat231239</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Account</Text>
-            <Text style={{flex:1, fontSize:20,marginLeft:20, color:"#C4C4C4",}}>phattaraphon.c@ku.th</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Instagram</Text>
+            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right'}}>Khawoat6</Text>
+            <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
           
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
-            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Change Password</Text>
+            <Text style={{flex:1, fontSize:20,marginLeft:30}}>Tal</Text>
+            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right'}}>+66 83 671 6959</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:17,backgroundColor:'#ffffff', alignItems:'center', justifyContent: 'center',}} >
-            <Text style={{fontSize:20, color:'#5B3E96'}}>LOGOUT</Text>
           </TouchableOpacity>
 
         </View>
@@ -155,19 +154,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // marginLeft: 5,
   },
     
   MainContainer2:{
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
+    // marginTop: 5
   },
   photo4: {
-    height: 18,
-      width: 18,
-      marginRight:20,
-      flexDirection: 'row-reverse',
-      alignItems:'center'
+    height: 13,
+      width: 13,
+      marginRight:'7%',
+      // alignItems:'center',
+      justifyContent:'center',
 
   
   
