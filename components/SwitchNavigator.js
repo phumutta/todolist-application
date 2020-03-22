@@ -43,7 +43,7 @@ import Edit_Tomorrow from './Edit_Tomorrow'
 import Edit_Upcoming from './Edit_Upcoming'
 import Edit_Someday from './Edit_Someday'
 import Edit_Completed from './Edit_Completed'
-
+import HelpAndFeedback from './HelpAndFeedback'
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 
@@ -242,6 +242,11 @@ const navigator = createSwitchNavigator({
   Edit_Completed: {
     screen: Edit_Completed, navigationOptions: {
       title: 'Edit_Completed'
+    }
+  },
+  HelpAndFeedback: {
+    screen: HelpAndFeedback, navigationOptions: {
+      title: 'HelpAndFeedback'
     }
   },
  

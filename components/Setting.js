@@ -101,7 +101,7 @@ export default class AccountLogin extends React.Component {
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} onPress={()=>this.onPressHelpAndFeedback()}>
+          <TouchableOpacity style={{ flex: 0.08, flexDirection: 'row', backgroundColor: '#ffffff', alignItems: 'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1, }} onPress={() =>  this.props.navigation.navigate('HelpAndFeedback')}>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/02/27/x6Q1t2.png" }} style={styles.photo3} />
             <Text style={{ flex: 1, fontSize: 20, marginLeft: 30 }} >Help & Feedback</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
