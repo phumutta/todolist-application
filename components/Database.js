@@ -222,6 +222,18 @@ class Database{
 
     });
   }
+
+  AutoLogin=async (email,password,success_callback, failed_callback) => {
+    firebase.auth().signInWithEmailAndPassword(email,password)
+    .then(()=>{
+      success_callback();
+    })
+    .catch(function (error) {
+      failed_callback(error.message);
+
+    });
+  }
+
  
   async createGroup(AdminGroup,data,group,add_Success,add_Fail){
     let array=[]
@@ -313,7 +325,7 @@ class Database{
 
     })
   }
-
+  
  
   async addGroupMessage(group,Message,add_Message_success,add_Message_fail){
     await firebase.firestore().collection("Group").doc(group).collection("Task").add(Message).then(async ref=>{

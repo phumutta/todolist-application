@@ -4,8 +4,11 @@ import database from './Database'
 export default class First extends React.Component {
 
   state={
-    email:'',
-    password:''
+    email: '',
+    password: '',
+    name:'',
+    last:'',
+    uri:''
   };
   onPressLogin()
   {
@@ -18,30 +21,58 @@ export default class First extends React.Component {
   async login(){
     await database.login(account,this.login_success,this.login__fail);
   }
-  componentDidMount(){
-    this.setState({email:AsyncStorage.getItem('@email')})
-    this.setState({password:AsyncStorage.getItem('@pwd')})
-    account={
-      email:this.state.email,
-      password:this.state.password,
-    }
+  onFocusFunction = async () => {
+    this.setState({email:await AsyncStorage.getItem('@email')})
+    this.setState({password:await AsyncStorage.getItem('@pwd')})
+    // account=await {
+    //   email:this.state.email,
+    //   password:this.state.password,
+    // }
     console.log(this.state.email)
+     if(this.state.email !==null ){
+       await database.AutoLogin(this.state.email,this.state.password,this.login_success,this.login__fail); 
+   }
+ 
+   
+  }
+  componentDidMount(){
+  
+  
+    this.onFocusFunction()
+    
+   
+    
 
-    // if(this.state.email !==null ){
-    //   this.login()   
-    //  }
+    
   }
   login_success=async()=>{
    
-   
+    await database.readdata(this.state.email.toLowerCase(),this.read_Account_success,this.read_Account_fail)
     Alert.alert("Login Success");
-
   
 
   }
-  login__fail=async(error)=>{
-   
+  read_Account_fail=async(error)=>{
+    console.log("error")
   }
+  read_Account_success=async(doc)=>{
+    this.setState({name:doc.name})
+    this.setState({email:doc.email})
+    this.setState({last:doc.last})
+    this.setState({uri:doc.uri})
+    console.log(this.state.name); 
+    await AsyncStorage.setItem('@email',this.state.email);
+    await AsyncStorage.setItem('@name',doc.name);
+    await AsyncStorage.setItem('@last',doc.last);
+    await AsyncStorage.setItem('@uri',doc.uri);
+    await AsyncStorage.setItem('@pwd',this.state.password)
+    this.props.navigation.navigate('Main1')
+  }
+
+  login__fail=async(error)=>{
+    Alert.alert("Wrong Password or Email");
+  }
+
 
   render() {
     return (
