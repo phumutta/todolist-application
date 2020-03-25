@@ -389,7 +389,7 @@ leave_F(){
 
                       <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%'}}>All Tasks</Text>
 
-                      <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent'}}>
+                      <View style={{flex:7,flexDirection:'column',justifyContent:'center' ,alignContent:'center',backgroundColor:'transparent', marginBottom:'2%'}}>
                           <ScrollView style={{backgroundColor: "transparent", padding:20, flex: 1, marginTop: 10,}}>
                                 
                                 <Items_GroupNew
