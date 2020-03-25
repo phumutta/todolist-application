@@ -143,25 +143,25 @@ export default class Items_GroupNew extends React.Component {
             <TouchableOpacity
               key={id}
               onPress={() => this.props.onPressTodo(id)}
-              style={{backgroundColor: 'transparent', borderColor: '#DADADA', padding:8, borderRadius:10 }} >
+              style={{flex:1, backgroundColor: 'transparent', borderColor: '#DADADA', padding:8, borderRadius:10 }} >
 
               <Image style={{ marginLeft:"5%", width:25, height:25 }} source={{ uri: 'https://sv1.picz.in.th/images/2020/02/27/x6iuI2.png' }} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.onPressTodo2(id) 
+            <TouchableOpacity style={{ flex:6}} onPress={() => { this.props.onPressTodo2(id) 
                                                               AsyncStorage.setItem('@TaskID',id)
                                                               AsyncStorage.setItem('@Message',message) 
                                                               AsyncStorage.setItem('@Des',Des) 
                                                               AsyncStorage.setItem('@OwnTask',uri) 
                                                               AsyncStorage.setItem('@OwnTaskEmail',user) 
                                                                                   }}>
-            <View style={{ flex:1, marginLeft:"1%" }}>
+            <View>
               <Text style={{ color:"#000000", fontSize:18, }}>{message}</Text>
               <Text style={{ color:"#C4C4C4", marginTop:'2%'}}>Created by {user}</Text>
             </View>
             </TouchableOpacity>
             <TouchableOpacity
               // onPress={() => { this.props.onPressTodo2(id) }}
-              style={{backgroundColor:'transparent', borderColor:'#DADADA', padding:8, borderRadius:10}} >
+              style={{backgroundColor:'transparent', borderColor:'#DADADA', padding:8, borderRadius:10, flex:1, flex:1,}} >
                 
               <View>
                 <Avatar rounded containerStyle={{marginLeft:'5%'}} source={{uri:uri}}/>
