@@ -377,7 +377,7 @@ leave_F(){
 
                   <Dialog.Title>Add Task</Dialog.Title>
                   <Dialog.Description>Add a new task for this group</Dialog.Description>
-                  <Dialog.Input onChangeText={message => this.setState({message})} maxLength={20} color="#000000"/>
+                  <Dialog.Input onChangeText={message => this.setState({message})} maxLength={35} color="#000000"/>
                   <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
                   <Dialog.Button label="Add"  color="#6F41E9" bold="10" onPress={this.handleAdd} />
                   

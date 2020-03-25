@@ -282,7 +282,7 @@ getRepeat = () =>{
                 <Image style={{flex:1,marginLeft:30 ,width:25,height:25,marginRight:20}} source={{uri:this.state.imgPre}}/>
                 <TextInput style={{flex:12, fontSize:18}}
                   ref={input => { this.textInput = input }} 
-                  maxLength={20}
+                  maxLength={35}
                   onChangeText={this.onChangeText}
 
         >{this.state.message}</TextInput>
