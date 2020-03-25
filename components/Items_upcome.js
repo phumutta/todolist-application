@@ -135,7 +135,7 @@ export default class Items_upcome extends React.Component {
     const heading = "Todo";
 
     if (items === null || items.length === 0) {
-      return (<View style={{flex: 6,alignItems: 'center',justifyContent: 'center' }}>
+      return (<View style={{flex: 6,alignItems: 'center',justifyContent: 'center', marginTop:'10%' }}>
       <Image style={{ width: 200, height: 152.77, }} source={{ uri: 'https://sv1.picz.in.th/images/2020/01/22/R2bmVk.png' }}/>
       <Text style={{ color: '#666666' , marginTop:10, textAlign:'center' }}>You’re all done for upcoming date! #TodoblackZero{'\n'}Enjoy your night.</Text>
   </View> );
@@ -176,7 +176,7 @@ export default class Items_upcome extends React.Component {
                                                                              AsyncStorage.setItem('@Message',message) 
                                                                              AsyncStorage.setItem('@Des',Des) 
                                                                                   }}>{message}</Text>
-            <Text>Date: {Date} </Text>
+            <Text  style={{ color: "#4B15B8", fontSize:12 }} >Date: {Date} </Text>
             </View>
 
           
