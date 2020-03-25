@@ -85,7 +85,7 @@ export default class Items3 extends React.Component {
     console.log(items)
     return (
 
-        <View style={{flex:1,alignItems:'center' ,flexDirection:'column',justifyContent: 'center',backgroundColor:"#transparent",alignContent:'center'}}>
+        <View style={{flex:1,alignItems:'center' ,flexDirection:'column',justifyContent: 'center',backgroundColor:"#transparent",alignContent:'center', marginTop:'8%'}}>
         {items.map(({ Date,id, message,time,PriImg,Des }) => (
          
 
