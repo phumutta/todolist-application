@@ -168,7 +168,7 @@ async update(){
 
                         <Dialog.Title>Join Group</Dialog.Title>
                         <Dialog.Description>Enter the group code</Dialog.Description>
-                        <Dialog.Input    onChangeText={Group => this.setState({Group})} maxLength={15} />
+                        <Dialog.Input    onChangeText={Group => this.setState({Group})} maxLength={15} color ="#000000"/>
                         <Dialog.Button label="Cancel" color="#6F41E9" bold="10" onPress={this.handleCancel} />
                         <Dialog.Button label="Join"  color="#6F41E9" onPress={this.handleDelete} />
                         
