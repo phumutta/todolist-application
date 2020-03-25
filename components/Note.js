@@ -215,28 +215,38 @@ export default class Note extends React.Component {
           </View>
         </Header>
 
-        <View style={styles.container}>
-          <View style={styles.item}>
-          {/* <Item_note ref={note => (this.note = note)} /> */}
-          <ScrollView style={styles.item}>
-            <Item_note ref={note => (this.note = note)} />
-          </ScrollView>
+
+
+
+
+
+        <LinearGradient colors={['#FFFFFF', '#4B15B8']} style={{flex:1}}>
+
+            <View style={styles.container}>
+              <View style={styles.item}>
+                <ScrollView style={styles.item2}>
+                  <Item_note ref={note => (this.note = note)} />
+                </ScrollView>
+              </View>
+
+
+              <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+                <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() => this.props.navigation.navigate('AddTask')}>
+                  <Icon name="md-create" style={{ color: 'white' }} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() => this.props.navigation.navigate('Group')}>
+                  <Icon name="md-people" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => this.props.navigation.navigate('AddNote')}>
+                  <Icon name="md-save" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+              </ActionButton>
+
           </View>
 
+        </LinearGradient> 
 
-          <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
-            <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() => this.props.navigation.navigate('AddTask')}>
-              <Icon name="md-create" style={{ color: 'white' }} />
-            </ActionButton.Item>
-            <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() => this.props.navigation.navigate('Group')}>
-              <Icon name="md-people" style={styles.actionButtonIcon} />
-            </ActionButton.Item>
-            <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => this.props.navigation.navigate('AddNote')}>
-              <Icon name="md-save" style={styles.actionButtonIcon} />
-            </ActionButton.Item>
-          </ActionButton>
-
-</View>
+      
 
         
 
@@ -294,23 +304,41 @@ export default class Note extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  // container: {
-  //   alignItems: 'flex-start',
-  //   flex: 1,
-  //   flexDirection: 'row',
-  //   marginRight: 16,
-  //   marginTop: 5,
-  //   marginBottom: 5,
-  //   backgroundColor: 'transparent',
-  // },
   container: {
+    alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start' // if you want to fill rows left to right
+    // marginRight: "4%",
+    // marginLeft:"4%",
+    // paddingTop: "6%",
+    // margin:"2%",
+    // marginBottom: 5,
+    // backgroundColor: 'transparent',
+    // backgroundColor: 'black',
+    // marginBottom:33,
   },
+  // container: {
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   // alignItems: 'flex-start', // if you want to fill rows left to right
+  //   justifyContent: 'center',
+  //   alignContent :'center',
+  //   margin:'5%',
+  // },
   item: {
     width: '100%', // is 50% of container width
+    paddingTop: "2%",
+    // paddingLeft:"4%",
+    // marginBottom:33,
+  },
+  item2: {
+    paddingRight: "5%",
+    paddingLeft:"5%",
+    paddingTop:"7%",
+    // paddingBottom:"50%",
+    // marginBottom:33
+
   },
   title: {
     fontSize: 16,

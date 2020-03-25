@@ -15,12 +15,13 @@ import Constants from "expo-constants";
 import * as SQLite from 'expo-sqlite';
 import database from './Database3';
 import { CardViewWithImage, CardViewWithIcon } from 'react-native-simple-card-view'
-import { Card } from 'react-native-shadow-cards';
+// import { Card } from 'react-native-shadow-cards';
 // import Tomorrow from "./Tomorrow";
 import TouchableScale from 'react-native-touchable-scale';
 // import LinearGradient from 'react-native-linear-gradient';
 import { Avatar } from 'react-native-elements';
 import CardView from 'react-native-cardview'
+import { Card } from "@paraboly/react-native-card";
 export default class Item_note extends React.Component {
   state = {
     items: [],
@@ -70,22 +71,49 @@ export default class Item_note extends React.Component {
      console.log(this.state.items)
    
     return (
-      <View>
+      <View style={{marginBottom:"21%"}}> 
           
-          {items.map (({id,note,time}) => (
-             <CardViewWithImage
-             source={ {uri: 'https://placeimg.com/640/480/nature'} }
-             content={ note }
-             title={ time }
-             imageWidth={ '0%' }
-             imageHeight={ '0%' }
-             roundedImage={ false }
-             onPress={() => console.log("CardViewWithImage Clicked!")}
-             width={"40%"}
-             contentFontSize={'13'}
-            //  bgColor={'#1f1f1f'}
-            //  shadowColor={'#1f1f1f'}
-         />
+          {items.map (({id,note,time, time2, time3}) => (
+        //      <CardViewWithImage
+        //      source={ {uri: 'https://placeimg.com/640/480/nature'} }
+        //      content={ note }
+        //      title={ time }
+        //      imageWidth={ '0%' }
+        //      imageHeight={ '0%' }
+        //      roundedImage={ false }
+        //      onPress={() => console.log("CardViewWithImage Clicked!")}
+        //      width={"40%"}
+        //      contentFontSize={'13'}
+        //     //  bgColor={'#1f1f1f'}
+        //     //  shadowColor={'#1f1f1f'}
+        //  />
+        //  <Card
+        //     iconDisable
+        //     title= {time}
+        //     content={ note }
+        //     content="Main Content"
+        //     bottomRightText="30"
+        //     onPress={() => console.log("CardViewWithImage Clicked!")}
+        //   />
+
+          <Card
+              title={time}
+              titleColor="#4B15B8"
+              iconName="home"
+              defaultTitle=""
+              iconType="Entypo"
+              // iconSize="16"
+              iconDisable={true}
+              defaultContent=""
+              onPress={() => console.log("CardViewWithImage Clicked!")}
+              topRightText="03/26/2020"
+              bottomRightText="TH"
+              content={ note }
+              style={styles.container}
+              // containerHeight={20}
+              // borderRadius={15}
+
+            />
 
 
           ))}
@@ -100,7 +128,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flex: 1,
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
+    padding:'3%',
+    margin:'2%',
+    borderRadius:16,
   },
   heading: {
     fontSize: 20,

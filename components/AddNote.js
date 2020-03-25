@@ -174,7 +174,15 @@ componentDidMount(){
   this.onFocusFunction()
   this.props.navigation.setParams({addNotes:this.addNotes})
   var now = moment().format();
-  let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  
+  //TODO: อยากได้ Date ด้วย เอาแค่เวลา ตัวอย่าง  Today at 4:45 AM
+  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  let time = moment().calendar();
+  let time2 = moment().format('LT');
+  let time3 = moment().format('L');
+  // let time = moment().format("Do MMM");
+  
   this.setState({noteTime:time})
 }
 // dummyCategory = () => {
@@ -210,7 +218,9 @@ async onPressOK(){
    Message= await{
     note: this.state.note,
     time:this.state.noteTime,
-    id:''
+    // time2:this.state.noteTime,
+    // time3:this.state.noteTime,
+    id:'',
   }
   console.log(Message)
   await database.addNote(this.state.email,Message,(()=>{this.props.navigation.navigate('Note')}),this.addNote_F)
