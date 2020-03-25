@@ -215,71 +215,14 @@ export default class Note extends React.Component {
           </View>
         </Header>
 
-        
-{/* <ScrollView style={{flex:1,flexDirection:'column',backgroundColor:'#transparent',marginTop:"5%"}}>
-
-          <View style={{flex:1,flexDirection:'row'}}>
-                      <Item_note
-                                ref={note => (this.note = note)}
-                                //  onPressTodo={(id)=>{
-                                //     AsyncStorage.setItem('@group',id);
-                                //    this.props.navigation.navigate('GroupDetail', { name: 'GroupDetail' })}}
-                              // onPressTodo2={() => this.props.navigation.navigate('timer', { name: 'timer' })}
-                              // onPressTodo3={() => this.props.navigation.navigate('Edit', { name: 'Edit' })}
-                                />
-               
-            </View>
-
-            
-          
-          </ScrollView> */}
-
-        {/* <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
-          <View style={{flex:1,flexDirection:'row'}}>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }}  onPress={()=>this.onPressHigh()} >
-              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png'}}/>
-            <Text style={{color:'#D4D4D4'}} >High Priority</Text>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressMedi()}>
-              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZwiy.png'}}/>
-            <Text style={{color:'#D4D4D4'}}>Medium Priority</Text>
-            </View>
-            </TouchableOpacity>
-            </View>
-            <View style={{flex:1,flexDirection:'row'}}>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressLow()}>
-              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZsEe.png'}}/>
-            <Text style={{color:'#D4D4D4'}}>Low Priority</Text>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: '#ffffff',marginLeft:15,marginTop:30,marginRight:15,marginBottom:30,justifyContent:'center',alignItems:'center' }} onPress={()=>this.onPressNo()}>
-              <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-            <Image style={{height:20,width:20}} source={{uri:'https://sv1.picz.in.th/images/2020/03/03/xGZBDS.png'}}/>
-            <Text style={{color:'#D4D4D4'}}>No Priority</Text>
-            </View>
-            </TouchableOpacity>
+        <View style={styles.container}>
+          <View style={styles.item}>
+          {/* <Item_note ref={note => (this.note = note)} /> */}
+          <ScrollView style={styles.item}>
+            <Item_note ref={note => (this.note = note)} />
+          </ScrollView>
           </View>
-            </View> */}
 
-
-
-
-
-        <View style={{ flex: 1,  backgroundColor: '#000000', flexDirection: 'row',alignItems:'center'}} >   
-          <View style={{flexDirection: 'row', justifyContent: 'center',alignContent :'center',}}>
-
-            <ScrollView style={{backgroundColor: '#transparent',  padding:'6%', marginLeft:'2%'}}>
-              <View style={{marginBottom:'10%'}}>
-              <Item_note ref={note => (this.note = note)} />
-              </View>
-            </ScrollView>
-
-
-          </View>
 
           <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
             <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() => this.props.navigation.navigate('AddTask')}>
@@ -292,7 +235,50 @@ export default class Note extends React.Component {
               <Icon name="md-save" style={styles.actionButtonIcon} />
             </ActionButton.Item>
           </ActionButton>
-        </View>
+
+</View>
+
+        
+
+
+
+        {/* <View style={{ flex: 1,  backgroundColor: '#ffffff', flexDirection: 'row',alignItems:'center'}} >   
+          <View style={{flexDirection: 'row', justifyContent: 'center',alignContent :'center',}}>
+
+            <ScrollView style={{backgroundColor: '#transparent',  padding:'6%', marginLeft:'2%'}}>
+              <View style={{marginBottom:'10%'}}>
+              <Item_note ref={note => (this.note = note)} />
+              </View>
+            </ScrollView>
+
+
+          </View>
+
+          <View>
+              <FlatList style={{margin:5}}
+              // data={this.state.items}
+              numColumns={2}
+              // keyExtractor={(item, index) => item.id }
+              // renderItem={(item) => <Card image={item.item.gallery_image_url} text={item.item.name}/> 
+              renderItem={(item) => <Item_note ref={note => (this.note = note)} />
+            }
+            />
+          </View>
+
+         
+
+          <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+            <ActionButton.Item buttonColor='#000000' title="New Task" onPress={() => this.props.navigation.navigate('AddTask')}>
+              <Icon name="md-create" style={{ color: 'white' }} />
+            </ActionButton.Item>
+            <ActionButton.Item buttonColor='#CCCCCC' title="Group" onPress={() => this.props.navigation.navigate('Group')}>
+              <Icon name="md-people" style={styles.actionButtonIcon} />
+            </ActionButton.Item>
+            <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => this.props.navigation.navigate('AddNote')}>
+              <Icon name="md-save" style={styles.actionButtonIcon} />
+            </ActionButton.Item>
+          </ActionButton>
+        </View> */}
 
 
 
@@ -308,14 +294,23 @@ export default class Note extends React.Component {
   }
 }
 const styles = StyleSheet.create({
+  // container: {
+  //   alignItems: 'flex-start',
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   marginRight: 16,
+  //   marginTop: 5,
+  //   marginBottom: 5,
+  //   backgroundColor: 'transparent',
+  // },
   container: {
-    alignItems: 'flex-start',
     flex: 1,
     flexDirection: 'row',
-    marginRight: 16,
-    marginTop: 5,
-    marginBottom: 5,
-    backgroundColor: 'transparent',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start' // if you want to fill rows left to right
+  },
+  item: {
+    width: '100%', // is 50% of container width
   },
   title: {
     fontSize: 16,
@@ -421,5 +416,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 50
 
-  }
+  },
+  row: {
+    flex: 1,
+    justifyContent: "space-around"
+}
 });
