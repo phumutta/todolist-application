@@ -319,11 +319,11 @@ getRepeat = () =>{
                 />
           </View> */}
 
-            <View style={{flex:1, backgroundColor:'#ffffff', marginTop:20}}>
+            <View style={{flex:0.35, backgroundColor:'#ffffff', marginTop:20, height:10 }}>
               <View style={{flex:1}}>
                   <ScrollView style={{flex:1,width:'100%'}}>
                       <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
-                          <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
+                          <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1, paddingBottom:15}}>
                             {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
         <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,color:'#696969'}} multiline={true} numberOfLines={10} onChangeText={this.onChangeDes}>{this.state.des}</TextInput>
                           </View>
