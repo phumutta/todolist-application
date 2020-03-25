@@ -134,7 +134,7 @@ export default class Items_GroupNew extends React.Component {
     return (
 
 
-      <View style={{flex:1, alignItems:'center', flexDirection:'column', justifyContent:'center', backgroundColor:"transparent", marginBottom:28}}>
+      <View style={{flex:1, alignItems:'center', flexDirection:'column', justifyContent:'center', backgroundColor:"transparent", marginBottom:33}}>
 
         {items.map(({ date, id, message, time,user ,uri,Des}) => (
 
