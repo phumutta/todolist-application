@@ -22,7 +22,8 @@ export default class CreateNewGroup extends Component {
     text: null,
     email:'',
     group:'',
-    des:''
+    des:'',
+    btn:false
   };
   
 
@@ -65,7 +66,7 @@ export default class CreateNewGroup extends Component {
   async addGroup_success(){
     
   console.log("success")
-    
+  
     
     // User={
     //   Email:this.state.email
@@ -93,7 +94,7 @@ export default class CreateNewGroup extends Component {
   }
 
   onPressOK =async () => {
-    // this.setState({group:text})
+     this.setState({btn:true})
     AdminGroup={
       AdminGroup: this.state.email,
       uri:'',
@@ -104,9 +105,9 @@ export default class CreateNewGroup extends Component {
     
     
     await database.createGroup(AdminGroup,Name,this.state.group,this.addGroup_success,this.addGroup_fail)
-    
     await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
-    this.textInput.clear()
+    
+    
     // console.log(this.state.imageuri)
 
   };
@@ -116,7 +117,7 @@ export default class CreateNewGroup extends Component {
     // url=await this.createURL()
     // await database.addImage(this.state.id,url,this.add_success,this.add_fail)
     // this.setState({txtButton:"Success"});
-
+    
 
     this.addURL()
 
@@ -136,7 +137,7 @@ export default class CreateNewGroup extends Component {
   add_success = async (error) => {
 
   
-    Alert.alert("Add Avatar Success");
+    Alert.alert("Create group Success");
     this.props.navigation.navigate('Group')
   }
   add_fail = async (error) => {
@@ -189,7 +190,7 @@ export default class CreateNewGroup extends Component {
                 <View style = { styles.MainContainer2 }>
                   <Title>Create New Group</Title>
                 </View>
-                <TouchableOpacity   onPress={()=>this.onPressOK()}>
+                <TouchableOpacity   onPress={()=>this.onPressOK()} disabled={this.state.btn}>
                   <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
                     {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
                     <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >DONE</Text>
