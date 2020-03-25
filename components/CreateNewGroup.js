@@ -65,7 +65,7 @@ export default class CreateNewGroup extends Component {
   async addGroup_success(){
     
   console.log("success")
-    
+  
     
     // User={
     //   Email:this.state.email
@@ -104,9 +104,9 @@ export default class CreateNewGroup extends Component {
     
     
     await database.createGroup(AdminGroup,Name,this.state.group,this.addGroup_success,this.addGroup_fail)
-    
     await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
     this.textInput.clear()
+    
     // console.log(this.state.imageuri)
 
   };
@@ -116,7 +116,7 @@ export default class CreateNewGroup extends Component {
     // url=await this.createURL()
     // await database.addImage(this.state.id,url,this.add_success,this.add_fail)
     // this.setState({txtButton:"Success"});
-
+  
 
     this.addURL()
 

@@ -244,7 +244,7 @@ class Database{
       id:group,
       uri:''
     }
-    await firebase.firestore().collection("Group").get().then(snapshot=>{
+    await firebase.firestore().collection("Group").get().then(async snapshot=>{
       if(snapshot.emtry)
       {
         console.log("ReadFail")
@@ -254,6 +254,17 @@ class Database{
      
 
       let state =0;
+      await firebase.firestore().collection("Account").doc(AdminGroup.AdminGroup).get().then(data=>{
+        if(data.emtry)
+      {
+        console.log("ReadFail")
+        add_Fail();
+        return;
+      }
+      if(data.data().uri===""){
+        state=111;
+      }
+      })
       snapshot.forEach(async doc=>{
         console.log("Read")
         array.push(doc.id)
@@ -261,7 +272,7 @@ class Database{
         // array.push(Object.values(doc.data()))
         // array.push(doc.data())
         // read_Message_success(doc.data())
-        if (doc.id == group){
+        if (doc.id == group && state != 111){
           state=1
         }
         
@@ -273,12 +284,19 @@ class Database{
             await firebase.firestore().collection("Account").doc(AdminGroup.AdminGroup).collection("Group").doc(group).set(Name)
           },add_Fail());
         }
+        if (state==111){
+          
+          Alert.alert("Upload your profile before create a new group")
+         
+        
+      }
 
-    })
+    })}
     // await firebase.firestore().collection("Group").doc(group).set(AdminGroup).then(async ()=>{
     //   await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(AdminGroup)
     // },add_Fail());
-  }
+    
+
   // async createGroupUser(user,group,add_Success,add_Fail){
   //   await firebase.firestore().collection("Group").doc(group).collection("user").doc(user).set(user).then(()=>{
   //     add_Success()
