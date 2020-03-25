@@ -411,7 +411,7 @@ class Database{
       uri:'',
       admin:''
     }
-    await firebase.firestore().collection("Group").get().then(snapshot=>{
+    await firebase.firestore().collection("Group").get().then(async snapshot=>{
       if(snapshot.emtry)
       {
         console.log("ReadFail")
@@ -419,6 +419,17 @@ class Database{
         return;
       }
       let state =0;
+      await firebase.firestore().collection("Account").doc(name.email).get().then(data=>{
+        if(data.emtry)
+      {
+        console.log("ReadFail")
+        add_Fail();
+        return;
+      }
+      if(data.data().uri===""){
+        state=111;
+      }
+      })
       snapshot.forEach(async doc=>{
         console.log("Read")
         array.push(doc.id)
@@ -426,7 +437,8 @@ class Database{
         // array.push(Object.values(doc.data()))
         // array.push(doc.data())
         // read_Message_success(doc.data())
-        if(doc.id == id){
+
+        if(doc.id == id && state != 111){
           state=1;
           await firebase.firestore().collection("Group").doc(id).collection("user").doc(name.email).set(name).then(async ()=>{
             console.log("HERE")
@@ -451,6 +463,12 @@ class Database{
             add_Success() 
           
         }
+        if (state==111){
+          
+          Alert.alert("ใส่รูปก่อนจะเข้ากลุ่มนะครับ")
+          add_Success() 
+        
+      }
 
       
    
