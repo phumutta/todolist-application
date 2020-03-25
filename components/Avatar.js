@@ -16,6 +16,7 @@ export default class Avatar extends Component {
     id: '',
     progress: 0,
     indeterminate: true,
+    button_State:false
   };
 
   componentDidMount() {
@@ -38,6 +39,7 @@ export default class Avatar extends Component {
 
 
   onPressOK = async() => {
+    this.setState({button_State:true})
     if(this.state.imageuri != 'https://sv1.picz.in.th/images/2019/08/22/ZRRyeW.png'){
       await database.uploadImage(this.state.id, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
       console.log(this.state.imageuri)}
@@ -64,6 +66,7 @@ export default class Avatar extends Component {
   add_success = async (error) => {
 
     await AsyncStorage.setItem('@uri', this.state.uploaduri);
+    this.setState({button_State:false})
     Alert.alert("Add Avatar Success");
   }
   add_fail = async (error) => {
@@ -128,7 +131,7 @@ export default class Avatar extends Component {
             {/* <Image style={{width: 20, height: 20}} source={{uri: 'https://sv1.picz.in.th/images/2020/01/22/RCoeNt.png' }} /> */}
             <TouchableOpacity
             
-            onPress={this.onPressOK}>
+            onPress={this.onPressOK} disabled={this.state.button_State}>
             <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold", marginRight:'10%'}} >Done</Text>
           </TouchableOpacity>
           </View>
