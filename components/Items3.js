@@ -113,11 +113,11 @@ export default class Items3 extends React.Component {
           <View style={{ flex: 1, marginLeft: "1%" ,flexDirection:"column"}}>
           <Text style={{ color:"#C4C4C4", textDecorationLine:'line-through', fontStyle:'italic', fontSize:16}} 
           // onPress={() => {this.props.onPressTodo3(id)}}
-          onPress={() => { this.props.onPressTodo2(id) 
-            AsyncStorage.setItem('@TaskID',id)
-            AsyncStorage.setItem('@Message',message) 
-            AsyncStorage.setItem('@Des',Des) 
-                 }}
+          // onPress={() => { this.props.onPressTodo2(id) 
+          //   AsyncStorage.setItem('@TaskID',id)
+          //   AsyncStorage.setItem('@Message',message) 
+          //   AsyncStorage.setItem('@Des',Des) 
+          //        }}
           >{message}</Text>
           <Text  style={{ color: "#C4C4C4", fontSize:12, textDecorationLine:'line-through', fontStyle:'italic' }}>Date: {Date}</Text>
           </View>
