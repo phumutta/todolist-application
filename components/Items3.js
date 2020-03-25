@@ -119,7 +119,7 @@ export default class Items3 extends React.Component {
             AsyncStorage.setItem('@Des',Des) 
                  }}
           >{message}</Text>
-          <Text>Date: {Date}</Text>
+          <Text  style={{ color: "#C4C4C4", fontSize:12, textDecorationLine:'line-through', fontStyle:'italic' }}>Date: {Date}</Text>
           </View>
            
          
