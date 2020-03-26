@@ -20,7 +20,11 @@ import { Card } from 'react-native-shadow-cards';
 import TouchableScale from 'react-native-touchable-scale';
 // import LinearGradient from 'react-native-linear-gradient';
 import { Avatar } from 'react-native-elements';
+// import AvatarGroup from '@material-ui/lab/AvatarGroup';
+// import { AvatarGroup } from '@material-ui/lab';
 
+// import Avatar from '@material-ui/core/Avatar';
+// import AvatarGroup from '@material-ui/lab/AvatarGroup';
 export default class Items_Members extends React.Component {
   state = {
     items: [],
@@ -74,36 +78,16 @@ export default class Items_Members extends React.Component {
       
         <Card style={{ flex:0.15, flexDirection: 'row',alignItems:'center',  marginBottom:'2%'}} >
 
-        <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft:'7%', marginRight:'3%'}}>Members</Text>
-        {/* <ScrollView horizontal={true} > */}
-        
-          {items.map (({id, email,uri,admin}) => (
-            
-            <Avatar rounded containerStyle={{marginLeft:'2%'}} source={{uri:uri}}/>
-           
-            
-           
+            <Text style={{color:'#666666',fontSize:18,fontWeight:'bold', textAlight:'left', marginLeft: '3%', marginRight:'8%'}}>Members</Text>
 
-          ))}
-          {/* </ScrollView> */}
+            {items.map (({id, email,uri,admin}) => (
+                
+                <Avatar rounded containerStyle={{marginLeft:'-3%', borderWidth:2, borderColor:'#FFFFFF'}} source={{uri:uri}} activeOpacity={0.7}/>
 
-              </Card>
-          
-
+              ))}
       
+        </Card>
 
-      // <View style={{flex:0.125,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,}} >
-      // <Image style={{marginLeft:'10%', marginRight:'5%' ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/26/RHl31W.png'}}/>
-      //     <View style={{flex:1, flexDirection: 'column'}} >
-      //       <Text style={{fontSize:18,color:'#171D33',marginLeft:2,marginEnd:3,alignItems:'center',justifyContent:'center', }}>Dek 64</Text>
-      //       <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>มาเข้ากลุ่มเด็กแอด 64 กันเถอะ</Text>
-      //     </View>
-      //     <TouchableOpacity style={{marginRight:'8%'}}>
-      //       <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
-      //         <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>Join</Text>
-      //       </View>
-      //     </TouchableOpacity>
-      // </View>
     );
   }
 }
