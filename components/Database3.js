@@ -131,6 +131,17 @@ async UpdateNote(User,Message,add_Message_success,add_Message_fail){
     add_Message_success()
     },add_Message_fail)
 }
+
+async DelNote(User,id,del_Message_success,del_Message_fail){
+  console.log(User)
+  console.log(id)
+  try {
+    await firebase.firestore().collection('Todo').doc(User).collection("Note").doc(id).delete();
+    del_Message_success();
+} catch (e) {
+    del_Message_fail();
+}
+}
   async updateID(ID,User,addSuccess,addFail){
     try{
     await firebase.firestore().collection("Todo").doc(User).collection("Today").doc(ID).update({id:ID})

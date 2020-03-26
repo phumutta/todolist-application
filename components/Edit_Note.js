@@ -244,6 +244,13 @@ addNote_S(){
 addNote_F(){
   console.log("Edit_F")
 }
+async onPressDel(){
+  console.log("Del")
+    
+  let  id=this.state.id;
+ console.log(id)
+  await database.DelNote(this.state.email,id,(()=>{  this.props.navigation.navigate('Note')}),(()=>{console.log("DEL FAIL")}))
+}
 
 
 
@@ -295,7 +302,15 @@ onChangeText = note => this.setState({ note });
           </View>  
 
 
-
+          <ActionButton buttonColor="rgba(75,21,184,2)" position="right">
+          <ActionButton.Item buttonColor='#ffffff' title="New Note" onPress={() => this.props.navigation.navigate('AddNote')}>
+                  <Icon name="md-save" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#ffffff' title="Delete" onPress={()=>this.onPressDel()} >
+                  <Icon name="md-trash" style={styles.actionButtonIcon} />
+                </ActionButton.Item> 
+               
+              </ActionButton>
       
       </Container>
       </TouchableWithoutFeedback>
