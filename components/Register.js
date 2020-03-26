@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet ,TouchableOpacity,TextInput} from 'react-native';
+import { Text, View, StyleSheet ,TouchableOpacity,TextInput, Alert} from 'react-native';
 
 
 
@@ -20,6 +20,17 @@ export default class Register extends React.Component {
     this.props.navigation.navigate('First')
   }
   onPressAddAccount = () => {
+  
+    if(this.state.name.length==0 || this.state.last ==0){
+      Alert.alert("Please fill in your name or last name")
+    }
+    else if(this.state.email.length==0 ){
+      Alert.alert("Please fill in your email")
+    }
+    else if(this.state.password.length <6){
+      Alert.alert("Your password must be at least 6 characters")
+    }
+    else{
     account={
       name:this.state.name,
       last:this.state.last,
@@ -30,6 +41,7 @@ export default class Register extends React.Component {
 
     //console.log(account);
     database.createAccount2(account,this.add_Account_success,this.add_Account_fail);
+    }
 
   };
 
@@ -40,6 +52,7 @@ export default class Register extends React.Component {
       email:this.state.email.toLowerCase(),
       password:this.state.password,
     }
+    
     database.createAut(account,this.add_Aut_success,this.add_Aut_fail);
   }
 
@@ -53,8 +66,8 @@ export default class Register extends React.Component {
 
   }
 
-  add_Aut_fail=async(error)=>{
-    Alert.alert(error);
+  add_Aut_fail=()=>{
+    Alert.alert('Please Check your email and Password( must be at least 6 characters)');
   }
 
   onChangeTextEmail = email => this.setState({email});
