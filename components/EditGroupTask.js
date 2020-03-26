@@ -172,6 +172,10 @@ export default class EditGroupTask extends Component {
 };
 
 addText=async()=>{
+  if( this.state.message.trim() == ""){
+    Alert.alert("Your task can't be empty")
+  }
+  else{
     switch (this.state.imgPri){
       case 'https://sv1.picz.in.th/images/2020/03/03/xGZtY1.png':
        
@@ -198,7 +202,7 @@ addText=async()=>{
     }
     console.log(this.state.email)
    await  database.UpdateMessageGroup(this.state.group,Message,(()=>{this.props.navigation.navigate("GroupDetail");}),this.addMessageFail)
- 
+    }
   }
   addMessageSuccess=async(id)=>{
   
