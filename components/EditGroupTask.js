@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity,AsyncStorage, Alert, Image,  DatePickerIOS,PickerIOS, SafeAreaView} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity,AsyncStorage, Alert, Image,  DatePickerIOS,PickerIOS, SafeAreaView,Platform,Keyboard,KeyboardAvoidingView,TouchableWithoutFeedback} from "react-native";
 import Constants from "expo-constants";
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
 // import ActionButton from 'react-native-action-button';
@@ -238,6 +238,11 @@ getRepeat = () =>{
       let PickerIOSItem = PickerIOS.Item
       var now = moment().format();
         return (
+          <KeyboardAvoidingView
+      behavior={Platform.Os == "ios" ? "padding" : "height"}
+      style={{flex:1}}
+    >
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Container>
             <Header >
               <View style = { styles.MainContainer1}>
@@ -324,41 +329,29 @@ getRepeat = () =>{
                 />
           </View> */}
 
-            <View style={{flex:0.35, backgroundColor:'#ffffff', marginTop:20, height:10}}>
+            <View style={{flex:1, backgroundColor:'#ffffff', marginTop:20, height:10}}>
             
               <View style={{flex:1,}}>
-                  <ScrollView style={{flex:1,width:'100%'}}>
-                      <SafeAreaView forceInset={{top:'always',}} >
+                  
                           <View style={{flex:1,marginTop:20,alignItems:'center', paddingBottom:15}}>
                             {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
-        <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,}} multiline={true} numberOfLines={10} onChangeText={this.onChangeDes} placeholder="Description...">{this.state.des}</TextInput>
+        <TextInput underlineColorAndroid='#4CAF50' style={{flex:1,width:'80%', fontSize:18,}} multiline={true}  onChangeText={this.onChangeDes} placeholder="Description...">{this.state.des}</TextInput>
                           </View>
-                      </SafeAreaView>
-                  </ScrollView>
+                  
               </View>
           </View> 
 
         </View>
 
-        <SinglePickerMaterialDialog
-          items={SHORT_LIST.map((row, index) => ({ value: index, label: row }))}
-          visible={this.state.singlePickerVisible}
-          selectedItem={this.state.singlePickerSelectedItem}
-          onCancel={() => this.setState({ singlePickerVisible: false })}
-          addPadding={true}
-          onOk={result => {
-            
-            this.setState({ singlePickerVisible: false });
-            this.setState({ singlePickerSelectedItem: result.selectedItem });
-            this.onFocusFunction();
-          }}  
-        />
+        
 
 
 
 
 
             </Container>
+            </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
         );
     }
 
