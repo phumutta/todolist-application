@@ -225,7 +225,9 @@ export default class Note extends React.Component {
             <View style={styles.container}>
               <View style={styles.item}>
                 <ScrollView style={styles.item2}>
-                  <Item_note ref={note => (this.note = note)} />
+                  <Item_note ref={note => (this.note = note)}
+                            onPress1={() => this.props.navigation.navigate('Edit_Note', { name: 'Edit_Note' })}
+                            />
                 </ScrollView>
               </View>
 
