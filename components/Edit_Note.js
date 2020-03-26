@@ -1,226 +1,409 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image,} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert,Platform, TextInput,Keyboard  , ScrollView, AsyncStorage, SafeAreaView, Dimensions, List, Picker,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+// import { Card } from 'react-native-shadow-cards';
+import { Container, Header, Title, Button, Icon, Content, InputGroup, Input, Card, CardItem } from 'native-base';
+import Items2 from './Items2'
+import database2 from './Database2'
 import Constants from "expo-constants";
-import { Container, Header, Title, Button, Icon, Content, InputGroup, Input } from 'native-base';
-// import ActionButton from 'react-native-action-button';
+import ActionButton from 'react-native-action-button';
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import database from './Database3';
+// import  Card  from 'galio-framework';
+// import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import moment from 'moment';
+
+let {width, height} = Dimensions.get('window')
+
+export default class Edit_Note extends React.Component {
+  state = {
+    email: '',
+    message:'',
+    time:'',
+    Date:'',
+    Priority:'',
+    name: '',
+    last: '',
+    uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
+    date: '',
+    note:'',
+    noteTime:''
+
+  };
+
+
+ 
+
+onFocusFunction=async()=>{
+  this.setState({email:await AsyncStorage.getItem('@email')})
+
+  
+}
+// update (){
+//   this.todo.update();
+
+// };
+
+// componentDidMount(){
+
+//   this.onFocusFunction();
+//   let date = new Date().getDate(); //Current Date
+//   var month = new Date().getMonth() + 1; //Current Month
+//   var year = new Date().getFullYear(); //Current Year
+//   var hours = new Date().getHours(); //Current Hours
+//   var min = new Date().getMinutes(); //Current Minutes
+//   var sec = new Date().getSeconds(); //Current Seconds
+//   // this.setState({time:hours+":"+min+":"+sec})
+//   // console.log(this.state.time)
+//   this.setState({time:firebase.firestore.FieldValue.serverTimestamp()})
+//   this.setState({Date:date + '/' + month + '/' + year})
+  
+
+ 
+// }
+
+
+onChangeText = message => this.setState({ message });
+
+onPressAdd = async() => {
+  await this.addText();
+  this.setState({ text:null});
+
+  this.textInput.clear() 
+};
+addText=async()=>{
+  
+  Message={
+    message:this.state.message,
+    time: this.state.time,
+    Date:this.state.Date,
+    status:'1',
+    
+    id:''
+  }
+  console.log(this.state.email)
+ await  database.addMessageToday(this.state.email,Message,this.addMessageSuccess,this.addMessageFail)
+
+}
+addMessageSuccess=async(id)=>{
+
+console.log("Successsssssssss");
+await database.updateID(id,this.state.email,this.updateSuccess,this.updateFail)
+this.update();
+// await database.readMessage(this.state.email,this.state.Date,this.readMessageSuccess,this.readMessageFail)
+
+
+}
+addMessageFail=async()=>{
+
+console.log("addMessageFail");
+}
+async updateSuccess(){
+
+console.log("updateID");
+await this.update();
+}
+updateFail(){
+console.log("FailUpdate");
+}
+delete_Complete=async (id)=>{
+await database.updateStatus(id,this.state.email,this.updateSuccess,this.updateFail)
+// await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
+//this.onPressTrack();
+await this.update();
+
+
+}
+deleteSuccess(){
+
+console.log("del success")
+}
+deleteFail(){
+console.log("del fail")
+}
+  
+
+readMessageSuccess=async(doc)=>{
+  console.log("message :" +doc.message);
+
+}
+readMessageFail=async()=>{
+  console.log("read F");
+}
+async update(){
+  await this.todo.update();
+
+};
 
 
 
 
-export default class Edit_Note extends Component {
-  onPressBack(){
-    this.props.navigation.navigate('Main1')
- }
-    render() {
-        return (
-            <Container>
-            <Header >
-              <View style = { styles.MainContainer1}>
-                <Button transparent onPress={()=>this.onPressBack()}>
-                    <Icon name='ios-arrow-back' style={{color:'#DBDBDB'}} />
-                </Button>
-              </View>
-              <View style = { styles.MainContainer2 }>
-                <Title>Edit</Title>
-              </View>
-              
-              <View style={{flex: 1, alignItems: 'center',justifyContent: 'center', left: 15}}>
-                <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/24/RrBuNt.png' }}/>
-              </View>
-            </Header>
-            {/* <ActionButton buttonColor="rgba(75,21,184,2)" position="center"></ActionButton> */}
+onPressBack(){
+  this.props.navigation.navigate('Note')
+}
+onPressEdit(){
+this.props.navigation.navigate('Edit')
 
 
+}
 
 
+static navigationOptions = ({navigation}) => {
+  return {
+      title:'ADD NOTE',
+      headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow:1
+      },
+      headerRight: (
+          <TouchableOpacity onPress={navigation.getParam('addNotes')}>
+              <Icon name="check-circle-o" style={{marginRight:width/15, fontSize:30, color:'green'}}/>
+          </TouchableOpacity>)
+  }
+}
+constructor(props){
+  super(props);
+  this.state ={
+      title: '',
+      note: '',
+      categoryId: ''
+  };
+}
+componentDidMount(){
+  this.onFocusFunction()
+  this.props.navigation.setParams({addNotes:this.addNotes})
+  var now = moment().format();
+  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  
+  //TODO: อยากได้ Date ด้วย เอาแค่เวลา ตัวอย่าง  Today at 4:45 AM
+  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  let time = moment().calendar();
+  let time2 = moment().format('LT');
+  let time3 = moment().format('L');
+  // let time = moment().format("Do MMM");
+  
+  this.setState({noteTime:time})
+}
+// dummyCategory = () => {
+//     let dummyCtgy = []
+//     for(let a=0;a<DummyCategory.length;a++){
+//         dummyCtgy.push(
+//             <Picker.Item key={a} label={DummyCategory[a].category} value={DummyCategory[a].id}/>
+//         )
+//     }
+//     return dummyCtgy;
+// }
+addNotes = () => {
+  const {title,note,categoryId} = this.state
+  if(!title.length||!note.length||!categoryId.length){
+      this.props.dispatch(addNote({title,note,categoryId}))
+      this.props.dispatch(getNotes())
+      this.props.navigation.goBack()
+  }
+  else {
+      alert('You must enter title, note and category');
+  }
+}
+getCategoryBtn = () =>{
+  return this.props.categories.categories && this.props.categories.categories.map(item=>(
+      <Picker.Item key={item.id} label={item.name} value={item.id}/>  
+  ))
+}
+async onPressOK(){
+  
+  console.log(this.state.noteTime)
+  console.log(this.state.note)
+  console.log(this.state.email)
+   Message= await{
+    note: this.state.note,
+    time:this.state.noteTime,
+    // time2:this.state.noteTime,
+    // time3:this.state.noteTime,
+    id:'',
+  }
+  console.log(Message)
+  await database.addNote(this.state.email,Message,(()=>{this.props.navigation.navigate('Note')}),this.addNote_F)
 
 
-        <View style={{flex:1,flexDirection:'column',backgroundColor:'#F6F6F6'}} >
+}
+addNote_S(){
 
+}
+addNote_F(){
 
-          <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}}>
-                <Image style={{marginLeft:30, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr9eWe.png'}}/>
-                  <View style={{flexDirection: 'column'}} >
-                    <Text style={{fontSize:20,fontWeight:'bold' ,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Get a Haircut</Text>
-                  </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:140}}></Text>
-                  <Image style={{marginLeft:30, marginRight:10 ,width:15,height:15}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrTgsz.png'}}/>
-          </TouchableOpacity>
-
-          <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:28,height:28}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/RrkimE.png'}}/>
-                  <View style={{flexDirection: 'column'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Pomodoro Number</Text>
-                  </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:135}}>1</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row', backgroundColor:'#ffffff', alignItems:'center'}}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:30,height:30}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3Loy.png'}}/>
-                  <View style={{flexDirection: 'column'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Due Date</Text>
-                  </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:170}}>Tomorrow</Text>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3eJD.png'}}/>
-                  <View style={{flexDirection: 'column'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Reminder</Text>
-                  </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:100}}>26/01/2563   5:38 AM</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center'}}>
-                <Image style={{marginLeft:25, marginRight:10 ,width:25,height:25}} source={{uri:'https://sv1.picz.in.th/images/2020/01/24/Rr3F5J.png'}}/>
-                  <View style={{flexDirection: 'column'}} >
-                    <Text style={{fontSize:18,color:'#171D33',marginLeft:10,marginEnd:3,alignItems:'center',justifyContent:'center'}}>Repeat</Text>
-                  </View>
-                  <Text style={{fontSize:16 , color:'#D4D4D4', marginLeft:190}}>Everyday</Text>
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity  style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff',alignItems:'center'}}>
-                  <Text style={{fontSize:18 , color:'#000000', marginLeft:25, }}>ที่ร้านพี่เจี๊ยบ เบอร์โทร 08x-xxx-xxxx</Text>
-            </TouchableOpacity>
-
-        </View>
-
-
-
-
-
-            </Container>
-        );
-    }
 }
 
 
 
+onChangeText = note => this.setState({ note });
+
+  render() {
+
+    // var now = moment().format();
+    // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+    // // this.setState({noteTime:time})
+
+    return (
+      <KeyboardAvoidingView
+      behavior={Platform.Os == "ios" ? "padding" : "height"}
+      style={{flex:1}}
+    >
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Header>
+          <View style={styles.MainContainer1}>
+            <Button transparent onPress={() => this.onPressBack()}>
+              <Icon name='ios-arrow-back' style={{ color: '#DBDBDB' }} />
+            </Button>
+          </View>
+          <View style={styles.MainContainer2}>
+            <Title>AddNote</Title>
+          </View>
+          <TouchableOpacity   onPress={()=>this.onPressOK()}>
+                  <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
+                    {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/26/RHjrif.png' }}/> */}
+                    <Text style={{ fontSize: 15, color: '#4B15B8', textAlign: 'center' , fontWeight:"bold"}} >Save</Text>
+                  </View>
+                </TouchableOpacity>
+        </Header>
+
+
+      
+        <View style={{flex:1, backgroundColor:'#ffffff'}}>
+              <View style={{flex:1}}>
+                  
+                      
+                          <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
+                            <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{this.state.noteTime}</Text>
+                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%',flex:1}} multiline={true}  placeholder='Description... ' onChangeText={this.onChangeText}/>
+                          </View>
+                      
+                 
+              </View>
+          </View>  
+
+
+
+      
+      </Container>
+      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+ 
+
+    );
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    alignItems: 'flex-start',
     flex: 1,
-    paddingTop: Constants.statusBarHeight
+    flexDirection: 'row',
+    marginRight: 16,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: 'transparent',
   },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center"
+  title: {
+    fontSize: 16,
+    color: '#FFFFFF',
   },
-  flexRow: {
-    flexDirection: "row"
-  },
-  input: {
-    borderColor: "#4630eb",
-    borderRadius: 4,
-    borderWidth: 1,
+  container_text: {
     flex: 1,
-    height: 48,
-    margin: 16,
-    padding: 8
+    flexDirection: 'column',
+    borderRadius: 10,
+    paddingLeft: 5,
+    justifyContent: 'center',
+    backgroundColor: '#1F9BF1',
   },
+
+  Text: {
+    color: "#5B3E96",
+    fontSize: 17,
+    marginTop: 5,
+    marginLeft: 2,
+    marginEnd: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  Text2: {
+    color: "#5B3E96",
+    fontSize: 22,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }, 
+
+  TTT: {
+    color: "#666666",
+    fontSize: 25,
+    // marginTop: 5,
+    // marginLeft: 2,
+    // marginEnd: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  under: {
+    color: "#666666",
+    fontSize: 11,
+    marginTop: 5,
+
+    marginEnd: 2,
+    alignItems: 'center',
+
+  }, 
+  Icon: {
+    height: 25,
+    width: 25,
+    marginRight: 5,
+    marginLeft: 5,
+    // marginTop:5,
+
+
+    alignItems: 'center',
+    justifyContent: 'center'
+
+  }, 
+
+  MainContainer1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    right: 10
+  }, 
+
+  MainContainer2: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5
+  },
+
   listArea: {
     backgroundColor: "transparent",
+    padding:20,
     flex: 1,
-    // paddingTop: 16
+    marginTop: 16,
   },
-  sectionContainer: {
-    marginBottom: 16,
-    marginHorizontal: 16
+  txtIn2: {
+    backgroundColor: 'transparent',
+    // flex:5,
+    fontSize:20,
   },
-  sectionHeading: {
-    fontSize: 18,
-    marginBottom: 8
+  safeArea: {
+    flex: 1
   },
-  nameInput: {
-        alignItems: 'center',
-        height:50,
-        backgroundColor: 'transparent',
-        padding: 5,
-        margin:5,
-        borderRadius: 50,
-        borderColor:'white',
-        borderWidth : 1,
-        fontSize:20,
-    },
-    buttonText: {
-        alignItems: 'center',
-        height:50,
-        backgroundColor: '#86A8E7',
-        padding: 10,
-        margin:5,
-        borderRadius: 50,
-        borderColor:'white',
-        borderWidth : 1,
-        fontSize:30,
-        color:'#ffffff'
-    },
-    touchableUser:{
-      alignItems: 'center',
-      padding:10,
-      borderRadius: 50,
-      borderColor:'white',
-      borderWidth : 1,
-      margin:5,
-      marginTop:2,
-    },
-    btn:{
-      alignItems: 'center',
-      height:50,
-      backgroundColor: '#86A8E7',
-      padding: 10,
-      margin:10,
-      borderRadius: 50,
-      borderColor:'white',
-      borderWidth : 1
-    },
-    txt:{
-      textAlign: 'center',
-      fontSize:50
-    },
-
-    txtIn2: {
-      alignItems: 'center',
-      width:350,
-      height:55,
-      backgroundColor: 'transparent',
-      padding: 16,
-      marginLeft:16,
-      marginRight:16,
-      borderColor: '#5B3E96',
-      borderWidth: 2.2,
-      borderRadius: 55,
-
-    },
-
-    btn_register:{
-      alignItems: 'center',
-      width:50,
-      height:50,
-      backgroundColor: '#000000',
-      padding: 16,
-      marginRight:16,
-      borderRadius: 50,
-      borderColor:'#000000',
-      borderWidth : 1
-    },
-
-    MainContainer1:{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      right: 10  
-    },
-      
-    MainContainer2:{
-      flex: 4,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 5
-    },
-
-
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#dddddd',
+    minHeight: 40,
+    alignItems: 'center'
+  },
+  text: {
+    backgroundColor: '#eeeeee',
+    fontWeight: 'bold',
+    // no flex, height, lineHeight or textAlignVertical.
+  },
 });
