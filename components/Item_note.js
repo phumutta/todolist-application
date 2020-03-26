@@ -96,7 +96,7 @@ export default class Item_note extends React.Component {
           //     onPress={() => console.log("CardViewWithImage Clicked!")}
           //   />
 
-          <Card title={time} titleColor="#4B15B8" iconDisable={true} 
+          <Card title={time} titleColor="#4B15B8" iconDisable={true} titleFontSize="16"
             onPress={() => {this.props.onPress1(id)
               AsyncStorage.setItem('@NoteID',id)
               AsyncStorage.setItem('@Note',note)  
