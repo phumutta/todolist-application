@@ -103,7 +103,7 @@ async readStatus(User, success_callback, fail_callback){
 
 async readNote(User,read_Success,read_fail){
   let array=[]
-  await firebase.firestore().collection("Todo").doc(User).collection("Note").get().then(snap=>{
+  await firebase.firestore().collection("Todo").doc(User).collection("Note").orderBy('ServerTime',"desc").get().then(snap=>{
     if(snap.empty){
       read_fail()
       return;
@@ -122,6 +122,14 @@ async readNote(User,read_Success,read_fail){
       await firebase.firestore().collection("Todo").doc(User).collection("Note").doc(ref.id).update({id:ref.id})
       add_Message_success()
       },add_Message_fail)
+}
+
+async UpdateNote(User,Message,add_Message_success,add_Message_fail){
+  console.log(User)
+  await firebase.firestore().collection("Todo").doc(User).collection("Note").doc(Message.id).update(Message).then(()=>{
+    
+    add_Message_success()
+    },add_Message_fail)
 }
   async updateID(ID,User,addSuccess,addFail){
     try{

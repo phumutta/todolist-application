@@ -7,13 +7,13 @@ import Items2 from './Items2'
 import database2 from './Database2'
 import Constants from "expo-constants";
 import ActionButton from 'react-native-action-button';
-import * as firebase from 'firebase';
-import '@firebase/firestore';
+
 import database from './Database3';
 // import  Card  from 'galio-framework';
 // import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import moment from 'moment';
-
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 let {width, height} = Dimensions.get('window')
 
 export default class AddNote extends React.Component {
@@ -28,7 +28,8 @@ export default class AddNote extends React.Component {
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
     date: '',
     note:'',
-    noteTime:''
+    noteTime:'',
+    Firebase_time:''
 
   };
 
@@ -174,13 +175,14 @@ componentDidMount(){
   this.onFocusFunction()
   this.props.navigation.setParams({addNotes:this.addNotes})
   var now = moment().format();
-  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  this.setState({Firebase_time:firebase.firestore.FieldValue.serverTimestamp()})
   
   //TODO: อยากได้ Date ด้วย เอาแค่เวลา ตัวอย่าง  Today at 4:45 AM
   // let time =moment(now).format('MMMM Do YYYY, h:mm a')
-  let time = moment().calendar();
-  let time2 = moment().format('LT');
-  let time3 = moment().format('L');
+  // let time = moment().calendar();
+  // let time2 = moment().format('LT');
+  // let time3 = moment().format('L');
   // let time = moment().format("Do MMM");
   
   this.setState({noteTime:time})
@@ -220,9 +222,10 @@ async onPressOK(){
     time:this.state.noteTime,
     // time2:this.state.noteTime,
     // time3:this.state.noteTime,
+    ServerTime:this.state.Firebase_time,
     id:'',
   }
-  console.log(Message)
+  
   await database.addNote(this.state.email,Message,(()=>{this.props.navigation.navigate('Note')}),this.addNote_F)
 
 

@@ -28,7 +28,11 @@ export default class Edit_Note extends React.Component {
     uri: "https://sv1.picz.in.th/images/2020/01/23/RuEI4z.png",
     date: '',
     note:'',
-    noteTime:''
+    noteTime:'',
+    note:'',
+    id:'',
+    N_Time:'',
+    Firebase_time:''
 
   };
 
@@ -37,6 +41,10 @@ export default class Edit_Note extends React.Component {
 
 onFocusFunction=async()=>{
   this.setState({email:await AsyncStorage.getItem('@email')})
+  this.setState({note:await AsyncStorage.getItem('@Note')})
+  this.setState({N_Time:await AsyncStorage.getItem('@TNote')})
+  this.setState({id:await AsyncStorage.getItem('@NoteID')})
+
 
   
 }
@@ -151,7 +159,7 @@ this.props.navigation.navigate('Edit')
 
 static navigationOptions = ({navigation}) => {
   return {
-      title:'ADD NOTE',
+      title:'EDIT_NOTE',
       headerTitleStyle: {
           textAlign: 'center',
           flexGrow:1
@@ -174,13 +182,14 @@ componentDidMount(){
   this.onFocusFunction()
   this.props.navigation.setParams({addNotes:this.addNotes})
   var now = moment().format();
-  // let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  let time =moment(now).format('MMMM Do YYYY, h:mm a')
+  this.setState({Firebase_time:firebase.firestore.FieldValue.serverTimestamp()})
   
   //TODO: อยากได้ Date ด้วย เอาแค่เวลา ตัวอย่าง  Today at 4:45 AM
   // let time =moment(now).format('MMMM Do YYYY, h:mm a')
-  let time = moment().calendar();
-  let time2 = moment().format('LT');
-  let time3 = moment().format('L');
+  // let time = moment().calendar();
+  // let time2 = moment().format('LT');
+  // let time3 = moment().format('L');
   // let time = moment().format("Do MMM");
   
   this.setState({noteTime:time})
@@ -215,23 +224,25 @@ async onPressOK(){
   console.log(this.state.noteTime)
   console.log(this.state.note)
   console.log(this.state.email)
+  this.setState({N_Time:this.state.noteTime})
    Message= await{
     note: this.state.note,
     time:this.state.noteTime,
     // time2:this.state.noteTime,
     // time3:this.state.noteTime,
-    id:'',
+    ServerTime:this.state.Firebase_time,
+    id:this.state.id,
   }
   console.log(Message)
-  await database.addNote(this.state.email,Message,(()=>{this.props.navigation.navigate('Note')}),this.addNote_F)
+  await database.UpdateNote(this.state.email,Message,this.addNote_S,this.addNote_F)
 
 
 }
 addNote_S(){
-
+ console.log("Edit_S")
 }
 addNote_F(){
-
+  console.log("Edit_F")
 }
 
 
@@ -258,7 +269,7 @@ onChangeText = note => this.setState({ note });
             </Button>
           </View>
           <View style={styles.MainContainer2}>
-            <Title>AddNote</Title>
+            <Title>EditNote</Title>
           </View>
           <TouchableOpacity   onPress={()=>this.onPressOK()}>
                   <View  style={{flex: 1, alignItems: 'center',justifyContent: 'center', marginRight:'8%'}}>
@@ -275,8 +286,8 @@ onChangeText = note => this.setState({ note });
                   
                       
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
-                            <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{this.state.noteTime}</Text>
-                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%',flex:1}} multiline={true}  placeholder='Description... ' onChangeText={this.onChangeText}/>
+                            <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{this.state.N_Time}</Text>
+    <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%',flex:1}} multiline={true}  placeholder='Description... ' onChangeText={this.onChangeText}>{this.state.note}</TextInput>
                           </View>
                       
                  
