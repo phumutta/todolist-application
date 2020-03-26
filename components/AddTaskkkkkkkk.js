@@ -16,7 +16,7 @@ import database from './Database3';
 // Edit_Reminder
 // Edit_Repeat
 
-export default class AddTask extends Component {
+export default class AddTaskkkkkkkkkk extends Component {
 
 
 

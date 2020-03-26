@@ -282,13 +282,18 @@ class Database{
           firebase.firestore().collection("Group").doc(group).set(AdminGroup).then(async()=>{
             await firebase.firestore().collection("Group").doc(group).collection("user").doc(AdminGroup.AdminGroup).set(data)
             await firebase.firestore().collection("Account").doc(AdminGroup.AdminGroup).collection("Group").doc(group).set(Name)
+            await add_Success()
           },add_Fail());
         }
         if (state==111){
           
           Alert.alert("Upload your profile before create a new group")
-         
+          add_Fail()
         
+      }
+      if(state==1){
+        Alert.alert("Already have this group")
+        add_Fail()
       }
 
     })}

@@ -146,8 +146,13 @@ export default class AddTask extends Component {
   console.log("here")
 }
  onPressAdd = async() => {
-  await this.addText();
-  
+   console.log(this.state.message+'1')
+    if( this.state.message.trim() == ""){
+      Alert.alert("Please check your task again")
+    }
+   else{
+   await this.addText();
+    }
   
   this.textInput.clear() 
 };

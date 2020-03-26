@@ -82,6 +82,7 @@ export default class CreateNewGroup extends Component {
   //   await database.createGroupUser(User,this.state.group,this.add_CreateGroupUserSuccess,this.add_CreateGroupUserFail)
   // }
   addGroup_fail(){
+    this.setState({btn:false})
     console.log("fail")
   }
   add_CreateGroupUserSuccess(){
@@ -94,8 +95,13 @@ export default class CreateNewGroup extends Component {
   }
 
   onPressOK =async () => {
+
+    if( this.state.group.trim() == ""){
+      Alert.alert("your group name cannot be empty")
+    }
+    else{
      this.setState({btn:true})
-    AdminGroup={
+      AdminGroup={
       AdminGroup: this.state.email,
       uri:'',
       des:this.state.des
@@ -104,11 +110,12 @@ export default class CreateNewGroup extends Component {
 
     
     
-    await database.createGroup(AdminGroup,Name,this.state.group,this.addGroup_success,this.addGroup_fail)
-    await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);
+    await database.createGroup(AdminGroup,Name,this.state.group,(async()=>{await database.uploadImageGroup(this.state.group, this.state.imageuri, this.upload_success, this.upload_fail, this.uploading_status);}),(()=>{this.setState({btn:false})}))
+    
     
     
     // console.log(this.state.imageuri)
+  }
 
   };
 
