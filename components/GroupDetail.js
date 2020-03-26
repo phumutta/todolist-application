@@ -48,6 +48,7 @@ export default class GroupDetail extends React.Component {
     this.setState({ dialogVisible: false });
   };
   delete_Complete=async (id)=>{
+    
     await database.updateStatus(id,this.state.group,this.deleteSuccess,this.deleteFail)
     // await database.deleteTask(this.state.email,id,this.deleteSuccess,this.deleteFail);
     // await database.CountTask(this.state.group,count=>{this.setState({ Alltask: count })},this.countFail)
@@ -72,7 +73,10 @@ export default class GroupDetail extends React.Component {
     // The user has pressed the "Delete" button, so here you can do your own logic.
     // ...Your logic
     
-    
+    if( this.state.message.trim() == ""){
+      Alert.alert("Your task can't be empty")
+    }
+    else{
     this.setState({ dialogVisible: false });
     Message={
       message:this.state.message, 
@@ -88,7 +92,7 @@ export default class GroupDetail extends React.Component {
     await database.CountToComplete(this.state.group,count=>{this.setState({ ToCompletedTask: count })},this.countFail)
    
     this.Task.update();
-    
+    }
   };
   async addMessage_Success(id){
     //await database.updateID(id,this.state.group,this.update_Success,this.update_Fail)
