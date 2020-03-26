@@ -32,19 +32,19 @@ export default class HelpAndFeedback extends React.Component {
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',marginTop:20,backgroundColor:'#ffffff', alignItems:'center'}} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Email</Text>
-            <Text style={{flex:2, fontSize:20, color:"#C4C4C4",textAlight:'right',}}>phattaraphon.c@ku.th</Text>
+            <Text style={{flex:2, fontSize:20, color:"#C4C4C4",textAlight:'right',marginLeft:30}}>phattaraphon.c@ku.th</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Line</Text>
-            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right'}}>Khawoat231239</Text>
+            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right', marginLeft:20}}>Khawoat231239</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
 
           <TouchableOpacity style={{flex:0.08,flexDirection:'row',backgroundColor:'#ffffff',alignItems:'center'}} >
             <Text style={{flex:1, fontSize:20,marginLeft:30}}>Instagram</Text>
-            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right'}}>Khawoat6</Text>
+            <Text style={{flex:1, fontSize:20, color:"#C4C4C4",textAlight:'right', marginLeft:130}}>Khawoat6</Text>
             <Image source={{ uri: "https://sv1.picz.in.th/images/2020/01/23/RuAgpJ.png" }} style={styles.photo4} />
           </TouchableOpacity>
           
