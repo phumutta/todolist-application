@@ -9,6 +9,7 @@ import database from './Database3';
 
 // import "react-sweet-progress/lib/style.css";
 // import { Progress } from 'react-sweet-progress';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default class Report extends React.Component {
   constructor(props){
@@ -100,110 +101,114 @@ priority_callback = (data, allwork,priority0,priority1,priority2,priority3) =>{
                 {/* <Image style={{width: 20, height: 20}}source={{uri: 'https://sv1.picz.in.th/images/2020/01/24/RrBuNt.png' }}/> */}
               {/* </View> */}
             </Header>
+
+            <LinearGradient colors={['#fcfcfc', '#fcfcfc']}
+style={{flex:1}} >
             
            <View style = { styles.blog}>
             
-              <Text style={{marginRight:'70%',marginTop:'5%',fontSize: 18,fontWeight: "bold"}}>Status</Text>
+              <Text style={{marginRight:'70%',marginTop:'5%',fontSize: 22,fontWeight: "bold"}}>Status</Text>
               <TouchableOpacity style={styles.success1} disabled={true}>
                     <ProgressCircle
                       percent={this.state.percen}
                       radius={85}
-                      borderWidth={10}  
-                      color="#48D1CA"
-                      shadowColor="#5B785B"
-                      bgColor="#E0FFFF"
+                      borderWidth={14}  
+                      color="#4B15B8"
+                      shadowColor="#CCCCCC"
+                      bgColor="#FFFFFF"
                   >
-                      <Text style={{ fontSize: 40 ,color:'#5B785B',fontWeight:"bold"}}>{this.state.percen}%</Text>
+                      <Text style={{ fontSize: 30 ,color:'#696969',fontWeight:"bold"}}>{this.state.percen}%</Text>
                   </ProgressCircle>
                   
                 </TouchableOpacity>
-                <View style={{flexDirection:"row" ,marginBottom:8}}>
+                <View style={{flexDirection:"row" ,marginBottom:8, marginTop:'5%'}}>
                     <View style={{marginTop:2,
                                   right:7,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#5B785B',
+                                  backgroundColor: '#CCCCCC',
                                   borderRadius:10}} />
                                   
-                    <Text style={{flex:0.6,fontWeight: "bold"}}>Unsuccess:{this.state.Uncomplete}</Text>
+                    <Text style={{flex:0.6,fontWeight: "bold", color:'#696969'}}>Unsuccess: {this.state.Uncomplete}</Text>
                     <View style={{marginTop:2,
                                   right:7,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#48D1CA',
+                                  backgroundColor: '#4B15B8',
                                   borderRadius:10}} />
-                    <Text style={{fontWeight: "bold"}}>Success:{this.state.success}</Text>
+                    <Text style={{fontWeight: "bold", color:'#696969'}}>Success: {this.state.success}</Text>
                         
                     
                 </View>
             </View>
             
                 <View style = { styles.blogee}>
-                <Text style={{marginRight:'70%',marginTop:'5%',fontSize: 18,fontWeight: "bold"}}>Priority</Text>
+                <Text style={{marginRight:'70%',marginTop:'5%',fontSize: 22,fontWeight: "bold"}}>Priority</Text>
                 <TouchableOpacity style={styles.success} disabled={true}>
                 <View style={styles.progressBarHigh}>
-                <Animated.View style={ {backgroundColor: "#FF0000", width:String(this.state.pRed)+"%",borderRadius:10}}/>
+                <Animated.View style={ {backgroundColor: "#e74c3c", width:String(this.state.pRed)+"%",borderRadius:10}}/>
                 </View>
 
                 
-                <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10}}>{this.state.pRed}%</Text>
+                <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10, color:'#696969'}}>{this.state.pRed}%</Text>
                    
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.success} disabled={true}>
                 <View style={styles.progressBarMedium}>
-                <Animated.View style={ {backgroundColor: "#FFBF00", width:String(this.state.pYellow)+"%",borderRadius:10}}/>
+                <Animated.View style={ {backgroundColor: "#f1c40f", width:String(this.state.pYellow)+"%",borderRadius:10}}/>
                 </View>
-                    <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10}}>{this.state.pYellow}%</Text>
+                    <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10, color:'#696969'}}>{this.state.pYellow}%</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.success} disabled={true}>
                 <View style={styles.progressBarLow}>
-                <Animated.View style={ {backgroundColor: "#00FF00",width:String(this.state.pGreen)+"%",borderRadius:10}}/>
+                <Animated.View style={ {backgroundColor: "#2ecc71",width:String(this.state.pGreen)+"%",borderRadius:10}}/>
                 </View>
-                <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10}}>{this.state.pGreen}%</Text>
+                <Text  style={{marginLeft:'2%',fontWeight: "bold",left:10, color:'#696969'}}>{this.state.pGreen}%</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.success} disabled={true}>
                 <View style={styles.progressBarNone}>
-                <Animated.View style={ {backgroundColor: "#C0C0C0", width:String(this.state.pGray)+"%",borderRadius:10}}/>
+                <Animated.View style={ {backgroundColor: "#CCCCCC", width:String(this.state.pGray)+"%",borderRadius:10}}/>
                
                 </View>
-                <Text style={{marginLeft:'2%',fontWeight: "bold",left:10}}>{this.state.pGray}%</Text>
+                <Text style={{marginLeft:'2%',fontWeight: "bold",left:10, color:'#696969'}}>{this.state.pGray}%</Text>
                   </TouchableOpacity>
                   <View style={{flexDirection:'row',marginLeft:15,marginBottom:8}}>
                     <View style={{marginTop:2,
                                   right:7,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#FF0000',
+                                  backgroundColor: '#e74c3c',
                                   borderRadius:10}} />
-                    <Text style={{flex:0.2,fontWeight: "bold"}}>High</Text>
+                    <Text style={{flex:0.2,fontWeight: "bold", color:'#696969'}}>High</Text>
                     <View style={{marginTop:2,
                                   right:7,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#FFBF00',
+                                  backgroundColor: '#f1c40f',
                                   borderRadius:10}} />
-                    <Text style={{flex:0.2,fontWeight: "bold"}}>Medium</Text>
+                    <Text style={{flex:0.2,fontWeight: "bold", color:'#696969'}}>Medium</Text>
                     <View style={{marginTop:2,
                                   left:12,
                                   right:7,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#00FF00',
+                                  backgroundColor: '#2ecc71',
                                   borderRadius:10}} />
-                   <Text style={{flex:0.2,left:15,fontWeight: "bold"}}>Low</Text>
+                   <Text style={{flex:0.2,left:15,fontWeight: "bold", color:'#696969'}}>Low</Text>
                     <View style={{marginTop:2,
                                   left:10,
                                   width: 15,
                                   height: 15,
-                                  backgroundColor: '#999',
+                                  backgroundColor: '#CCCCCC',
                                    borderRadius:10}} />
-                    <Text style={{flex:0.2,left:15,fontWeight: "bold"}}>None</Text>
+                    <Text style={{flex:0.2,left:15,fontWeight: "bold", color:'#696969'}}>None</Text>
                   </View>
                 
              </View>
+             </LinearGradient>
            
            </Container>
         );
@@ -220,35 +225,59 @@ const styles = StyleSheet.create({
   blog:{
     flex: 1,
     flexDirection:"column",
-    height: '10%',
-    width:'98%',
-    marginTop:'1%',
-    marginLeft:'1%',
-    marginRight:'1%',
+    // height: '10%',
+    width:'94%',
+    marginTop:'4%',
+    marginLeft:'3%',
+    marginRight:'3%',
     justifyContent:"center",
     alignItems: 'center',
   //  backgroundColor: '#332000',
-    borderRadius:10,
-    borderWidth:3,
-    borderColor:'#5B785B'
+    borderRadius:40,
+    // borderWidth:3,
+    // borderColor:'#5B785B'
+    shadowOpacity: 0.8,
+    backgroundColor:'#FFFFFF',
+    shadowColor: '#4B15B8',
+    shadowOffset: { width: 0, height: 2 },
+
+    // flex:1,
+    // flexDirection:"column",
+    // width:'95%',
+    // borderWidth: 0.1,
+    // borderRadius: 30,
+    // borderColor: '#ddd',
+    // // borderBottomWidth: 0,
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.8,
+    // shadowRadius: 5,
+    // // elevation: 1,
+    // marginLeft: '2%',
+    // marginRight: '2%',
+    // marginTop: '3%',
+    // backgroundColor:'#FFFFFF'
+    
 
   },
   blogee:{
     flex: 1.5,
     flexDirection:"column",
-    height: 20,
-    width:'98%',
+    // height: 20,
+    width:'94%',
    // margin:'20%',
-    marginTop:'1%',
-    marginLeft:'1%',
-    marginRight:'1%',
-    marginBottom:'1%',
+    marginTop:'4%',
+    marginLeft:'3%',
+    marginRight:'3%',
+    marginBottom:'4%',
     justifyContent:"center",
     alignItems: 'center',
   //  backgroundColor: '#332000',
-    borderRadius:10,
-    borderWidth:3,
-    borderColor:'#5B785B'
+    borderRadius:40,
+    shadowOpacity: 0.8,
+    backgroundColor:'#FFFFFF',
+    shadowColor: '#4B15B8',
+    shadowOffset: { width: 0, height: 2 },
 
   },
   success1:{
@@ -276,41 +305,41 @@ const styles = StyleSheet.create({
    // backgroundColor: '#332000',
   },
   progressBarHigh: {
-    height: 20,
+    height: 15,
     flexDirection:'row',
     width: '90%',
     backgroundColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FF9797',
+    borderColor: '#e74c3c',
   },
   progressBarLow: {
-    height: 20,
+    height: 15,
     flexDirection:'row',
     width: '90%',
     backgroundColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#88DDBB'
+    borderColor: '#2ecc71'
 
   },
   progressBarMedium: {
-    height: 20,
+    height: 15,
     flexDirection:'row',
     width: '90%',
     backgroundColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FFD700'
+    borderColor: '#f1c40f'
   },
   progressBarNone: {
-    height: 20,
+    height: 15,
     flexDirection:'row',
     width: '90%',
     backgroundColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#999F'
+    borderColor: '#CCCCCC'
   },
 
 
