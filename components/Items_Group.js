@@ -77,11 +77,11 @@ export default class Items_GroupNew extends React.Component {
             <View style={{flexDirection:'row',backgroundColor:'#ffffff', alignItems:'center', borderBottomColor: '#F6F6F6',borderBottomWidth: 1,padding:10, margin:10, borderRadius: 15}} >
             {/* <Image style={{marginLeft:'10%', marginRight:'5%' ,width:60,height:60,}} source={{uri:uri}}/> */}
               <Avatar rounded size="large" containerStyle={{marginLeft:'3%', marginRight:'5%'}} source={{uri:uri}}/>
-              <View style={{flex:1, flexDirection: 'column'}} >
+              <View style={{flex:5, flexDirection: 'column'}} >
                 <Text style={{fontSize:18,color:'#171D33',marginEnd:3,alignItems:'center',justifyContent:'center', }}>{id}</Text>
-          <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {admin}</Text>
+                <Text style={{fontSize:12,marginTop:3,color:'#C4C4C4'}}>by {admin}</Text>
               </View>
-              <TouchableOpacity style={{marginRight:'8%'}} onPress={() => { this.props.onPressTodo(id) }}>
+              <TouchableOpacity style={{marginRight:'8%', flex:1}} onPress={() => { this.props.onPressTodo(id) }}>
                 <View  style={{flexDirection:'row-reverse',backgroundColor:'#ffffff',justifyContent: 'center',borderRadius:10, borderWidth:1,borderColor:'#F0ECFC', width:70, backgroundColor:'#F0ECFC'}}>
                   <Text style={{fontSize:16,margin:'3%',color:'#6F41E9', justifyContent:'center'}}>More</Text>
                 </View>
