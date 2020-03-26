@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, TextInput, ScrollView, AsyncStorage, SafeAreaView, Dimensions, List, Picker} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert,Platform, TextInput,Keyboard  , ScrollView, AsyncStorage, SafeAreaView, Dimensions, List, Picker,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Card } from 'react-native-shadow-cards';
 import { Container, Header, Title, Button, Icon, Content, InputGroup, Input, Card, CardItem } from 'native-base';
@@ -245,6 +245,11 @@ onChangeText = note => this.setState({ note });
     // // this.setState({noteTime:time})
 
     return (
+      <KeyboardAvoidingView
+      behavior={Platform.Os == "ios" ? "padding" : "height"}
+      style={{flex:1}}
+    >
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header>
           <View style={styles.MainContainer1}>
@@ -267,14 +272,14 @@ onChangeText = note => this.setState({ note });
       
         <View style={{flex:1, backgroundColor:'#ffffff'}}>
               <View style={{flex:1}}>
-                  <ScrollView style={{flex:1,width:'100%'}}>
-                      <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
+                  
+                      
                           <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1}}>
                             <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{this.state.noteTime}</Text>
-                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%'}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeText}/>
+                            <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:23, marginTop:'5%',flex:1}} multiline={true}  placeholder='Description... ' onChangeText={this.onChangeText}/>
                           </View>
-                      </SafeAreaView>
-                  </ScrollView>
+                      
+                 
               </View>
           </View>  
 
@@ -282,11 +287,14 @@ onChangeText = note => this.setState({ note });
 
       
       </Container>
-
+      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+ 
 
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'flex-start',
