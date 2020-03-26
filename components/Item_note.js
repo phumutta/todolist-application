@@ -50,74 +50,71 @@ export default class Item_note extends React.Component {
   update() {
     // console.log(this.state.email)
     database.readNote(this.state.email, this.get_text_success, this.get_text_fail);
-    
+
   }
   // onPressGroupDetail() {
   //   this.props.navigation.navigate('GroupDetail')
   // }
 
-  onPressRegister(){
+  onPressRegister() {
     this.props.navigation.navigate('Register')
   }
 
   render() {
-    
+
     const { items } = this.state;
     const heading = "group";
 
     if (items === null || items.length === 0) {
       return null;
     }
-     console.log(this.state.items)
-   
+    console.log(this.state.items)
+
     return (
-      <View style={{marginBottom:"21%"}}> 
-          
-          {items.map (({id,note,time, time2, time3}) => (
-        //      <CardViewWithImage
-        //      source={ {uri: 'https://placeimg.com/640/480/nature'} }
-        //      content={ note }
-        //      title={ time }
-        //      imageWidth={ '0%' }
-        //      imageHeight={ '0%' }
-        //      roundedImage={ false }
-        //      onPress={() => console.log("CardViewWithImage Clicked!")}
-        //      width={"40%"}
-        //      contentFontSize={'13'}
-        //     //  bgColor={'#1f1f1f'}
-        //     //  shadowColor={'#1f1f1f'}
-        //  />
-        //  <Card
-        //     iconDisable
-        //     title= {time}
-        //     content={ note }
-        //     content="Main Content"
-        //     bottomRightText="30"
-        //     onPress={() => console.log("CardViewWithImage Clicked!")}
-        //   />
+      <View style={{ marginBottom: "21%" }}>
 
-          <Card
-              title={time}
-              titleColor="#4B15B8"
-              iconName="home"
-              defaultTitle=""
-              iconType="Entypo"
-              // iconSize="16"
-              iconDisable={true}
-              defaultContent=""
-              onPress={() => console.log("CardViewWithImage Clicked!")}
-              topRightText="03/26/2020"
-              bottomRightText="TH"
-              content={ note }
-              style={styles.container}
-              // containerHeight={20}
-              // borderRadius={15}
+        {items.map(({ id, note, time, time2, time3 }) => (
+          //      <CardViewWithImage
+          //      source={ {uri: 'https://placeimg.com/640/480/nature'} }
+          //      content={ note }
+          //      title={ time }
+          //      imageWidth={ '0%' }
+          //      imageHeight={ '0%' }
+          //      roundedImage={ false }
+          //      onPress={() => console.log("CardViewWithImage Clicked!")}
+          //      width={"40%"}
+          //      contentFontSize={'13'}
+          //     //  bgColor={'#1f1f1f'}
+          //     //  shadowColor={'#1f1f1f'}
+          //  />
+          //  <Card
+          //     iconDisable
+          //     title= {time}
+          //     content={ note }
+          //     content="Main Content"
+          //     bottomRightText="30"
+          //     onPress={() => console.log("CardViewWithImage Clicked!")}
+          //   />
 
-            />
+          <Card title={time} titleColor="#4B15B8" iconDisable={true} 
+            onPress={() => {this.props.onPress1(id)
+              AsyncStorage.setItem('@NoteID',id)
+              AsyncStorage.setItem('@Note',note)  
+              AsyncStorage.setItem('@TNote',time)  
+              }
+            }
+            // topRightText="03/26/2020"
+            // bottomRightText="TH"
+            content={note}
+            style={styles.container}
+          // containerHeight={20}
+          // borderRadius={15}
+
+          />
 
 
-          ))}
-        
+        ))}
+
       </View>
 
     );
@@ -129,9 +126,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    padding:'3%',
-    margin:'2%',
-    borderRadius:16,
+    padding: '3%',
+    margin: '2%',
+    borderRadius: 16,
   },
   heading: {
     fontSize: 20,
