@@ -164,8 +164,15 @@ export default class Edit_Tomorrow extends Component {
   console.log("here")
 }
  onPressAdd = async() => {
+  if( this.state.message.trim() == ""){
+    Alert.alert("Your task can't be empty")
+  }
+  if(this.state.des == null){
+    this.setState({des:''})
+  }
+  else{
   await this.addText();
-  
+  }
   
   this.textInput.clear() 
 };
@@ -325,7 +332,7 @@ getRepeat = () =>{
                     <SafeAreaView forceInset={{top:'always',horizontal:'never'}} >
                         <View style={{flex:1,marginTop:'8%',height:700,alignItems:'center',zIndex:1, paddingBottom:15}}>
                           {/* <Text style={{width:'80%', fontSize:18, marginTop:'3%', color:'#696969'}}>{moment(now).format('MMMM Do YYYY, h:mm a')}</Text> */}
-      <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,color:'#696969'}} multiline={true} numberOfLines={10}  onChangeText={this.onChangeDes}>{this.state.des}</TextInput>
+      <TextInput underlineColorAndroid='#4CAF50' style={{width:'80%', fontSize:18,color:'#696969'}} multiline={true} numberOfLines={10} placeholder='Description... ' onChangeText={this.onChangeDes}>{this.state.des}</TextInput>
                         </View>
                     </SafeAreaView>
                 </ScrollView>
