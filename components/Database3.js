@@ -3,13 +3,13 @@ import '@firebase/firestore';
 import { Use } from 'react-native-svg';
 
 const config = {
-  apiKey: "AIzaSyBr8LGOcF3-in3teSIEHL3lqE5v6exSxcM",
-  authDomain: "seproject-8401e.firebaseapp.com",
-  databaseURL: "https://seproject-8401e.firebaseio.com",
-  projectId: "seproject-8401e",
-  storageBucket: "seproject-8401e.appspot.com",
-  messagingSenderId: "227320017183",
-  appId: "1:227320017183:web:200a09a37ebc74a3b3c02a"
+  apiKey: "xxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "xxxxxxxxxxxxxxxxxxxxx",
+  databaseURL: "xxxxxxxxxxxxxxxxxxxxx",
+  projectId: "xxxxxxxxxxxxxxxxxxxxx",
+  storageBucket: "xxxxxxxxxxxxxxxxxxxxx",
+  messagingSenderId: "xxxxxxxxxxxxxxxxxxxxx",
+  appId: "xxxxxxxxxxxxxxxxxxxxx"
 };
 
 class Database{
